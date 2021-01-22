@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<arneca.com.utility.dialog.blurDialog.ShadowContainer
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:paddingBottom="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp"
+    app:sc_shadowColor="#47999999">
+
+    <arneca.com.utility.view.text.TextViewWithFont
+        android:gravity="center"
+        android:id="@+id/title"
+        android:textSize="23sp"
+        android:textColor="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <arneca.com.utility.view.text.TextViewWithFont
+        android:paddingTop="23dp"
+        android:paddingBottom="23dp"
+        android:layout_gravity="left"
+        android:gravity="center"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="18sp"/>
+
+    <View
+        android:background="#d7d7d7"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+    <arneca.com.utility.view.text.TextViewWithFont
+        android:textColor="@drawable/textview_selector"
+        android:id="@+id/accept"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</arneca.com.utility.dialog.blurDialog.ShadowContainer>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<arneca.com.utility.dialog.blurDialog.ShadowContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:clickable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    app:sc_shadowColor="#47999999">
+
+    <arneca.com.utility.view.text.TextViewWithFont
+        android:id="@+id/yes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="burası content alanıdır"
+        android:textColor="@drawable/textview_selector"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="#d7d7d7" />
+
+    <arneca.com.utility.view.text.TextViewWithFont
+        android:id="@+id/no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="burası content alanıdır"
+        android:textColor="@drawable/textview_selector"
+        android:textSize="18sp" />
+
+</arneca.com.utility.dialog.blurDialog.ShadowContainer>
