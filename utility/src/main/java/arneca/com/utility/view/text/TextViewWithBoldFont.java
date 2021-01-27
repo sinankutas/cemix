@@ -39,7 +39,7 @@ public class TextViewWithBoldFont extends TextView {
     public boolean setCustomFont(Context ctx, String asset) {
         Typeface typeface = null;
         try {
-            typeface = FontCache.getTypeface(ctx, "fonts/VolteRounded-Bold.otf");
+            typeface = FontCache.getTypeface(ctx, "fotns/Gilroy-ExtraBold.otf");
         } catch (Exception e) {
             Log.e(TAG, "Unable to load typeface: "+e.getMessage());
             return false;

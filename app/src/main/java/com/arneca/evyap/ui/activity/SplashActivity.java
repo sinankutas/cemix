@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
+import android.util.Log;
 
 import com.arneca.evyap.R;
 import com.scottyab.rootbeer.RootBeer;
@@ -27,9 +28,9 @@ public class SplashActivity extends  BaseActivity{
          handler.postDelayed(new Runnable() {
         @Override
          public void run() {
-           //             goLoginActivity();
+                    goLoginActivity();
          }
-          }, 600);
+          }, 1000);
     }
 
 
@@ -40,6 +41,12 @@ public class SplashActivity extends  BaseActivity{
         finish();
     }
 
+    private void goLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        finish();
+    }
 
 
 }

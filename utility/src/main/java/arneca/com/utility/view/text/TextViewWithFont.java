@@ -40,7 +40,7 @@ public class TextViewWithFont extends TextView {
     public boolean setCustomFont(Context ctx, String asset) {
         Typeface typeface = null;
         try {
-            typeface = FontCache.getTypeface(ctx, "fonts/VolteRounded-Medium.otf");
+            typeface = FontCache.getTypeface(ctx, "fotns/Gilroy-Light.otf");
         } catch (Exception e) {
             Log.e(TAG, "Unable to load typeface: "+e.getMessage());
             return false;

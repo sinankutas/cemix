@@ -20,12 +20,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:theme="@style/AppTheme.TransparentStatus"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+        android:name=".ui.activity.SettingsActivity"
+        android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.activity.ProductLineActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

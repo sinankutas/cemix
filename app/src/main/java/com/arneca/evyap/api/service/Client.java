@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Client {
-    public static String BASE_URL =  "https://smartparking.etisalatdigital.ae/Thingworx/";
+    public static String BASE_URL =  "https://EVYTWXDMZ01.evyap.com.tr/restApi/";
 
 
 

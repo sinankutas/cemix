@@ -7,8 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white2">#FFFFFFFF</color>
-    <color name="colorPrimary">#7DA830</color>
+    <color name="colorPrimary">#193BB8</color>
     <color name="colorPrimaryDark">#122C8C</color>
-    <color name="colorAccent">#7DA830</color>
+
+    <color name="statusBarColor">#0031E6</color>
+    <color name="colorAccent">#EB1C45DA</color>
+    <color name="textextGray">#B2B5AD</color>
+    <color name="colorPrimaryDark2">#162F87</color>
+    <color name="greenText">#A0AD69</color>
+    <color name="redText">#FA4C4C</color>
+
+    <color name="grayText">#555B6E</color>
+
+
+
 </resources>

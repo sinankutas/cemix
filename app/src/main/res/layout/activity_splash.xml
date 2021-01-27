@@ -13,9 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:src="@drawable/splash"
-        android:visibility="visible" />
+        android:src="@drawable/login_back" >
+    </ImageView>
 
-
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/evyap" ></ImageView>
 
 </FrameLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_top">
+
+
+             <LinearLayout
+                    android:id="@+id/leftContainer"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                 android:layout_marginTop="20dp"
+                    android:layout_height="100dp">
+
+                     <ImageView
+                        android:id="@+id/changedata"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
+                        android:padding="5dp"
+                        android:src="@drawable/chance_data"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/toolbar_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/rightContainer"
+                    android:layout_toEndOf="@+id/leftContainer"
+                    android:adjustViewBounds="true"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/evyap_top"/>
+
+                <LinearLayout
+                    android:id="@+id/rightContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/containerBadge"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:id="@+id/logout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:paddingStart="1dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="10dp"
+                            android:src="@drawable/logout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+    </RelativeLayout>
+</layout>

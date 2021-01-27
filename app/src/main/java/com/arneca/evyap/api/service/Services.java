@@ -1,11 +1,34 @@
 package com.arneca.evyap.api.service;
 
 
-public interface Services {
-   /* @POST("Users/{userName}/Services/GetApplicationKeyExpirationInfo")
-    Call<ApplicationKeyExpirationInfo> getTokens(@HeaderMap HashMap<String, Object> headers, @Path("userName") String userName, @Body HashMap<String, Object> map);
+import com.arneca.evyap.api.response.GetAllLineInfo;
+import com.arneca.evyap.api.response.GetFactories;
+import com.arneca.evyap.api.response.GetLineInfo;
+import com.arneca.evyap.api.response.GetLines;
 
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetFloorData")
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+
+public interface Services {
+
+    @POST("GetFactories")
+    Call<GetFactories> GetFactories(@Body HashMap<String, Object> map);
+
+    @POST("GetLines")
+    Call<GetLines> GetLines(@Body HashMap<String, Object> map);
+
+    @POST("GetLineInfo")
+    Call<GetLineInfo> GetLineInfo(@Body HashMap<String, Object> map);
+
+    @POST("GetAllLineInfo")
+    Call<GetAllLineInfo> GetAllLineInfo(@Body HashMap<String, Object> map);
+
+
+
+  /*  @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetFloorData")
     Call<FloorData> getFloorData(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
 
     @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetParkingSlotCountByFloorNameAndLocation")

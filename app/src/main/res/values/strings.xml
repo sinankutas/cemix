@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Evyap</string>
+    <string name="username">Kullanıcı Adı</string>
+    <string name="password">Şifre</string>
+    <string name="remember">Beni Hatırla</string>
+    <string name="login">Giriş</string>
+    <string name="logout">Çıkış</string>
+    <string name="select_factory">Fabrika Seçimi</string>
+    <string name="YOU_HAVE_TO_MAKE_SURE_YOU_FILL_ALL_THE_FIELDS">Tüm alanları doldurduğunuzdan emin olun.</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -9,18 +17,16 @@
         <string name="ok">OK</string>
         <string name="cancel">Cancel</string>
         <string name="noauth">Incorrect username or password</string>
-        <string name="login">Login</string>
+
         <string name="succes">Success</string>
         <string name="passwordchanged">Password changed</string>
-        <string name="remember">Remember me</string>
+
         <string name="email">E-mail</string>
-        <string name="password">Password</string>
         <string name="enter_valid_email">Enter valid email</string>
         <string name="enter_password">Enter password</string>
         <string name="enter_password_again">Enter password again</string>
 
         <string name="passwordsnotmatch">Passwords not match</string>
-        <string name="YOU_HAVE_TO_MAKE_SURE_YOU_FILL_ALL_THE_FIELDS">Make sure that you fill all the fields.</string>
         <string name="codenotmatch">Securty code not match</string>
         <string name="timeout">Request timeout. Please check your network</string>
         <string name="available_token_not_found">available token not found</string>
@@ -31,9 +37,7 @@
         <string name="myslot">My Slot</string>
         <string name="myusage">My Usage</string>
         <string name="signout">Sign Out</string>
-        <string name="username">Username</string>
         <string name="phone">Phone</string>
-        <string name="logout">Logout</string>
         <string name="currentpassword">Current Password</string>
         <string name="newpassword">New Password</string>
         <string name="newpasswordagain">New Password Again</string>

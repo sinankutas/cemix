@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.arneca.evyap.helper.RelativeLayoutWithBackground
+        android:id="@+id/loginRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E5E5E5">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorPrimaryDark"></RelativeLayout>
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/top_tool"
+            android:layout_marginTop="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/md_transparent"
+          android:layout_below="@id/toolbar">
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recview"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="15dp"
+              android:background="@drawable/md_transparent" >
+
+          </androidx.recyclerview.widget.RecyclerView>
+      </LinearLayout>
+
+    </com.arneca.evyap.helper.RelativeLayoutWithBackground>
+</layout>
