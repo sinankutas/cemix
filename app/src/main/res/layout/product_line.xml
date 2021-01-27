@@ -23,7 +23,51 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:background="@drawable/md_transparent"
+          android:orientation="vertical"
           android:layout_below="@id/toolbar">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="70dp"
+              android:layout_marginTop="20dp"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:orientation="horizontal"
+              android:background="@drawable/circle_row_item">
+
+              <arneca.com.utility.view.text.TextViewWithBoldFont
+                  android:id="@+id/factoryTitle"
+                  android:layout_width="match_parent"
+                  android:layout_height="70dp"
+                  android:layout_gravity="center"
+                  android:layout_marginLeft="36dp"
+                  android:layout_marginRight="16dp"
+                  android:drawableRight="@drawable/triangle_dark"
+                  android:gravity="left|center"
+                  android:imeOptions="actionDone"
+                  android:textSize="18sp"
+                  android:textColor="@color/colorPrimary"
+                  tools:text="D6" >
+
+              </arneca.com.utility.view.text.TextViewWithBoldFont>
+          </LinearLayout>
+          <LinearLayout
+              android:id="@+id/sub_item"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="16dp"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:orientation="vertical"
+              android:visibility="gone">
+              <androidx.recyclerview.widget.RecyclerView
+                  android:id="@+id/gridViewFactory"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:scrollbars="vertical"
+
+                  />
+          </LinearLayout>
+
           <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/recview"
               android:layout_width="match_parent"

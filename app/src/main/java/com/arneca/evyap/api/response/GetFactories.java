@@ -15,6 +15,7 @@ public class GetFactories {
 
     private String status;
     private List<data> data;
+    private boolean expanded;
 
     public String getStatus() {
         return status;
@@ -60,5 +61,13 @@ public class GetFactories {
             this.FactoryCode = FactoryCode;
           //  notifyPropertyChanged(BR.FactoryCode);
         }
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 }
