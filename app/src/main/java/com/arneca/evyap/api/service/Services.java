@@ -5,26 +5,33 @@ import com.arneca.evyap.api.response.GetAllLineInfo;
 import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.api.response.GetLineInfo;
 import com.arneca.evyap.api.response.GetLines;
+import com.arneca.evyap.api.response.GetLogin;
 
 import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface Services {
 
     @POST("GetFactories")
-    Call<GetFactories> GetFactories(@Body HashMap<String, Object> map);
+    Call<GetFactories> GetFactories(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
 
     @POST("GetLines")
-    Call<GetLines> GetLines(@Body HashMap<String, Object> map);
+    Call<GetLines> GetLines(@HeaderMap HashMap<String, Object> headers,@Body HashMap<String, Object> map);
 
     @POST("GetLineInfo")
-    Call<GetLineInfo> GetLineInfo(@Body HashMap<String, Object> map);
+    Call<GetLineInfo> GetLineInfo(@HeaderMap HashMap<String, Object> headers,@Body HashMap<String, Object> map);
 
     @POST("GetAllLineInfo")
-    Call<GetAllLineInfo> GetAllLineInfo(@Body HashMap<String, Object> map);
+    Call<GetAllLineInfo> GetAllLineInfo(@HeaderMap HashMap<String, Object> headers,@Body HashMap<String, Object> map);
+
+    @GET("Login")
+    Call<GetLogin> getTokens(@HeaderMap HashMap<String, Object> headers);
 
 
 

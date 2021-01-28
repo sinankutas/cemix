@@ -13,6 +13,7 @@ public class PreferencesHelper extends BaseObservable {
     private static boolean isRememberMe;
     private static String userName ;
     private static String password ;
+    private static String appKey ;
     private static GetFactories getFactories;
     private static GetFactories.data selectedFactory;
 
@@ -58,5 +59,14 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setSelectedFactory(GetFactories.data selectedFactory) {
         PreferencesHelper.selectedFactory = selectedFactory;
+    }
+
+    public static String getAppKey(Context context) {
+        return  SharedPreferenceHelper.getSharedPreferenceString(context, "appKey", "");
+    }
+
+    public static void setAppKey(Context context, String appKey) {
+        PreferencesHelper.appKey = appKey;
+        SharedPreferenceHelper.setSharedPreferenceString(context, "appKey", appKey);
     }
 }

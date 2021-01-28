@@ -35,7 +35,6 @@ public class CallBack {
                     e.printStackTrace();
                 }
                 Tool.hideDialog();
-
                 if (activity != null) {
                     if (response.code() == 401) {
                         Tool.showInfo(context,
@@ -57,7 +56,7 @@ public class CallBack {
             }
 
             private void gotoLogin(Context context) {
-                ((BaseActivity) context).finish();
+             //   ((BaseActivity) context).finish();
             /*    Intent intent = new Intent(context, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(intent);*/

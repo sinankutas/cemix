@@ -22,6 +22,7 @@ public class ReportIndex {
         return singleton;
     }
 
+
     public ArrayList<ReportModel> getReportModel(){
         ReportModel preStrackAmount = new ReportModel();
         preStrackAmount.setReportName(ReportEnum.preStrackAmount.toString());
@@ -33,8 +34,8 @@ public class ReportIndex {
         currPorduct.setReportName(ReportEnum.currPorduct.toString());
         ReportModel vardiyaOEE = new ReportModel();
         vardiyaOEE.setReportName(ReportEnum.vardiyaOEE.toString());
-        ReportModel prePorduct1 = new ReportModel();
-        prePorduct1.setReportName(ReportEnum.prePorduct.toString());
+        ReportModel porduct1 = new ReportModel();
+        porduct1.setReportName(ReportEnum.product.toString());
         ReportModel currentStop = new ReportModel();
         currentStop.setReportName(ReportEnum.currentStop.toString());
         ReportModel totalStop = new ReportModel();
@@ -47,7 +48,7 @@ public class ReportIndex {
         reportModels.add(prePorduct);
         reportModels.add(currPorduct);
         reportModels.add(vardiyaOEE);
-        reportModels.add(prePorduct1);
+        reportModels.add(porduct1);
         reportModels.add(currentStop);
         reportModels.add(totalStop);
 
@@ -65,12 +66,13 @@ public class ReportIndex {
         ReportModel rp6 = new ReportModel();
         ReportModel rp7 = new ReportModel();
         ReportModel rp8 = new ReportModel();
+
         rp1.setReportName(ReportEnum.preStrackAmount.toString());
         rp2.setReportName(ReportEnum.currStrackAmount.toString());
         rp3.setReportName(ReportEnum.prePorduct.toString());
         rp4.setReportName(ReportEnum.currPorduct.toString());
-        rp5.setReportName(ReportEnum.currPorduct.toString());
-        rp6.setReportName(ReportEnum.vardiyaOEE.toString());
+        rp5.setReportName(ReportEnum.vardiyaOEE.toString());
+        rp6.setReportName(ReportEnum.product.toString());
         rp7.setReportName(ReportEnum.currentStop.toString());
         rp8.setReportName(ReportEnum.totalStop.toString());
         ArrayList<DataModel> dmList = new ArrayList<>();

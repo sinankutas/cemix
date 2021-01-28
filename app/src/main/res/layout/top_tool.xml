@@ -23,18 +23,28 @@
 
                 <LinearLayout
                     android:id="@+id/leftContainer"
-                    android:layout_width="50dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:gravity="center">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/toolbar_profile"
+                        android:id="@+id/changedata"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/chance_data"
                         android:padding="5dp" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/back"
+                        android:padding="5dp"
+                        android:visibility="gone"/>
 
             </LinearLayout>
                 <LinearLayout
@@ -57,13 +67,32 @@
 
                 <LinearLayout
                     android:id="@+id/rightContainer"
-                    android:layout_width="50dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="0dp"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/settins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/settings_icon"
+                        android:padding="5dp" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/settings_icon"
+                        android:padding="5dp"
+                        android:visibility="invisible"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/logout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

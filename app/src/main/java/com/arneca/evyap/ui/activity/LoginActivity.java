@@ -4,14 +4,21 @@ package com.arneca.evyap.ui.activity;/*
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.WindowManager;import com.arneca.evyap.R;
+import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.GetLogin;
 import com.arneca.evyap.databinding.LoginBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.databinding.DataBindingUtil;
+import okhttp3.Headers;
+import retrofit2.http.Header;
 
 public class LoginActivity extends BaseActivity{
     private LoginBinding loginBinding;
@@ -65,33 +72,7 @@ public class LoginActivity extends BaseActivity{
     }
 
 
-    private void loginRequest(){
-//        Tool.openDialog(this);
-        goSettingsActivity();
-        /*    HashMap<String, Object> map = new HashMap<>();
-        map.put("expiredKeys", false);
-        map.put("unexpiredKeys", true);
 
-        HashMap<String, Object> headerMap = headersMap();
-        String base64Str = binding.loginEmailEd.getText().toString()+":"+binding.loginPasswordEd.getText().toString();
-        headerMap.put("Authorization","Basic "+toBase64(base64Str).replaceAll("\n",""));
-
-        Request.getTokens(headerMap, binding.loginEmailEd.getText().toString(), map, this, response -> {
-            ApplicationKeyExpirationInfo applicationKeyExpirationInfo = (ApplicationKeyExpirationInfo) response.body();
-            if (applicationKeyExpirationInfo!=null){
-                if(isTokenAvailable(applicationKeyExpirationInfo)){
-                    Tool.hideDialog();
-                    if (PreferencesHelper.isIsRememberMe(this)){
-                        PreferencesHelper.setUserName(this,binding.loginEmailEd.getText().toString());
-                        PreferencesHelper.setPassword(this,binding.loginPasswordEd.getText().toString());
-                    }
-                    goMainActivity();
-                }else{
-                    Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
-                }
-            }
-        });*/
-    }
 
 
     private boolean isValid() {
@@ -110,5 +91,44 @@ public class LoginActivity extends BaseActivity{
         }
         return res;
     }
+
+    private void loginRequest(){
+        Tool.openDialog(this);
+        HashMap<String, Object> headerMap = headersMap(false);
+        String base64Str = loginBinding.loginEmailEd.getText().toString()+":"+loginBinding.loginPasswordEd.getText().toString();
+        headerMap.put("Authorization","Basic "+toBase64(base64Str).replaceAll("\n",""));
+        Request.getTokens(headerMap, this, response -> {
+            GetLogin loginResponse = (GetLogin) response.body();
+            response.headers();
+
+            if (loginResponse!=null){
+                if(loginResponse.isResponse()){ // burada status kontrolü yapılacak
+                    Tool.hideDialog();
+                    if (PreferencesHelper.isIsRememberMe(this)){
+                        PreferencesHelper.setUserName(this,loginBinding.loginEmailEd.getText().toString());
+                        PreferencesHelper.setPassword(this,loginBinding.loginPasswordEd.getText().toString());
+                     }
+                    PreferencesHelper.setAppKey(this,response.headers().get("appKey")); // burada appKey set edilecek
+                    goSettingsActivity();
+                }else{
+                    Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+                }
+            }
+        });
+    }
+
+
+    public static String toBase64(String message) {
+        byte[] data;
+        try {
+            data = message.getBytes("UTF-8");
+            String base64Sms = Base64.encodeToString(data, Base64.DEFAULT);
+            return base64Sms;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

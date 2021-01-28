@@ -65,7 +65,7 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
         map.put("string", "1");
 
 
-        Request.GetFactories( map, this, response -> {
+        Request.GetFactories(headersMap(true), map, this, response -> {
             Tool.hideDialog();
             factories = (GetFactories) response.body();
             PreferencesHelper.setGetFactories(factories);

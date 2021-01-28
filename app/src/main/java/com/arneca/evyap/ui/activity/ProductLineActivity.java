@@ -2,6 +2,7 @@ package com.arneca.evyap.ui.activity;/*
  * Created by Sinan KUTAS on 25.01.2021.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -57,7 +58,7 @@ public class ProductLineActivity extends  BaseActivity{
         Tool.openDialog(this);
         HashMap<String, Object> map = new HashMap<>();
         map.put("FactoryName", PreferencesHelper.getSelectedFactory().getFactoryName());
-        Request.GetAllLineInfo( map, this, response -> {
+        Request.GetAllLineInfo( headersMap(true),map, this, response -> {
             Tool.hideDialog();
             lineInfo = (GetAllLineInfo) response.body();
             if (lineInfo!=null){
@@ -88,6 +89,7 @@ public class ProductLineActivity extends  BaseActivity{
 
     private void setViewProperties() {
         binding = DataBindingUtil.setContentView(this, R.layout.product_line);
+        binding.toolbar.back.setVisibility(View.GONE);
         recyclerView = findViewById(R.id.recview);
         binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
         binding.factoryTitle.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +104,8 @@ public class ProductLineActivity extends  BaseActivity{
             }
         });
 
-        binding.toolbar.leftContainer.setOnClickListener(new View.OnClickListener() {
+
+     binding.toolbar.changedata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isNormalReportActive){
@@ -114,6 +117,38 @@ public class ProductLineActivity extends  BaseActivity{
                 }
             }
         });
+
+       binding.toolbar.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+        binding.toolbar.settins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoPreferences();
+            }
+        });
+
+    }
+
+    private void gotoPreferences() {
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Tool.showInfo(this,this.getString(R.string.info),this.getString(R.string.closeapp), (dialog, which) -> ((BaseActivity) this).finish(),null);
+    }
+
+    private void logout() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void loadDetilReportView(){

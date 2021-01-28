@@ -38,6 +38,11 @@
             android:name=".ui.activity.ProductLineActivity"
             android:theme="@style/AppTheme.TransparentStatus"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.PreferencesActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.arneca.evyap.api.response.ResultMessage;
+import com.arneca.evyap.helper.PreferencesHelper;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -92,10 +93,13 @@ public class Client {
         return map;
     }
 
-    public static HashMap<String, Object> headersHashMap(Activity activity) {
+    public static HashMap<String, Object> headersHashMap(Activity activity, boolean isAppKeyActive) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("Accept", "application/json");
         map.put("Content-Type", "application/json");
+
+        if (isAppKeyActive)
+          map.put("appKey", PreferencesHelper.getAppKey(activity));
         return map;
     }
 

@@ -7,29 +7,34 @@
     <string name="logout">Çıkış</string>
     <string name="select_factory">Fabrika Seçimi</string>
     <string name="YOU_HAVE_TO_MAKE_SURE_YOU_FILL_ALL_THE_FIELDS">Tüm alanları doldurduğunuzdan emin olun.</string>
+    <string name="closeapp">Çıkış yapmak üzeresiniz?</string>
+    <string name="info">Bilgi</string>
+    <string name="available_token_not_found">Hatalı giriş</string>
+    <string name="error">Hata</string>
+    <string name="enter_valid_email">E-mail giriniz</string>
+    <string name="enter_password">Şifre giriniz</string>
+    <string name="warning">Uyarı</string>
 
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-        <string name="error">Error</string>
-        <string name="info">Info</string>
-        <string name="warning">Warning</string>
-        <string name="ok">OK</string>
-        <string name="cancel">Cancel</string>
-        <string name="noauth">Incorrect username or password</string>
+    <string name="succes">Başarılı</string>
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+    <string name="noauth">Kullanıcı bilgilerini kontrol ediniz</string>
+    <string name="settings">Ayarlar</string>
 
-        <string name="succes">Success</string>
+
         <string name="passwordchanged">Password changed</string>
 
-        <string name="email">E-mail</string>
-        <string name="enter_valid_email">Enter valid email</string>
-        <string name="enter_password">Enter password</string>
+        <string name="email">Kullanıcı adı</string>
+
         <string name="enter_password_again">Enter password again</string>
 
         <string name="passwordsnotmatch">Passwords not match</string>
         <string name="codenotmatch">Securty code not match</string>
         <string name="timeout">Request timeout. Please check your network</string>
-        <string name="available_token_not_found">available token not found</string>
+
         <string name="floors">Floors</string>
         <string name="map">Map</string>
         <string name="your_active_slot">Your Active Slot</string>
@@ -58,7 +63,7 @@
         <string name="youhasnotslot">You have not got any slot</string>
         <string name="forgotpassword">Restore Password</string>
         <string name="nodata">Floor data not found</string>
-        <string name="closeapp">Do you close the application?</string>
+
         <string name="isrouted">We found indication of root</string>
         <string name="releaseyourslot"> Release Your Slot</string>
         <string name="enterregisteredemail">Enter registered email</string>

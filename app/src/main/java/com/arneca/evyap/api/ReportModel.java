@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ReportModel {
     String reportName;
     ArrayList<DataModel> models;
-
+    boolean isPrefSelected;
 
     public String getReportName() {
         return reportName;
@@ -23,5 +23,13 @@ public class ReportModel {
 
     public void setModels(ArrayList<DataModel> models) {
         this.models = models;
+    }
+
+    public boolean isPrefSelected() {
+        return isPrefSelected;
+    }
+
+    public void setPrefSelected(boolean prefSelected) {
+        isPrefSelected = prefSelected;
     }
 }

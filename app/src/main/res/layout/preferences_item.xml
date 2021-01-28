@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/md_transparent"
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/lytBack"
+        android:background="@drawable/circle_darkblue_back">
+
+        <arneca.com.utility.view.text.TextViewWithBoldFont
+            android:id="@+id/item_title"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="16dp"
+            android:drawableRight="@drawable/check"
+            android:gravity="left|center"
+            android:imeOptions="actionDone"
+            android:textSize="19sp"
+            android:textColor="@color/white"
+            tools:text="D6" >
+
+        </arneca.com.utility.view.text.TextViewWithBoldFont>
+    </LinearLayout>
+
+</LinearLayout>

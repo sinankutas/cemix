@@ -266,9 +266,9 @@ public class BaseActivity extends AppCompatActivity {
         return Client.standardMultiPartHashMap();
     }
 
-    protected HashMap<String, Object> headersMap() {
+    protected HashMap<String, Object> headersMap(boolean isAppKeyActive) {
 
-        return Client.headersHashMap(this);
+        return Client.headersHashMap(this, isAppKeyActive);
     }
 
     protected void hideKeyBoard(Activity activity) {
