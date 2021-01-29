@@ -57,24 +57,8 @@ public class ReportIndex {
 
     public ArrayList<ReportModel> configureReportModel(GetAllLineInfo lineInfoP) {
 
-        ArrayList<ReportModel> rpList = new ArrayList<>();
-        ReportModel rp1 = new ReportModel();
-        ReportModel rp2 = new ReportModel();
-        ReportModel rp3 = new ReportModel();
-        ReportModel rp4 = new ReportModel();
-        ReportModel rp5 = new ReportModel();
-        ReportModel rp6 = new ReportModel();
-        ReportModel rp7 = new ReportModel();
-        ReportModel rp8 = new ReportModel();
+        ArrayList<ReportModel> reportNames = PreferencesHelper.getReportModels();
 
-        rp1.setReportName(ReportEnum.preStrackAmount.toString());
-        rp2.setReportName(ReportEnum.currStrackAmount.toString());
-        rp3.setReportName(ReportEnum.prePorduct.toString());
-        rp4.setReportName(ReportEnum.currPorduct.toString());
-        rp5.setReportName(ReportEnum.vardiyaOEE.toString());
-        rp6.setReportName(ReportEnum.product.toString());
-        rp7.setReportName(ReportEnum.currentStop.toString());
-        rp8.setReportName(ReportEnum.totalStop.toString());
         ArrayList<DataModel> dmList = new ArrayList<>();
         ArrayList<DataModel> dmList1 = new ArrayList<>();
         ArrayList<DataModel> dmList2 = new ArrayList<>();
@@ -83,6 +67,7 @@ public class ReportIndex {
         ArrayList<DataModel> dmList5 = new ArrayList<>();
         ArrayList<DataModel> dmList6 = new ArrayList<>();
         ArrayList<DataModel> dmList7 = new ArrayList<>();
+
         for (GetAllLineInfo.DataBean lineInfo:lineInfoP.getData()) {
             dmList.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getPreviousShiftScrapAmount(),false));
             dmList1.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentShiftScrapAmount(),false));
@@ -93,23 +78,17 @@ public class ReportIndex {
             dmList6.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentStopReason(),false));
             dmList7.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentStopDurationStr(),false));
         }
-        rp1.setModels(dmList);
-        rp2.setModels(dmList1);
-        rp3.setModels(dmList2);
-        rp4.setModels(dmList3);
-        rp5.setModels(dmList4);
-        rp6.setModels(dmList5);
-        rp7.setModels(dmList6);
-        rp8.setModels(dmList7);
 
-        rpList.add(rp1);
-        rpList.add(rp2);
-        rpList.add(rp3);
-        rpList.add(rp4);
-        rpList.add(rp5);
-        rpList.add(rp6);
-        rpList.add(rp7);
-        rpList.add(rp8);
-        return rpList;
+
+        reportNames.get(0).setModels(dmList);
+        reportNames.get(1).setModels(dmList1);
+        reportNames.get(2).setModels(dmList2);
+        reportNames.get(3).setModels(dmList3);
+        reportNames.get(4).setModels(dmList4);
+        reportNames.get(5).setModels(dmList5);
+        reportNames.get(6).setModels(dmList6);
+        reportNames.get(7).setModels(dmList7);
+
+        return reportNames;
     }
 }

@@ -45,11 +45,18 @@ public class ProductLineActivity extends  BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        isNormalReportActive = true;
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setViewProperties();
         loadFactories();
         getAllLineInfo();
     }
-
 
     public void getAllLineInfo(){
         recyclerView.setVisibility(View.GONE);
@@ -62,8 +69,12 @@ public class ProductLineActivity extends  BaseActivity{
             Tool.hideDialog();
             lineInfo = (GetAllLineInfo) response.body();
             if (lineInfo!=null){
-                loadNormalReport();
                 reportModelList =  ReportIndex.getInstance().configureReportModel(lineInfo);
+
+                if (isNormalReportActive)
+                    loadNormalReport();
+                else
+                    loadDetilReportView();
 
             }else{
                 Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
@@ -110,10 +121,11 @@ public class ProductLineActivity extends  BaseActivity{
             public void onClick(View view) {
                 if (!isNormalReportActive){
                     isNormalReportActive = true;
-                    loadDetilReportView();
+                    loadNormalReport();
                 }else{
                     isNormalReportActive = false;
-                    loadNormalReport();
+                    loadDetilReportView();
+
                 }
             }
         });
@@ -152,7 +164,15 @@ public class ProductLineActivity extends  BaseActivity{
     }
 
     private void loadDetilReportView(){
-        reportMap.setReportModels(reportModelList);
+
+        ArrayList<ReportModel> reportModelListtmp = new ArrayList<>();
+        for (ReportModel reportModel : reportModelList){
+            if (reportModel.isPrefSelected()){
+                if (reportModel.getModels().size()>0)
+                     reportModelListtmp.add(reportModel);
+            }
+        }
+        reportMap.setReportModels(reportModelListtmp);
         adapter = new RecAdapter(reportMap, false);
         recyclerView.setVisibility(View.VISIBLE);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);

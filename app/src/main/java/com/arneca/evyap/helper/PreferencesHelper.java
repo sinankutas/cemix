@@ -4,19 +4,25 @@ package com.arneca.evyap.helper;/*
 
 import android.content.Context;
 
+import com.arneca.evyap.api.ReportMap;
+import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetFactories;
+import com.orhanobut.hawk.Hawk;
+
+import java.util.ArrayList;
 
 import androidx.databinding.BaseObservable;
 
 public class PreferencesHelper extends BaseObservable {
     private static boolean isResumePassive;
     private static boolean isRememberMe;
+    private static boolean isAppOpenedFirst;
     private static String userName ;
     private static String password ;
     private static String appKey ;
     private static GetFactories getFactories;
     private static GetFactories.data selectedFactory;
-
+    private static ArrayList<ReportModel> reportModels;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -68,5 +74,24 @@ public class PreferencesHelper extends BaseObservable {
     public static void setAppKey(Context context, String appKey) {
         PreferencesHelper.appKey = appKey;
         SharedPreferenceHelper.setSharedPreferenceString(context, "appKey", appKey);
+    }
+
+    public static boolean isIsAppOpenedFirst(Context context) {
+        return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isAppOpenedFirst", false);
+    }
+
+    public static void setIsAppOpenedFirst(Context context, boolean isAppOpenedFirst) {
+        PreferencesHelper.isAppOpenedFirst = isAppOpenedFirst;
+        SharedPreferenceHelper.setSharedPreferenceBoolean(context, "isAppOpenedFirst", isAppOpenedFirst);
+    }
+
+    public static ArrayList<ReportModel> getReportModels() {
+        reportModels = Hawk.get("reportModels");
+        return reportModels;
+    }
+
+    public static void setReportModels(ArrayList<ReportModel> reportModels) {
+        PreferencesHelper.reportModels = reportModels;
+        Hawk.put("reportModels",reportModels);
     }
 }

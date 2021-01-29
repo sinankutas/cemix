@@ -14,6 +14,7 @@ import com.arneca.evyap.api.ReportMap;
 import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetAllLineInfo;
 import com.arneca.evyap.helper.AutoFitGridLayoutManager;
+import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.ReportEnum;
 
 import java.util.ArrayList;
@@ -117,13 +118,6 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
             for (DataModel model:reportMap.getReportModels().get(position).getModels()) {
                 arrayList.add(new DataModel(model.title, ""+model.value,false));
             }
-            //    arrayList.add(new DataModel(ReportEnum.currStrackAmount.toString(), ""+lineInfo.getData().get(position).getCurrentShiftScrapAmount(),false));
-            //    arrayList.add(new DataModel(ReportEnum.prePorduct.toString(),  ""+lineInfo.getData().get(position).getPreviousShiftTotalProduction(),false));
-            //    arrayList.add(new DataModel(ReportEnum.currPorduct.toString(), ""+lineInfo.getData().get(position).getCurrentShiftTotalProduction(),false));
-            //    arrayList.add(new DataModel(ReportEnum.vardiyaOEE.toString(),"% "+lineInfo.getData().get(position).getCurrentShiftOEEStr(),false));
-            //   arrayList.add(new DataModel(ReportEnum.prePorduct.toString(), " "+lineInfo.getData().get(position).getProductName(),false));
-           // arrayList.add(new DataModel(ReportEnum.currentStop.toString(),""+lineInfo.getData().get(position).getCurrentStopReason(),isRedColorActive));
-           // arrayList.add(new DataModel(ReportEnum.totalStop.toString(), " "+lineInfo.getData().get(position).getCurrentStopDurationStr(),isRedColorActive));
 
             RecyclerViewAdapter adapterGrid = new RecyclerViewAdapter(context, arrayList);
             gridView.setAdapter(adapterGrid);
@@ -161,17 +155,35 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
                 isRedColorActive = true;
             }
 
-                     gridView = (RecyclerView) itemView.findViewById(R.id.gridView);
+            ArrayList<ReportModel> reportNames = PreferencesHelper.getReportModels();
+
+            reportNames.size();
+            gridView = (RecyclerView) itemView.findViewById(R.id.gridView);
             arrayList = new ArrayList<>();
 
-            arrayList.add(new DataModel(ReportEnum.preStrackAmount.toString(), ""+lineInfo.getData().get(position).getPreviousShiftScrapAmount(),false));
-            arrayList.add(new DataModel(ReportEnum.currStrackAmount.toString(), ""+lineInfo.getData().get(position).getCurrentShiftScrapAmount(),false));
-            arrayList.add(new DataModel(ReportEnum.prePorduct.toString(),  ""+lineInfo.getData().get(position).getPreviousShiftTotalProduction(),false));
-            arrayList.add(new DataModel(ReportEnum.currPorduct.toString(), ""+lineInfo.getData().get(position).getCurrentShiftTotalProduction(),false));
-            arrayList.add(new DataModel(ReportEnum.vardiyaOEE.toString(),"% "+lineInfo.getData().get(position).getCurrentShiftOEEStr(),false));
-            arrayList.add(new DataModel(ReportEnum.prePorduct.toString(), " "+lineInfo.getData().get(position).getProductName(),false));
-            arrayList.add(new DataModel(ReportEnum.currentStop.toString(),""+lineInfo.getData().get(position).getCurrentStopReason(),isRedColorActive));
-            arrayList.add(new DataModel(ReportEnum.totalStop.toString(), " "+lineInfo.getData().get(position).getCurrentStopDurationStr(),isRedColorActive));
+            if (reportNames.get(0).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(0).getReportName(), ""+lineInfo.getData().get(position).getPreviousShiftScrapAmount(),false));
+
+            if (reportNames.get(1).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(1).getReportName(), ""+lineInfo.getData().get(position).getCurrentShiftScrapAmount(),false));
+
+            if (reportNames.get(2).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(2).getReportName(),  ""+lineInfo.getData().get(position).getPreviousShiftTotalProduction(),false));
+
+            if (reportNames.get(3).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(3).getReportName(), ""+lineInfo.getData().get(position).getCurrentShiftTotalProduction(),false));
+
+            if (reportNames.get(4).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(4).getReportName(),"% "+lineInfo.getData().get(position).getCurrentShiftOEEStr(),false));
+
+            if (reportNames.get(5).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(5).getReportName(), " "+lineInfo.getData().get(position).getProductName(),false));
+
+            if (reportNames.get(6).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(6).getReportName(),""+lineInfo.getData().get(position).getCurrentStopReason(),isRedColorActive));
+
+            if (reportNames.get(7).isPrefSelected())
+                arrayList.add(new DataModel(reportNames.get(7).getReportName(), " "+lineInfo.getData().get(position).getCurrentStopDurationStr(),isRedColorActive));
 
             RecyclerViewAdapter adapterGrid = new RecyclerViewAdapter(context, arrayList);
             gridView.setAdapter(adapterGrid);
@@ -182,7 +194,6 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
             AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(context, 500);
             gridView.setLayoutManager(layoutManager);
-            gridView.setBackgroundColor(this.context.getResources().getColor(R.color.red));
 
 
             /**

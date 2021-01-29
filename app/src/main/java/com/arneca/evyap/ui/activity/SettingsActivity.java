@@ -12,10 +12,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.arneca.evyap.R;
+import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.databinding.SettingsBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
+import com.arneca.evyap.helper.ReportIndex;
 import com.arneca.evyap.helper.Tool;
 
 import java.util.ArrayList;
@@ -34,7 +36,20 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
             this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             factoryList = new ArrayList<>();
             getFactories();
+            if (!PreferencesHelper.isIsAppOpenedFirst(this)){
+                loadedReportPref();
+            }
         }
+
+    private void loadedReportPref() {
+        ArrayList<ReportModel> remportNames = new ArrayList<>();
+        for (ReportModel reportModel: ReportIndex.getInstance().getReportModel()){
+            reportModel.setPrefSelected(true);
+            remportNames.add(reportModel);
+        }
+        PreferencesHelper.setReportModels(remportNames);
+        PreferencesHelper.setIsAppOpenedFirst(this,true);
+    }
 
     private void setViewProperties() {
         binding = DataBindingUtil.setContentView(this, R.layout.settings);

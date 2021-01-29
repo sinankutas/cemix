@@ -5,6 +5,8 @@ package com.arneca.evyap.helper;/*
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.orhanobut.hawk.Hawk;
+
 public class SharedPreferenceHelper {
     private static final String PREF_FILE = "PREF";
 
@@ -19,6 +21,7 @@ public class SharedPreferenceHelper {
         SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(key, value);
+
         editor.apply();
     }
 

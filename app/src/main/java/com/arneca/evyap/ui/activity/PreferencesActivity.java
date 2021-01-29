@@ -51,7 +51,7 @@ public class PreferencesActivity extends  BaseActivity{
         });
 
         binding.toolbar.settins.setVisibility(View.GONE);
-       PreferencesAdapter adapter = new PreferencesAdapter(this);
+        PreferencesAdapter adapter = new PreferencesAdapter(this);
         binding.recview.setVisibility(View.VISIBLE);
         ((SimpleItemAnimator)   binding.recview.getItemAnimator()).setSupportsChangeAnimations(false);
 

@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.ReportModel;
-import com.arneca.evyap.helper.ReportIndex;
+import com.arneca.evyap.helper.PreferencesHelper;
+import com.arneca.evyap.helper.SharedPreferenceHelper;
 import com.arneca.evyap.ui.activity.PreferencesActivity;
 
 import java.util.ArrayList;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PreferencesAdapter extends RecyclerView.Adapter<PreferencesAdapter.RecViewHolder>  {
 
-private ArrayList<ReportModel> remportNames = ReportIndex.getInstance().getReportModel();
+    private ArrayList<ReportModel> reportNames = PreferencesHelper.getReportModels();
     private Context context;
 
     public PreferencesAdapter(Context context) {
@@ -41,15 +41,17 @@ private ArrayList<ReportModel> remportNames = ReportIndex.getInstance().getRepor
     @Override
     public void onBindViewHolder(RecViewHolder holder, int position) {
 
-        holder.bind(remportNames, position);
+        holder.bind(reportNames, position);
         holder.itemView.setOnClickListener(v -> {
-            if (remportNames.get(position).isPrefSelected()){
-                remportNames.get(position).setPrefSelected(false);
+            if (reportNames.get(position).isPrefSelected()){
+                reportNames.get(position).setPrefSelected(false);
                 ((PreferencesActivity)context).changeTotalSelection(false);
             }else{
-                remportNames.get(position).setPrefSelected(true);
+                reportNames.get(position).setPrefSelected(true);
                 ((PreferencesActivity)context).changeTotalSelection(true);
             }
+
+            PreferencesHelper.setReportModels(reportNames);
              notifyItemChanged(position);
         });
 }
@@ -57,7 +59,7 @@ private ArrayList<ReportModel> remportNames = ReportIndex.getInstance().getRepor
 
     @Override
     public int getItemCount() {
-     return remportNames == null ? 0 : remportNames.size();
+     return reportNames == null ? 0 : reportNames.size();
   }
 
   public class RecViewHolder extends RecyclerView.ViewHolder {
