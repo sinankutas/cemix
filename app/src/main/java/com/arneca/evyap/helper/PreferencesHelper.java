@@ -21,7 +21,7 @@ public class PreferencesHelper extends BaseObservable {
     private static String password ;
     private static String appKey ;
     private static GetFactories getFactories;
-    private static GetFactories.data selectedFactory;
+    private static GetFactories.DataBean.MyArrayListBean.MapBean selectedFactory;
     private static ArrayList<ReportModel> reportModels;
 
     public static boolean isIsRememberMe(Context context) {
@@ -59,11 +59,11 @@ public class PreferencesHelper extends BaseObservable {
         PreferencesHelper.getFactories = getFactories;
     }
 
-    public static GetFactories.data getSelectedFactory() {
+    public static GetFactories.DataBean.MyArrayListBean.MapBean getSelectedFactory() {
         return selectedFactory;
     }
 
-    public static void setSelectedFactory(GetFactories.data selectedFactory) {
+    public static void setSelectedFactory(GetFactories.DataBean.MyArrayListBean.MapBean selectedFactory) {
         PreferencesHelper.selectedFactory = selectedFactory;
     }
 

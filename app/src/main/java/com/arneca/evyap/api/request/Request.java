@@ -8,7 +8,9 @@ import com.arneca.evyap.ui.Completed;
 
 import java.util.HashMap;
 
+import retrofit2.http.Body;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Path;
 
 public class Request {
 
@@ -32,5 +34,16 @@ public class Request {
         Client.Instance().getTokens(headersMap).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void sendSecurtyCode(String mail, Context context, Completed completed) {
+        Client.Instance().sendSecurtyCode(mail).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void validateSecurtyCode(@Body HashMap<String, Object> map, Context context, Completed completed) {
+        Client.Instance().validateSecurtyCode(map).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void changePassword(@Body HashMap<String, Object> map, Context context, Completed completed) {
+        Client.Instance().changePassword(map).enqueue(CallBack.callback(context, completed));
+    }
 
 }

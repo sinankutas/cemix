@@ -69,7 +69,7 @@ public class ProductLineActivity extends  BaseActivity{
             Tool.hideDialog();
             lineInfo = (GetAllLineInfo) response.body();
             if (lineInfo!=null){
-                reportModelList =  ReportIndex.getInstance().configureReportModel(lineInfo);
+                reportModelList =  ReportIndex.getInstance().configureReportModel(lineInfo.getData().getMyArrayList());
 
                 if (isNormalReportActive)
                     loadNormalReport();

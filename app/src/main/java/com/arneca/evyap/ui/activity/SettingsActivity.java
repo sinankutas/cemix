@@ -85,8 +85,8 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
             factories = (GetFactories) response.body();
             PreferencesHelper.setGetFactories(factories);
             if (factories!=null){
-                for (GetFactories.data factories : factories.getData()) {
-                    factoryList.add(factories.getFactoryName());
+                for (GetFactories.DataBean.MyArrayListBean factories : factories.getData().getMyArrayList()) {
+                    factoryList.add(factories.getMap().getFactoryName());
                 }
                 setViewProperties();
                 }else{
@@ -97,7 +97,7 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
-       PreferencesHelper.setSelectedFactory(factories.getData().get(position));
+       PreferencesHelper.setSelectedFactory(factories.getData().getMyArrayList().get(position).getMap());
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {

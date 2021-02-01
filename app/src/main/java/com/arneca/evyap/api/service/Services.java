@@ -6,6 +6,8 @@ import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.api.response.GetLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
+import com.arneca.evyap.api.response.GetSendSecurtyCode;
+import com.arneca.evyap.ui.activity.ChangePassword;
 
 import java.util.HashMap;
 
@@ -33,9 +35,23 @@ public interface Services {
     @GET("Login")
     Call<GetLogin> getTokens(@HeaderMap HashMap<String, Object> headers);
 
+    @GET("password/resetPassword/{mail}")
+    Call<GetSendSecurtyCode> sendSecurtyCode(@Path("mail") String mail);
+
+    @POST("password/validateSecurityCode")
+    Call<GetSendSecurtyCode> validateSecurtyCode(@Body HashMap<String, Object> map);
+
+    @POST("password/changePasswordWithCode")
+    Call<ChangePassword> changePassword(@Body HashMap<String, Object> map);
 
 
-  /*  @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetFloorData")
+
+  /*
+    @POST("Users/{userName}/Services/GetApplicationKeyExpirationInfo")
+    Call<ApplicationKeyExpirationInfo> getTokens(@HeaderMap HashMap<String, Object> headers, @Path("userName") String userName, @Body HashMap<String, Object> map);
+
+
+@POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetFloorData")
     Call<FloorData> getFloorData(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
 
     @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetParkingSlotCountByFloorNameAndLocation")

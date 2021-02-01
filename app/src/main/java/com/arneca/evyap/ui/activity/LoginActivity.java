@@ -35,11 +35,19 @@ public class LoginActivity extends BaseActivity{
         loginBinding = DataBindingUtil.setContentView(this, R.layout.login);
         loginBinding.login.setOnClickListener(v -> onLoginClick());
         loginBinding.rememberMe.setOnClickListener(v -> onRememberClick());
+        loginBinding.restorePass.setOnClickListener(v -> onRestorePass());
         if (PreferencesHelper.isIsRememberMe(this)){
             loginBinding.rememberMeButton.setBackgroundResource(R.drawable.checked);
             loginBinding.loginPasswordEd.setText(PreferencesHelper.getPassword(this));
             loginBinding.loginEmailEd.setText(PreferencesHelper.getUserName(this));
         }
+    }
+
+    private void onRestorePass() {
+        Intent intent = new Intent(this, RestorePasswordActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        finish();
     }
 
 

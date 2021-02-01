@@ -48,7 +48,7 @@ public void onBindViewHolder(RecViewHolder holder, int position) {
         holder.bind(factories, position);
 
         holder.itemView.setOnClickListener(v -> {
-            PreferencesHelper.setSelectedFactory(factories.getData().get(position));
+            PreferencesHelper.setSelectedFactory(factories.getData().getMyArrayList().get(position).getMap());
             if (context instanceof ProductLineActivity) {
                 ((ProductLineActivity)context).getAllLineInfo();
                 ((ProductLineActivity)context).showFactoryList(false);
@@ -59,7 +59,7 @@ public void onBindViewHolder(RecViewHolder holder, int position) {
 
     @Override
     public int getItemCount() {
-            return factories.getData() == null ? 0 : factories.getData().size();
+            return factories.getData() == null ? 0 : factories.getData().getMyArrayList().size();
             }
 
 public class RecViewHolder extends RecyclerView.ViewHolder {
@@ -84,7 +84,7 @@ public class RecViewHolder extends RecyclerView.ViewHolder {
         boolean expanded = factories.isExpanded();
 
         subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-        title.setText(factories.getData().get(position).getFactoryName());
+        title.setText(factories.getData().getMyArrayList().get(position).getMap().getFactoryName());
 
 
 

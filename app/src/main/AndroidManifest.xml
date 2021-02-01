@@ -44,6 +44,23 @@
             android:name=".ui.activity.PreferencesActivity"
             android:theme="@style/AppTheme.TransparentStatus"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.RestorePasswordActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.ValidateSecurtyCodeActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.ChangePasswordActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait"></activity>
+
+
     </application>
 
 </manifest>

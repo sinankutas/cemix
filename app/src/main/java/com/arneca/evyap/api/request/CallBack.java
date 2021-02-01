@@ -5,11 +5,20 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.arneca.evyap.R;
+import com.arneca.evyap.api.response.MyErrorMessage;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.Completed;
 import com.arneca.evyap.api.service.CustomCallBack;
 import com.arneca.evyap.ui.activity.BaseActivity;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -27,6 +36,7 @@ public class CallBack {
 
          @Override
             public void onFail(Call message, Call<T> call, Response<T> response) {
+
                 Log.d("callback", "fail");
                 BaseActivity activity = null;
                 try {

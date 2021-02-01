@@ -7,6 +7,7 @@ import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetAllLineInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReportIndex {
     private static ReportIndex singleton = null;
@@ -55,7 +56,7 @@ public class ReportIndex {
         return reportModels;
     }
 
-    public ArrayList<ReportModel> configureReportModel(GetAllLineInfo lineInfoP) {
+    public ArrayList<ReportModel> configureReportModel(List<GetAllLineInfo.DataBean.MyArrayListBean> lineInfoP) {
 
         ArrayList<ReportModel> reportNames = PreferencesHelper.getReportModels();
 
@@ -68,15 +69,15 @@ public class ReportIndex {
         ArrayList<DataModel> dmList6 = new ArrayList<>();
         ArrayList<DataModel> dmList7 = new ArrayList<>();
 
-        for (GetAllLineInfo.DataBean lineInfo:lineInfoP.getData()) {
-            dmList.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getPreviousShiftScrapAmount(),false));
-            dmList1.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentShiftScrapAmount(),false));
-            dmList2.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getPreviousShiftTotalProduction(),false));
-            dmList3.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentShiftTotalProduction(),false));
-            dmList4.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentShiftOEEStr(),false));
-            dmList5.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getProductName(),false));
-            dmList6.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentStopReason(),false));
-            dmList7.add(new DataModel(lineInfo.getLineName(),""+lineInfo.getCurrentStopDurationStr(),false));
+        for (GetAllLineInfo.DataBean.MyArrayListBean lineInfo:lineInfoP) {
+            dmList.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getPreviousShiftScrapAmount(),false));
+            dmList1.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getCurrentShiftScrapAmount(),false));
+            dmList2.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getPreviousShiftTotalProduction(),false));
+            dmList3.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getCurrentShiftTotalProduction(),false));
+            dmList4.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getCurrentShiftOEEStr(),false));
+            dmList5.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getProductName(),false));
+            dmList6.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getCurrentStopReason(),false));
+            dmList7.add(new DataModel(lineInfo.getMap().getLineName(),""+lineInfo.getMap().getCurrentStopDurationStr(),false));
         }
 
 

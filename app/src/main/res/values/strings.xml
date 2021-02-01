@@ -14,6 +14,13 @@
     <string name="enter_valid_email">E-mail giriniz</string>
     <string name="enter_password">Şifre giriniz</string>
     <string name="warning">Uyarı</string>
+    <string name="eposta">Eposta adresi</string>
+    <string name="securtycode">Güvenlik Kodu Gönder</string>
+    <string name="securtycodesend">Güvenlik Kodu</string>
+    <string name="verifysecurtycodesend">Güvenlik Kodunu Doğrula</string>
+    <string name="forgotpassword">Şifremi Unuttum</string>
+    <string name="passwordnotmatch">Şifreler Uyumsuz</string>
+    <string name="enterpass">10 haneli şifre giriniz</string>
 
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -23,6 +30,9 @@
     <string name="cancel">İptal</string>
     <string name="noauth">Kullanıcı bilgilerini kontrol ediniz</string>
     <string name="settings">Ayarlar</string>
+    <string name="save">Kaydet</string>
+    <string name="newpassword">Yeni Şifre</string>
+    <string name="newpasswordagain">Yeni Şifre Tekrar</string>
 
 
         <string name="passwordchanged">Password changed</string>
@@ -44,9 +54,8 @@
         <string name="signout">Sign Out</string>
         <string name="phone">Phone</string>
         <string name="currentpassword">Current Password</string>
-        <string name="newpassword">New Password</string>
-        <string name="newpasswordagain">New Password Again</string>
-        <string name="save">Save</string>
+
+
         <string name="starttime">Start Time</string>
         <string name="endtime">End Time</string>
         <string name="startdate">Start Date</string>
@@ -61,7 +70,6 @@
         <string name="releaseplainadded">Release plan has confirmed</string>
         <string name="releaseplainnotadded">Release plan has not confirmed</string>
         <string name="youhasnotslot">You have not got any slot</string>
-        <string name="forgotpassword">Restore Password</string>
         <string name="nodata">Floor data not found</string>
 
         <string name="isrouted">We found indication of root</string>

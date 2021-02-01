@@ -73,7 +73,7 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
     public int getItemCount() {
 
         if (isNormalReportActive)
-                 return lineInfo.getData() == null ? 0 : lineInfo.getData().size();
+                 return lineInfo.getData().getMyArrayList() == null ? 0 : lineInfo.getData().getMyArrayList().size();
         else
             return reportMap.getReportModels() == null ? 0 : reportMap.getReportModels().size();
 
@@ -145,9 +145,9 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
             boolean isRedColorActive ;
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-            title.setText(lines.getData().get(position).getLineName());
+            title.setText(lineInfo.getData().getMyArrayList().get(position).getMap().getLineName());
 
-            if (lines.getData().get(position).getCurrentStopDurationStr().equals("")||lines.getData().get(position).getCurrentStopDurationStr().equals("0")){
+            if (lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr().equals("")||lines.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr().equals("0")){
                 title.setTextColor(this.context.getResources().getColor(R.color.greenText));
                 isRedColorActive = false;
             }else{
@@ -162,28 +162,28 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
             arrayList = new ArrayList<>();
 
             if (reportNames.get(0).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(0).getReportName(), ""+lineInfo.getData().get(position).getPreviousShiftScrapAmount(),false));
+                arrayList.add(new DataModel(reportNames.get(0).getReportName(), ""+lineInfo.getData().getMyArrayList().get(position).getMap().getPreviousShiftScrapAmount(),false));
 
             if (reportNames.get(1).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(1).getReportName(), ""+lineInfo.getData().get(position).getCurrentShiftScrapAmount(),false));
+                arrayList.add(new DataModel(reportNames.get(1).getReportName(), ""+lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentShiftScrapAmount(),false));
 
             if (reportNames.get(2).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(2).getReportName(),  ""+lineInfo.getData().get(position).getPreviousShiftTotalProduction(),false));
+                arrayList.add(new DataModel(reportNames.get(2).getReportName(),  ""+lineInfo.getData().getMyArrayList().get(position).getMap().getPreviousShiftTotalProduction(),false));
 
             if (reportNames.get(3).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(3).getReportName(), ""+lineInfo.getData().get(position).getCurrentShiftTotalProduction(),false));
+                arrayList.add(new DataModel(reportNames.get(3).getReportName(), ""+lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentShiftTotalProduction(),false));
 
             if (reportNames.get(4).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(4).getReportName(),"% "+lineInfo.getData().get(position).getCurrentShiftOEEStr(),false));
+                arrayList.add(new DataModel(reportNames.get(4).getReportName(),"% "+lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentShiftOEEStr(),false));
 
             if (reportNames.get(5).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(5).getReportName(), " "+lineInfo.getData().get(position).getProductName(),false));
+                arrayList.add(new DataModel(reportNames.get(5).getReportName(), " "+lineInfo.getData().getMyArrayList().get(position).getMap().getProductName(),false));
 
             if (reportNames.get(6).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(6).getReportName(),""+lineInfo.getData().get(position).getCurrentStopReason(),isRedColorActive));
+                arrayList.add(new DataModel(reportNames.get(6).getReportName(),""+lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentStopReason(),isRedColorActive));
 
             if (reportNames.get(7).isPrefSelected())
-                arrayList.add(new DataModel(reportNames.get(7).getReportName(), " "+lineInfo.getData().get(position).getCurrentStopDurationStr(),isRedColorActive));
+                arrayList.add(new DataModel(reportNames.get(7).getReportName(), " "+lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr(),isRedColorActive));
 
             RecyclerViewAdapter adapterGrid = new RecyclerViewAdapter(context, arrayList);
             gridView.setAdapter(adapterGrid);
