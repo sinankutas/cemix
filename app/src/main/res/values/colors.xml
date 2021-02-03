@@ -10,6 +10,7 @@
     <color name="colorPrimary">#193BB8</color>
     <color name="colorPrimaryDark">#122C8C</color>
 
+    <color name="dropdownColor">#1D3EAF</color>
     <color name="statusBarColor">#0031E6</color>
     <color name="colorAccent">#EB1C45DA</color>
     <color name="textextGray">#B2B5AD</color>

@@ -53,16 +53,18 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
         if (isNormalReportActive){
             holder.bind(lineInfo, position);
+       //     lineInfo.getData().getMyArrayList().get(position).getMap().setExpanded(false);
             holder.itemView.setOnClickListener(v -> {
-                boolean expanded = lineInfo.isExpanded();
-                lineInfo.setExpanded(!expanded);
+                boolean expanded = lineInfo.getData().getMyArrayList().get(position).getMap().isExpanded();
+                lineInfo.getData().getMyArrayList().get(position).getMap().setExpanded(!expanded);
                 notifyItemChanged(position);
             });
         }else{
             holder.bind(reportMap, position);
+            reportMap.getReportModels().get(position).setExpanded(false);
             holder.itemView.setOnClickListener(v -> {
-                boolean expanded = reportMap.isExpanded();
-                reportMap.setExpanded(!expanded);
+                boolean expanded =   reportMap.getReportModels().get(position).isExpanded();
+                reportMap.getReportModels().get(position).setExpanded(!expanded);
                 notifyItemChanged(position);
             });
         }
@@ -101,7 +103,7 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
 
         private void bind(ReportMap reportMap, int position) {
-            boolean expanded = reportMap.isExpanded();
+            boolean expanded =   reportMap.getReportModels().get(position).isExpanded();
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
             title.setText(reportMap.getReportModels().get(position).getReportName());
@@ -141,7 +143,7 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
 
         private void bind(GetAllLineInfo lines, int position) {
-            boolean expanded = lines.isExpanded();
+            boolean expanded = lineInfo.getData().getMyArrayList().get(position).getMap().isExpanded();
             boolean isRedColorActive ;
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);

@@ -5,16 +5,8 @@ package com.arneca.evyap.api;/*
 import java.util.ArrayList;
 
 public class ReportMap {
-    private boolean isExpanded;
+
     private ArrayList<ReportModel> reportModels;
-
-    public boolean isExpanded() {
-        return isExpanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        isExpanded = expanded;
-    }
 
     public ArrayList<ReportModel> getReportModels() {
         return reportModels;

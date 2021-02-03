@@ -109,6 +109,7 @@ public class ProductLineActivity extends  BaseActivity{
             public void onClick(View view) {
                 if (!isFactoryListExpanded){
                     isFactoryListExpanded = true;
+
                 }else{
                     isFactoryListExpanded = false;
                 }
@@ -169,6 +170,7 @@ public class ProductLineActivity extends  BaseActivity{
         for (ReportModel reportModel : reportModelList){
             if (reportModel.isPrefSelected()){
                 if (reportModel.getModels().size()>0)
+                    reportModel.setExpanded(false);
                      reportModelListtmp.add(reportModel);
             }
         }
@@ -183,6 +185,11 @@ public class ProductLineActivity extends  BaseActivity{
     }
 
     private void loadNormalReport() {
+       //lineInfo.setExpanded(false);
+
+        for (GetAllLineInfo.DataBean.MyArrayListBean myArrayListBean: lineInfo.getData().getMyArrayList() ){
+            myArrayListBean.getMap().setExpanded(false);
+        }
         adapter = new RecAdapter(lineInfo, true);
         recyclerView.setVisibility(View.VISIBLE);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
@@ -196,12 +203,12 @@ public class ProductLineActivity extends  BaseActivity{
         if (isShow){
             isFactoryListExpanded = true;
             binding.subItem.setVisibility(View.VISIBLE);
+            binding.factoryTitle.setText("Fabrika Seç");
         }else{
             isFactoryListExpanded = false;
             binding.subItem.setVisibility(View.GONE);
+            binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
         }
-        binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
-
     }
 
 

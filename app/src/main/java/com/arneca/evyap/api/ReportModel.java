@@ -8,7 +8,7 @@ public class ReportModel {
     String reportName;
     ArrayList<DataModel> models;
     boolean isPrefSelected;
-
+    private boolean isExpanded;
     public String getReportName() {
         return reportName;
     }
@@ -31,5 +31,13 @@ public class ReportModel {
 
     public void setPrefSelected(boolean prefSelected) {
         isPrefSelected = prefSelected;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 }

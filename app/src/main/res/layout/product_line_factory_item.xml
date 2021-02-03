@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/circle_row_item">
+        android:background="@drawable/circle_blue_back">
 
         <arneca.com.utility.view.text.TextViewWithBoldFont
             android:id="@+id/item_title"
@@ -24,7 +24,7 @@
             android:gravity="left|center"
             android:imeOptions="actionDone"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             tools:text="D6" >
 
         </arneca.com.utility.view.text.TextViewWithBoldFont>

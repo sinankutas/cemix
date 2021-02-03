@@ -32,7 +32,7 @@
               android:layout_marginLeft="16dp"
               android:layout_marginRight="16dp"
               android:orientation="horizontal"
-              android:background="@drawable/circle_row_item">
+              android:background="@drawable/circle_darkblue_back">
 
               <arneca.com.utility.view.text.TextViewWithBoldFont
                   android:id="@+id/factoryTitle"
@@ -41,11 +41,11 @@
                   android:layout_gravity="center"
                   android:layout_marginLeft="36dp"
                   android:layout_marginRight="16dp"
-                  android:drawableRight="@drawable/triangle_dark"
+                  android:drawableRight="@drawable/triangle_white"
                   android:gravity="left|center"
                   android:imeOptions="actionDone"
                   android:textSize="18sp"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@color/white"
                   tools:text="D6" >
 
               </arneca.com.utility.view.text.TextViewWithBoldFont>

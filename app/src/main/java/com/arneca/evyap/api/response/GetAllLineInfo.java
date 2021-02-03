@@ -17,7 +17,7 @@ public class GetAllLineInfo {
     private String status;
     private boolean response;
     private DataBean data;
-    private boolean expanded;
+
 
     public String getStatus() {
         return status;
@@ -43,13 +43,6 @@ public class GetAllLineInfo {
         this.data = data;
     }
 
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
-    }
 
 
     public static class DataBean {
@@ -80,6 +73,7 @@ public class GetAllLineInfo {
 
             public static class MapBean {
 
+
                 private int PreviousShiftScrapAmount;
                 private String ProductName;
                 private String Customer;
@@ -96,6 +90,7 @@ public class GetAllLineInfo {
                 private int CurrentShiftOEE;
                 private String FactoryCode;
                 private String Region;
+                private boolean expanded;
 
                 public int getPreviousShiftScrapAmount() {
                     return PreviousShiftScrapAmount;
@@ -223,6 +218,14 @@ public class GetAllLineInfo {
 
                 public void setRegion(String region) {
                     Region = region;
+                }
+
+                public boolean isExpanded() {
+                    return expanded;
+                }
+
+                public void setExpanded(boolean expanded) {
+                    this.expanded = expanded;
                 }
             }
         }
