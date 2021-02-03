@@ -23,6 +23,7 @@ public class PreferencesHelper extends BaseObservable {
     private static GetFactories getFactories;
     private static GetFactories.DataBean.MyArrayListBean.MapBean selectedFactory;
     private static ArrayList<ReportModel> reportModels;
+    private static int totalSelection;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -93,5 +94,14 @@ public class PreferencesHelper extends BaseObservable {
     public static void setReportModels(ArrayList<ReportModel> reportModels) {
         PreferencesHelper.reportModels = reportModels;
         Hawk.put("reportModels",reportModels);
+    }
+
+    public static int getTotalSelection(Context contex) {
+        return SharedPreferenceHelper.getSharedPreferenceInt(contex, "totalSelection", 0);
+    }
+
+    public static void setTotalSelection(Context context,int totalSelection) {
+        PreferencesHelper.totalSelection = totalSelection;
+        SharedPreferenceHelper.setSharedPreferenceInt(context, "totalSelection", totalSelection);
     }
 }

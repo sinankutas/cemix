@@ -15,6 +15,7 @@ import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetAllLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.databinding.ProductLineBinding;
+import com.arneca.evyap.databinding.ProductLineBindingImpl;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.ReportEnum;
 import com.arneca.evyap.helper.ReportIndex;
@@ -100,7 +101,7 @@ public class ProductLineActivity extends  BaseActivity{
 
     private void setViewProperties() {
         binding = DataBindingUtil.setContentView(this, R.layout.product_line);
-        binding.toolbar.back.setVisibility(View.GONE);
+       binding.toolbar.back.setVisibility(View.GONE);
         recyclerView = findViewById(R.id.recview);
         binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
         binding.factoryTitle.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +117,7 @@ public class ProductLineActivity extends  BaseActivity{
         });
 
 
-     binding.toolbar.changedata.setOnClickListener(new View.OnClickListener() {
+     binding.toolbar.changeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isNormalReportActive){
@@ -142,7 +143,6 @@ public class ProductLineActivity extends  BaseActivity{
                 gotoPreferences();
             }
         });
-
     }
 
     private void gotoPreferences() {

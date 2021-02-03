@@ -28,21 +28,21 @@
                     android:gravity="center">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/changedata"
+                        android:id="@+id/change_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
-                        android:background="@drawable/chance_data"
+                        android:background="@drawable/change_data"
                         android:padding="5dp" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
-                        android:background="@drawable/back"
+                        android:background="@drawable/back_icon"
                         android:padding="5dp"
                         android:visibility="gone"/>
 
@@ -67,7 +67,7 @@
 
                 <LinearLayout
                     android:id="@+id/rightContainer"
-                    android:layout_width="100dp"
+                    android:layout_width="110dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="0dp"
@@ -83,8 +83,8 @@
                         android:padding="5dp" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="10dp"
+                        android:layout_height="5dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/settings_icon"

@@ -49,6 +49,8 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
         }
         PreferencesHelper.setReportModels(remportNames);
         PreferencesHelper.setIsAppOpenedFirst(this,true);
+
+        PreferencesHelper.setTotalSelection(this,8);
     }
 
     private void setViewProperties() {

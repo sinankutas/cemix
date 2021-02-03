@@ -17,6 +17,7 @@
     <string name="eposta">Eposta adresi</string>
     <string name="securtycode">Güvenlik Kodu Gönder</string>
     <string name="securtycodesend">Güvenlik Kodu</string>
+    <string name="entersecurtycodesend">Güvenlik Kodu Giriniz</string>
     <string name="verifysecurtycodesend">Güvenlik Kodunu Doğrula</string>
     <string name="forgotpassword">Şifremi Unuttum</string>
     <string name="passwordnotmatch">Şifreler Uyumsuz</string>

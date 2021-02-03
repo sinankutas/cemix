@@ -32,6 +32,7 @@ public class RestorePasswordActivity  extends BaseActivity{
     private void setViewProperties() {
         binding = DataBindingUtil.setContentView(this, R.layout.restore_password);
         binding.login.setOnClickListener(v -> onLoginClick());
+        binding.back.setOnClickListener(v -> finish());
     }
 
     public void onLoginClick() {
@@ -50,7 +51,7 @@ public class RestorePasswordActivity  extends BaseActivity{
         Request.sendSecurtyCode(binding.loginEmailEd.getText().toString(), this, response -> {
             GetSendSecurtyCode getSendSecurtyCode = (GetSendSecurtyCode) response.body();
             response.headers();
-
+            Tool.hideDialog();
             if (getSendSecurtyCode!=null){
                 if(getSendSecurtyCode.isResponse()){ // burada status kontrolü yapılacak
                     Tool.hideDialog();

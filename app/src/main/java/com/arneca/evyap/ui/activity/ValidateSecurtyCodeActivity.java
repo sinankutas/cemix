@@ -86,7 +86,7 @@ public class ValidateSecurtyCodeActivity extends BaseActivity{
     private boolean isValid() {
         boolean res = true;
         if (binding.loginEmailEd.getText().toString().trim().length() < 1) {
-            binding.loginEmailEd.setError(getString(R.string.enter_valid_email));
+            binding.loginEmailEd.setError(getString(R.string.entersecurtycodesend));
             res = false;
         } else {
             binding.loginEmailEd.setError(null);

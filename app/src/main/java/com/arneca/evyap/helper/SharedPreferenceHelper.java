@@ -17,6 +17,13 @@ public class SharedPreferenceHelper {
         editor.apply();
     }
 
+    public static void setSharedPreferenceInt(Context context, String key, int value) {
+        SharedPreferences settting = context.getSharedPreferences(PREF_FILE, 0);
+        SharedPreferences.Editor editor = settting.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
     public static void setSharedPreferenceBoolean(Context context, String key, boolean value) {
         SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -33,5 +40,10 @@ public class SharedPreferenceHelper {
     public static boolean getSharedPreferenceBoolean(Context context, String key, boolean defValue) {
         SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
         return settings.getBoolean(key, defValue);
+    }
+
+    public static int getSharedPreferenceInt(Context context, String key, int defValue) {
+        SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
+        return settings.getInt(key, defValue);
     }
 }

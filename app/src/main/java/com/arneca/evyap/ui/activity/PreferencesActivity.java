@@ -8,11 +8,8 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.arneca.evyap.R;
-import com.arneca.evyap.api.ReportMap;
-import com.arneca.evyap.api.ReportModel;
-import com.arneca.evyap.api.response.GetAllLineInfo;
-import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.databinding.PreferencesBinding;
+import com.arneca.evyap.databinding.PreferencesBindingImpl;
 import com.arneca.evyap.databinding.ProductLineBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.ui.adapter.PreferencesAdapter;
@@ -28,7 +25,6 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 public class PreferencesActivity extends  BaseActivity{
 
     private PreferencesBinding binding;
-    private int totalSelection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +36,10 @@ public class PreferencesActivity extends  BaseActivity{
 
     private void setViewProperties() {
         binding = DataBindingUtil.setContentView(this, R.layout.preferences);
-        binding.toolbar.back.setVisibility(View.VISIBLE);
-        binding.toolbar.changedata.setVisibility(View.GONE);
-        binding.totalSelection.setText("* Toplamda "+totalSelection+" seçim");
+      binding.toolbar.back.setVisibility(View.VISIBLE);
+        binding.toolbar.changeData.setVisibility(View.GONE);
+        binding.totalSelection.setText("* Toplamda "+PreferencesHelper.getTotalSelection(this)+" seçim");
+
         binding.toolbar.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,11 +72,13 @@ public class PreferencesActivity extends  BaseActivity{
     }
 
     public void changeTotalSelection(boolean isIncresase){
+        int totalSec = PreferencesHelper.getTotalSelection(this);
         if (isIncresase)
-            totalSelection += 1;
+            totalSec += 1;
         else
-            totalSelection -= 1;
+            totalSec -= 1;
 
-        binding.totalSelection.setText("* Toplamda "+totalSelection+" seçim");
+        PreferencesHelper.setTotalSelection(this, totalSec);
+        binding.totalSelection.setText("* Toplamda "+PreferencesHelper.getTotalSelection(this)+" seçim");
     }
 }

@@ -47,7 +47,7 @@ public class LoginActivity extends BaseActivity{
         Intent intent = new Intent(this, RestorePasswordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);
-        finish();
+
     }
 
 

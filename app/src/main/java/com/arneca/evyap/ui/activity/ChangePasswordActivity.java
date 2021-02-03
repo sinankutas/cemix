@@ -10,6 +10,7 @@ import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetValidateSecurtyCode;
 import com.arneca.evyap.databinding.ChangePasswordBinding;
+import com.arneca.evyap.databinding.ChangePasswordBindingImpl;
 import com.arneca.evyap.databinding.ValidateSecurtyCodeBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import androidx.databinding.DataBindingUtil;
 
 public class ChangePasswordActivity extends BaseActivity{
-    private ChangePasswordBinding binding;
+    private ChangePasswordBindingImpl binding;
     String email,securtyCode;
 
     @Override
