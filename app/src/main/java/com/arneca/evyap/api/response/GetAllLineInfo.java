@@ -87,7 +87,7 @@ public class GetAllLineInfo {
                 private String CurrentStopDurationStr;
                 private String FactoryName;
                 private int CurrentShiftScrapAmount;
-                private int CurrentShiftOEE;
+             //   private int CurrentShiftOEE;
                 private String FactoryCode;
                 private String Region;
                 private boolean expanded;
@@ -117,6 +117,8 @@ public class GetAllLineInfo {
                 }
 
                 public String getCurrentStopReason() {
+                    if ( CurrentStopReason == null)
+                        CurrentStopReason = "";
                     return CurrentStopReason;
                 }
 
@@ -173,6 +175,8 @@ public class GetAllLineInfo {
                 }
 
                 public String getCurrentStopDurationStr() {
+                    if (CurrentStopDurationStr == null)
+                        CurrentStopDurationStr = "";
                     return CurrentStopDurationStr;
                 }
 
@@ -196,14 +200,14 @@ public class GetAllLineInfo {
                     CurrentShiftScrapAmount = currentShiftScrapAmount;
                 }
 
-                public int getCurrentShiftOEE() {
+              /*  public int getCurrentShiftOEE() {
                     return CurrentShiftOEE;
                 }
 
                 public void setCurrentShiftOEE(int currentShiftOEE) {
                     CurrentShiftOEE = currentShiftOEE;
                 }
-
+*/
                 public String getFactoryCode() {
                     return FactoryCode;
                 }

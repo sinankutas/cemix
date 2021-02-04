@@ -2,11 +2,17 @@ package com.arneca.evyap.ui.activity;/*
  * Created by Sinan KUTAS on 25.01.2021.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 
+import com.arneca.evyap.IOnClickListener;
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.DataModel;
 import com.arneca.evyap.api.ReportMap;
@@ -16,6 +22,7 @@ import com.arneca.evyap.api.response.GetAllLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.databinding.ProductLineBinding;
 import com.arneca.evyap.databinding.ProductLineBindingImpl;
+import com.arneca.evyap.helper.LinearLayoutManagerWithSmoothScroller;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.ReportEnum;
 import com.arneca.evyap.helper.ReportIndex;
@@ -28,6 +35,7 @@ import java.util.HashMap;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
@@ -42,6 +50,7 @@ public class ProductLineActivity extends  BaseActivity{
     RecyclerView recyclerView;
     ArrayList<ReportModel> reportModelList = new ArrayList<>();
     ReportMap reportMap = new ReportMap();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +105,7 @@ public class ProductLineActivity extends  BaseActivity{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
+
     }
 
 
@@ -175,11 +185,11 @@ public class ProductLineActivity extends  BaseActivity{
             }
         }
         reportMap.setReportModels(reportModelListtmp);
-        adapter = new RecAdapter(reportMap, false);
+        adapter = new RecAdapter(this, reportMap, false);
         recyclerView.setVisibility(View.VISIBLE);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
     }
@@ -190,13 +200,21 @@ public class ProductLineActivity extends  BaseActivity{
         for (GetAllLineInfo.DataBean.MyArrayListBean myArrayListBean: lineInfo.getData().getMyArrayList() ){
             myArrayListBean.getMap().setExpanded(false);
         }
-        adapter = new RecAdapter(lineInfo, true);
+        adapter = new RecAdapter(this, lineInfo, true);
         recyclerView.setVisibility(View.VISIBLE);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
+
+
+    }
+
+
+    public void scrollToPosition(int pos){
+        recyclerView.smoothScrollToPosition((pos++));
     }
 
     public void showFactoryList(boolean isShow){

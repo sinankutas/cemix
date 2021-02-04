@@ -16,10 +16,13 @@ import com.arneca.evyap.api.response.GetAllLineInfo;
 import com.arneca.evyap.helper.AutoFitGridLayoutManager;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.ReportEnum;
+import com.arneca.evyap.ui.activity.PreferencesActivity;
+import com.arneca.evyap.ui.activity.ProductLineActivity;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -28,15 +31,18 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
     private GetAllLineInfo lineInfo;
     private ReportMap reportMap;
     private boolean isNormalReportActive;
+    private  Context context;
 
-    public RecAdapter(GetAllLineInfo lines, boolean isNormalReportActive) {
+    public RecAdapter(Context context, GetAllLineInfo lines, boolean isNormalReportActive) {
         this.lineInfo = lines;
         this.isNormalReportActive = isNormalReportActive;
+        this.context = context;
     }
 
-    public RecAdapter(ReportMap reportMap, boolean isNormalReportActive) {
+    public RecAdapter(Context context,ReportMap reportMap, boolean isNormalReportActive) {
         this.reportMap = reportMap;
         this.isNormalReportActive = isNormalReportActive;
+        this.context = context;
     }
 
     @Override
@@ -57,14 +63,16 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
             holder.itemView.setOnClickListener(v -> {
                 boolean expanded = lineInfo.getData().getMyArrayList().get(position).getMap().isExpanded();
                 lineInfo.getData().getMyArrayList().get(position).getMap().setExpanded(!expanded);
+                ((ProductLineActivity)context).scrollToPosition(position);
                 notifyItemChanged(position);
             });
         }else{
             holder.bind(reportMap, position);
-            reportMap.getReportModels().get(position).setExpanded(false);
+        //    reportMap.getReportModels().get(position).setExpanded(false);
             holder.itemView.setOnClickListener(v -> {
                 boolean expanded =   reportMap.getReportModels().get(position).isExpanded();
                 reportMap.getReportModels().get(position).setExpanded(!expanded);
+                ((ProductLineActivity)context).scrollToPosition(position);
                 notifyItemChanged(position);
             });
         }
@@ -104,6 +112,12 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
         private void bind(ReportMap reportMap, int position) {
             boolean expanded =   reportMap.getReportModels().get(position).isExpanded();
+
+            subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            if (expanded)
+                title.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.triangle_dark_rotate, 0);
+            else
+                title.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.triangle_dark, 0);
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
             title.setText(reportMap.getReportModels().get(position).getReportName());
@@ -147,6 +161,13 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
             boolean isRedColorActive ;
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            if (expanded)
+                title.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.triangle_dark_rotate, 0);
+            else
+                title.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.triangle_dark, 0);
+
+
+
             title.setText(lineInfo.getData().getMyArrayList().get(position).getMap().getLineName());
 
             if (lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr().equals("")||lines.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr().equals("0")){
@@ -161,6 +182,7 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
             reportNames.size();
             gridView = (RecyclerView) itemView.findViewById(R.id.gridView);
+
             arrayList = new ArrayList<>();
 
             if (reportNames.get(0).isPrefSelected())
