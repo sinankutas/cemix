@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 public class ProductLineActivity extends  BaseActivity{
@@ -95,7 +96,7 @@ public class ProductLineActivity extends  BaseActivity{
 
 
     private void loadFactories() {
-
+        binding.swipeContainer.setRefreshing(false);
         RecAdapterFactory adapter = new RecAdapterFactory(PreferencesHelper.getGetFactories(), this);
 
         RecyclerView recyclerView = findViewById(R.id.gridViewFactory);
@@ -154,6 +155,13 @@ public class ProductLineActivity extends  BaseActivity{
                 gotoPreferences();
             }
         });
+
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadFactories();
+                getAllLineInfo();
+            }});
     }
 
     private void gotoPreferences() {
