@@ -62,6 +62,11 @@ public class CallBack {
                     if (response.code() != 200) {
                         Tool.showInfo(context, activity.getString(R.string.error), activity.getString(R.string.timeout), (dialog, which) -> ((BaseActivity) context).finish());
                     }
+
+                    if (response.code() != 500){
+                        Tool.showInfo(context, activity.getString(R.string.error), activity.getString(R.string.incorrectcode), (dialog, which) -> ((BaseActivity) context).finish());
+
+                    }
                 }
             }
 

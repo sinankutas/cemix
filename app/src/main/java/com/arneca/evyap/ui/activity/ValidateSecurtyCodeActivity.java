@@ -63,7 +63,7 @@ public class ValidateSecurtyCodeActivity extends BaseActivity{
                     goChangePass();
 
                 }else{
-                    Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+                    Tool.showInfo(this, getString(R.string.error), getString(R.string.incorrectcode));
                 }
             }
         });

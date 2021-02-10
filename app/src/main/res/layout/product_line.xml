@@ -2,11 +2,6 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     <com.arneca.evyap.helper.RelativeLayoutWithBackground
         android:id="@+id/loginRoot"
         android:layout_width="match_parent"
@@ -30,6 +25,7 @@
           android:background="@drawable/md_transparent"
           android:orientation="vertical"
           android:layout_below="@id/toolbar">
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="70dp"
@@ -40,6 +36,8 @@
               android:background="@drawable/circle_darkblue_back">
 
               <arneca.com.utility.view.text.TextViewWithBoldFont
+
+                  android:background="@drawable/circle_darkblue_back"
                   android:id="@+id/factoryTitle"
                   android:layout_width="match_parent"
                   android:layout_height="70dp"
@@ -72,7 +70,10 @@
 
                   />
           </LinearLayout>
-
+          <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+              android:id="@+id/swipeContainer"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
           <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/recview"
               android:layout_width="match_parent"
@@ -81,8 +82,9 @@
               android:background="@drawable/md_transparent" >
 
           </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
       </LinearLayout>
 
     </com.arneca.evyap.helper.RelativeLayoutWithBackground>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

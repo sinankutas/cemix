@@ -70,6 +70,7 @@ public class ProductLineActivity extends  BaseActivity{
     }
 
     public void getAllLineInfo(){
+        binding.swipeContainer.setRefreshing(false);
         recyclerView.setVisibility(View.GONE);
         lineInfo = new GetAllLineInfo();
         reportModelList = new ArrayList<>();
