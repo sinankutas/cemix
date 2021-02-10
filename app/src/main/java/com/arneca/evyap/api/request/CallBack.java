@@ -58,12 +58,10 @@ public class CallBack {
                         activity.showPopup(activity
                                 , message.getResult_message().getTitle()
                                 , message.getResult_message().getMessage());
-*/
+
                     if (response.code() != 200) {
                         Tool.showInfo(context, activity.getString(R.string.error), activity.getString(R.string.timeout), (dialog, which) -> ((BaseActivity) context).finish());
-                    }
-
-                    if (response.code() != 500){
+                    }else*/ if (response.code() == 500 || response.code() == 400){
                         Tool.showInfo(context, activity.getString(R.string.error), activity.getString(R.string.incorrectcode), (dialog, which) -> ((BaseActivity) context).finish());
 
                     }

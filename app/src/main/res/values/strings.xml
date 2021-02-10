@@ -34,7 +34,7 @@
     <string name="save">Kaydet</string>
     <string name="newpassword">Yeni Şifre</string>
     <string name="newpasswordagain">Yeni Şifre Tekrar</string>
-    <string name="incorrectcode">Hatalı kod girişik</string>
+    <string name="incorrectcode">Hatalı girişi</string>
 
         <string name="passwordchanged">Password changed</string>
 
