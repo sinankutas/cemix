@@ -46,7 +46,7 @@ public class ChangePasswordActivity extends BaseActivity{
         if (isValid()) {
             changePassword();
         } else {
-            showInfo(getString(R.string.warning), getString(R.string.YOU_HAVE_TO_MAKE_SURE_YOU_FILL_ALL_THE_FIELDS), this);
+            Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
         }
     }
 
@@ -92,21 +92,24 @@ public class ChangePasswordActivity extends BaseActivity{
     private boolean isValid() {
         boolean res = true;
         if (binding.pass1ed.getText().toString().trim().length() < 10) {
-            binding.pass1ed.setError(getString(R.string.enterpass));
+            //  Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
+            // binding.pass2ed.setError(getString(R.string.enterpass2));
             res = false;
         } else {
             binding.pass1ed.setError(null);
         }
 
         if (binding.pass2ed.getText().toString().trim().length() < 10) {
-            binding.pass2ed.setError(getString(R.string.enterpass));
+            //   Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
+            // binding.pass2ed.setError(getString(R.string.enterpass2));
             res = false;
         } else {
             binding.pass2ed.setError(null);
         }
 
         if (!binding.pass1ed.getText().toString().equals(binding.pass2ed.getText().toString())) {
-            binding.pass2ed.setError(getString(R.string.passwordnotmatch));
+            //   Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
+           // binding.pass2ed.setError(getString(R.string.enterpass2));
             res = false;
         }else{
             binding.pass2ed.setError(null);
