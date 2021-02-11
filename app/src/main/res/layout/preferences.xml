@@ -10,7 +10,7 @@
         android:id="@+id/loginRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="45dp"
         android:background="#E5E5E5">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/md_transparent"
             android:orientation="vertical"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:layout_below="@id/toolbar">
 
             <arneca.com.utility.view.text.TextViewWithBoldFont
@@ -38,7 +38,6 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/login_header"
                 android:padding="15dp"
-                android:layout_marginTop="36dp"
                 android:layout_marginLeft="16dp"
                 android:text="@string/settings"
                 android:textColor="@color/darkTitle"

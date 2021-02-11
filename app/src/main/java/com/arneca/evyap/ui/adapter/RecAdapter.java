@@ -132,7 +132,18 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
             }*/
 
             for (DataModel model:reportMap.getReportModels().get(position).getModels()) {
-                arrayList.add(new DataModel(model.title, ""+model.value,false));
+                boolean isRedActve = false;
+                if (reportMap.getReportModels().get(position).getReportName().equals(ReportEnum.totalStop.toString())
+                        || reportMap.getReportModels().get(position).getReportName().equals(ReportEnum.currentStop.toString())){
+                        if (!model.value.equals("")){
+                           isRedActve = true;
+                        }else{
+                            isRedActve = false;
+                        }
+                }else{
+                    isRedActve = false;
+                }
+                arrayList.add(new DataModel(model.title, ""+model.value,isRedActve));
             }
 
             RecyclerViewAdapter adapterGrid = new RecyclerViewAdapter(context, arrayList);
