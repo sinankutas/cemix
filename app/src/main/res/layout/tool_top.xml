@@ -39,7 +39,7 @@
                     android:adjustViewBounds="true"
                     android:padding="5dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/evyap_top"/>
+                    android:src="@drawable/evlap_logo_top_anka"/>
 
                 <LinearLayout
                     android:id="@+id/rightContainer"

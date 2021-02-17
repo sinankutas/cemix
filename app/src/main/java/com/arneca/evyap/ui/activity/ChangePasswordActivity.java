@@ -55,7 +55,7 @@ public class ChangePasswordActivity extends BaseActivity{
         Tool.openDialog(this);
         HashMap<String, Object> params = new HashMap<>();
 
-       params.put("newPassword",binding.pass1ed.getText().toString());
+        params.put("newPassword",binding.pass1ed.getText().toString());
         params.put("newPasswordConfirm",binding.pass2ed.getText().toString());
         params.put("userEmail",email);
         params.put("securityCode",securtyCode);

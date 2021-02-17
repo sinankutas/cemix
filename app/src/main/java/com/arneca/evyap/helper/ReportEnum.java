@@ -8,7 +8,7 @@ public enum ReportEnum {
     prePorduct("Önceki Vardiya Üretim"),
     currPorduct("Anlık Net Üretim"),
     vardiyaOEE("Vardiya OEE"),
-    product("Çalışılan ürün"),
+    product("Çalışılan Ürün"),
     currentStop("Mevcut Duruş"),
     totalStop("Duruş Süresi");
     private final String text;

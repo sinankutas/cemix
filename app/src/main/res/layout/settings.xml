@@ -19,14 +19,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="1dp"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/login_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|center"
-                    android:background="@drawable/evyap" />
+                    android:background="@drawable/evyaplogo_xmini" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
