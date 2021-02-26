@@ -3,14 +3,14 @@ package com.arneca.evyap.helper;/*
  */
 
 public enum ReportEnum {
-    preStrackAmount("Önceki Fire Miktarı"),
-    currStrackAmount("Anlık Makine Firesi"),
-    prePorduct("Önceki Vardiya Üretim"),
-    currPorduct("Anlık Net Üretim"),
-    vardiyaOEE("Vardiya OEE"),
-    product("Çalışılan Ürün"),
-    currentStop("Mevcut Duruş"),
-    totalStop("Duruş Süresi");
+    preStrackAmount("Önceki Fire Miktarı1"),
+    currStrackAmount("Anlık Makine Firesi1"),
+    prePorduct("Önceki Vardiya Üretim1"),
+    currPorduct("Anlık Net Üretim2"),
+    vardiyaOEE("Vardiya OE3E"),
+    product("Çalışılan Ürün4"),
+    currentStop("Mevcut Duru34ş"),
+    totalStop("Duruş Süres54i");
     private final String text;
 
     /**

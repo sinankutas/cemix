@@ -1,8 +1,11 @@
 package com.arneca.evyap.api.service;
 
 
+import com.arneca.evyap.api.response.GetAllLineByKey;
 import com.arneca.evyap.api.response.GetAllLineInfo;
+import com.arneca.evyap.api.response.GetAllLineInfoByLine;
 import com.arneca.evyap.api.response.GetFactories;
+import com.arneca.evyap.api.response.GetKPIKeys;
 import com.arneca.evyap.api.response.GetLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
@@ -31,6 +34,15 @@ public interface Services {
 
     @POST("GetAllLineInfo")
     Call<GetAllLineInfo> GetAllLineInfo(@HeaderMap HashMap<String, Object> headers,@Body HashMap<String, Object> map);
+
+    @POST("GetAllLineInfoByLine")
+    Call<GetAllLineInfoByLine> GetAllLineInfoByLine(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
+
+    @POST("GetAllLineInfoByKey")
+    Call<GetAllLineByKey> GetAllLineInfoByKey(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
+
+    @POST("GetKPIKeys")
+    Call<GetKPIKeys> GetKPIKeys(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
 
     @GET("Login")
     Call<GetLogin> getTokens(@HeaderMap HashMap<String, Object> headers);

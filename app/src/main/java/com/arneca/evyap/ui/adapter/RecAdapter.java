@@ -13,6 +13,7 @@ import com.arneca.evyap.api.DataModel;
 import com.arneca.evyap.api.ReportMap;
 import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetAllLineInfo;
+import com.arneca.evyap.api.response.GetAllLineInfoByLine;
 import com.arneca.evyap.helper.AutoFitGridLayoutManager;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.ReportEnum;
@@ -28,12 +29,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder>  implements RecyclerViewAdapter.ItemListener{
 
-    private GetAllLineInfo lineInfo;
+    private GetAllLineInfoByLine lineInfo;
     private ReportMap reportMap;
     private boolean isNormalReportActive;
     private  Context context;
 
-    public RecAdapter(Context context, GetAllLineInfo lines, boolean isNormalReportActive) {
+    public RecAdapter(Context context, GetAllLineInfoByLine lines, boolean isNormalReportActive) {
         this.lineInfo = lines;
         this.isNormalReportActive = isNormalReportActive;
         this.context = context;
@@ -61,8 +62,8 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
             holder.bind(lineInfo, position);
        //     lineInfo.getData().getMyArrayList().get(position).getMap().setExpanded(false);
             holder.itemView.setOnClickListener(v -> {
-                boolean expanded = lineInfo.getData().getMyArrayList().get(position).getMap().isExpanded();
-                lineInfo.getData().getMyArrayList().get(position).getMap().setExpanded(!expanded);
+                boolean expanded = lineInfo.getData().get(position).isExpanded();
+                lineInfo.getData().get(position).setExpanded(!expanded);
                 ((ProductLineActivity)context).scrollToPosition(position);
                 notifyItemChanged(position);
             });
@@ -83,7 +84,7 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
     public int getItemCount() {
 
         if (isNormalReportActive)
-                 return lineInfo.getData().getMyArrayList() == null ? 0 : lineInfo.getData().getMyArrayList().size();
+                 return lineInfo.getData() == null ? 0 : lineInfo.getData().size();
         else
             return reportMap.getReportModels() == null ? 0 : reportMap.getReportModels().size();
 
@@ -167,9 +168,22 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
 
 
-        private void bind(GetAllLineInfo lines, int position) {
-            boolean expanded = lineInfo.getData().getMyArrayList().get(position).getMap().isExpanded();
-            boolean isRedColorActive ;
+        private boolean isReportChecked(GetAllLineInfoByLine.DataBean.LineDataBean dataBean){
+            boolean isReportActive = false;
+            for (ReportModel reportModel:PreferencesHelper.getReportModels()) {
+                if (reportModel.getReportId().equals(""+dataBean.getId())){
+                    if (reportModel.isPrefSelected()){
+                        isReportActive = true;
+                        break;
+                    }
+                }
+            }
+            return isReportActive;
+        }
+
+        private void bind(GetAllLineInfoByLine lines, int position) {
+            boolean expanded = lineInfo.getData().get(position).isExpanded();
+            boolean isRedColorActive = false;
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
             if (expanded)
@@ -179,15 +193,7 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
 
 
-            title.setText(lineInfo.getData().getMyArrayList().get(position).getMap().getLineName());
-
-            if (lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr().equals("")||lines.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr().equals("0")){
-                title.setTextColor(this.context.getResources().getColor(R.color.greenText));
-                isRedColorActive = false;
-            }else{
-                title.setTextColor(this.context.getResources().getColor(R.color.redText));
-                isRedColorActive = true;
-            }
+            title.setText(lineInfo.getData().get(position).getLineName());
 
             ArrayList<ReportModel> reportNames = PreferencesHelper.getReportModels();
 
@@ -196,7 +202,23 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
             arrayList = new ArrayList<>();
 
-            if (reportNames.get(0).isPrefSelected())
+
+            for (GetAllLineInfoByLine.DataBean.LineDataBean getAllLineInfoByLine:lineInfo.getData().get(position).getLineData()) {
+               if (isReportChecked(getAllLineInfoByLine)){
+                   arrayList.add(new DataModel(getAllLineInfoByLine.getName(),getAllLineInfoByLine.getValue(),getAllLineInfoByLine.isRed()));
+
+               }
+
+            }
+
+            if (!lineInfo.getData().get(position).isRed()){
+                title.setTextColor(this.context.getResources().getColor(R.color.greenText));
+
+            }else{
+                title.setTextColor(this.context.getResources().getColor(R.color.redText));
+            
+            }
+         /*   if (reportNames.get(0).isPrefSelected())
                 arrayList.add(new DataModel(reportNames.get(0).getReportName(), ""+lineInfo.getData().getMyArrayList().get(position).getMap().getPreviousShiftScrapAmount(),false));
 
             if (reportNames.get(1).isPrefSelected())
@@ -219,6 +241,7 @@ public class  RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> 
 
             if (reportNames.get(7).isPrefSelected())
                 arrayList.add(new DataModel(reportNames.get(7).getReportName(), " "+lineInfo.getData().getMyArrayList().get(position).getMap().getCurrentStopDurationStr(),isRedColorActive));
+*/
 
             RecyclerViewAdapter adapterGrid = new RecyclerViewAdapter(context, arrayList);
             gridView.setAdapter(adapterGrid);

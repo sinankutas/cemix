@@ -15,6 +15,7 @@ import com.arneca.evyap.R;
 import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetFactories;
+import com.arneca.evyap.api.response.GetKPIKeys;
 import com.arneca.evyap.databinding.SettingsBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.ReportIndex;
@@ -30,6 +31,8 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
     private SettingsBinding binding;
     ArrayList<String> factoryList ;
     GetFactories factories;
+    GetKPIKeys getKPIKeys;
+    private ArrayList<ReportModel> reportNames = new ArrayList<>();
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -42,15 +45,35 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
         }
 
     private void loadedReportPref() {
-        ArrayList<ReportModel> remportNames = new ArrayList<>();
+     /*   ArrayList<ReportModel> remportNames = new ArrayList<>();
         for (ReportModel reportModel: ReportIndex.getInstance().getReportModel()){
             reportModel.setPrefSelected(true);
             remportNames.add(reportModel);
         }
         PreferencesHelper.setReportModels(remportNames);
-        PreferencesHelper.setIsAppOpenedFirst(this,true);
 
-        PreferencesHelper.setTotalSelection(this,8);
+        PreferencesHelper.setTotalSelection(this,8);*/
+
+        HashMap<String, Object> map = new HashMap<>();
+        Request.GetKPIKeys( headersMap(true),map, this, response -> {
+            Tool.hideDialog();
+            getKPIKeys = (GetKPIKeys) response.body();
+            if (getKPIKeys!=null){
+                for (GetKPIKeys.DataBean data:this.getKPIKeys.getData()) {
+                    ReportModel rp = new ReportModel();
+                    rp.setReportName(data.getName());
+                    rp.setReportId(data.getId());
+                    rp.setPrefSelected(false);
+                    reportNames.add(rp);
+                }
+                PreferencesHelper.setReportModels(reportNames);
+
+            }else{
+                Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+            }
+        });
+
+        PreferencesHelper.setIsAppOpenedFirst(this,true);
     }
 
     private void setViewProperties() {

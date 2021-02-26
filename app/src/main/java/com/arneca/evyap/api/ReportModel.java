@@ -6,11 +6,22 @@ import java.util.ArrayList;
 
 public class ReportModel {
     String reportName;
+    String reportId;
     ArrayList<DataModel> models;
     boolean isPrefSelected;
     private boolean isExpanded;
     public String getReportName() {
         return reportName;
+    }
+
+    public String getReportId() {
+        if (reportId == null)
+            reportId = "0423423423";
+        return reportId;
+    }
+
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
     }
 
     public void setReportName(String reportName) {

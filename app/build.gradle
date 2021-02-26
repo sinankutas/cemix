@@ -6,7 +6,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.arneca.evyap"
+        applicationId "Evyap.Anka.Mobil"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.ReportModel;
+import com.arneca.evyap.api.response.GetKPIKeys;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.SharedPreferenceHelper;
 import com.arneca.evyap.ui.activity.PreferencesActivity;
@@ -21,13 +22,39 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PreferencesAdapter extends RecyclerView.Adapter<PreferencesAdapter.RecViewHolder>  {
 
-    private ArrayList<ReportModel> reportNames = PreferencesHelper.getReportModels();
+    private ArrayList<ReportModel> reportNames = new ArrayList<>();// PreferencesHelper.getReportModels();
     private Context context;
+    private GetKPIKeys getKPIKeys;
 
-    public PreferencesAdapter(Context context) {
+    public PreferencesAdapter(GetKPIKeys getKPIKeys,Context context) {
         this.context = context;
+        this.getKPIKeys = getKPIKeys;
+        for (GetKPIKeys.DataBean data:this.getKPIKeys.getData()) {
+            ReportModel rp = new ReportModel();
+            rp.setReportName(data.getName());
+            rp.setReportId(data.getId());
+            if (isValueChecked(data))
+                rp.setPrefSelected(true);
+            else
+                rp.setPrefSelected(false);
+            reportNames.add(rp);
+        }
+        PreferencesHelper.setReportModels(reportNames);
     }
 
+    private boolean isValueChecked(GetKPIKeys.DataBean dataBean){
+        boolean isReportChecked = false;
+        for (ReportModel reportModel:PreferencesHelper.getReportModels()) {
+            if (reportModel.getReportId().equals(dataBean.getId())){
+                if (reportModel.isPrefSelected()){
+                    isReportChecked = true;
+                    break;
+                }
+            }
+        }
+
+        return isReportChecked;
+    }
 
     @Override
     public RecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

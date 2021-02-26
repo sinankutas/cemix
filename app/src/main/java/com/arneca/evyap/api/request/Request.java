@@ -18,17 +18,22 @@ public class Request {
         Client.Instance().GetFactories(headers,map).enqueue(CallBack.callback(context, completed));
     }
 
-    public static void GetLines(@HeaderMap HashMap<String, Object> headers,HashMap<String, Object> map, Context context, Completed completed) {
-        Client.Instance().GetLines(headers,map).enqueue(CallBack.callback(context, completed));
-    }
-
-    public static void GetLineInfo(@HeaderMap HashMap<String, Object> headers,HashMap<String, Object> map, Context context, Completed completed) {
-        Client.Instance().GetLineInfo(headers,map).enqueue(CallBack.callback(context, completed));
-    }
-
     public static void GetAllLineInfo(@HeaderMap HashMap<String, Object> headers,HashMap<String, Object> map, Context context, Completed completed) {
         Client.Instance().GetAllLineInfo(headers,map).enqueue(CallBack.callback(context, completed));
     }
+
+    public static void GetAllLineInfoByLine(@HeaderMap HashMap<String, Object> headers,HashMap<String, Object> map, Context context, Completed completed) {
+        Client.Instance().GetAllLineInfoByLine(headers,map).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void GetAllLineInfoByKey(@HeaderMap HashMap<String, Object> headers,HashMap<String, Object> map, Context context, Completed completed) {
+        Client.Instance().GetAllLineInfoByKey(headers,map).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void GetKPIKeys(@HeaderMap HashMap<String, Object> headers,HashMap<String, Object> map, Context context, Completed completed) {
+        Client.Instance().GetKPIKeys(headers,map).enqueue(CallBack.callback(context, completed));
+    }
+
 
     public static void getTokens(HashMap<String, Object> headersMap,  Context context, Completed completed) {
         Client.Instance().getTokens(headersMap).enqueue(CallBack.callback(context, completed));

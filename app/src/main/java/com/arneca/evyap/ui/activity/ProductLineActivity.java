@@ -18,7 +18,9 @@ import com.arneca.evyap.api.DataModel;
 import com.arneca.evyap.api.ReportMap;
 import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.GetAllLineByKey;
 import com.arneca.evyap.api.response.GetAllLineInfo;
+import com.arneca.evyap.api.response.GetAllLineInfoByLine;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.databinding.ProductLineBinding;
 import com.arneca.evyap.databinding.ProductLineBindingImpl;
@@ -45,7 +47,8 @@ public class ProductLineActivity extends  BaseActivity{
 
     private ProductLineBinding binding;
     private GetLines lines;
-    private GetAllLineInfo lineInfo;
+    private GetAllLineInfoByLine lineInfo;
+    private GetAllLineByKey getAllLineByKey;
     private boolean isFactoryListExpanded, isNormalReportActive;
     RecAdapter adapter;
     RecyclerView recyclerView;
@@ -72,16 +75,16 @@ public class ProductLineActivity extends  BaseActivity{
     public void getAllLineInfo(){
         binding.swipeContainer.setRefreshing(false);
         recyclerView.setVisibility(View.GONE);
-        lineInfo = new GetAllLineInfo();
+        lineInfo = new GetAllLineInfoByLine();
         reportModelList = new ArrayList<>();
         Tool.openDialog(this);
         HashMap<String, Object> map = new HashMap<>();
         map.put("FactoryName", PreferencesHelper.getSelectedFactory().getFactoryName());
-        Request.GetAllLineInfo( headersMap(true),map, this, response -> {
+        Request.GetAllLineInfoByLine( headersMap(true),map, this, response -> {
             Tool.hideDialog();
-            lineInfo = (GetAllLineInfo) response.body();
+            lineInfo = (GetAllLineInfoByLine) response.body();
             if (lineInfo!=null){
-                reportModelList =  ReportIndex.getInstance().configureReportModel(lineInfo.getData().getMyArrayList());
+            //    reportModelList =  ReportIndex.getInstance().configureReportModel(lineInfo.getData().getMyArrayList());
 
                 if (isNormalReportActive)
                     loadNormalReport();
@@ -138,7 +141,8 @@ public class ProductLineActivity extends  BaseActivity{
                     loadNormalReport();
                 }else{
                     isNormalReportActive = false;
-                    loadDetilReportView();
+                   /// loadDetilReportView();
+                    loadReportDetail();
 
                 }
             }
@@ -161,7 +165,10 @@ public class ProductLineActivity extends  BaseActivity{
             @Override
             public void onRefresh() {
                 loadFactories();
-                getAllLineInfo();
+                if (isNormalReportActive)
+                    loadNormalReport();
+                else
+                    loadDetilReportView();
             }});
     }
 
@@ -183,14 +190,66 @@ public class ProductLineActivity extends  BaseActivity{
         finish();
     }
 
+    private void  loadReportDetail(){
+        Tool.openDialog(this);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("FactoryName", PreferencesHelper.getSelectedFactory().getFactoryName());
+        Request.GetAllLineInfoByKey( headersMap(true),map, this, response -> {
+            Tool.hideDialog();
+            getAllLineByKey = (GetAllLineByKey) response.body();
+            if (getAllLineByKey!=null){
+                //    reportModelList =  ReportIndex.getInstance().configureReportModel(lineInfo.getData().getMyArrayList());
+
+                if (isNormalReportActive)
+                    loadNormalReport();
+                else
+                    loadDetilReportView();
+
+            }else{
+                Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+            }
+        });
+    }
+
+    private boolean isReportChecked(String datId){
+        boolean isReportActive = false;
+        for (ReportModel reportModel:PreferencesHelper.getReportModels()) {
+            if (reportModel.getReportId().equals(""+datId)){
+                if (reportModel.isPrefSelected()){
+                    isReportActive = true;
+                    break;
+                }
+            }
+        }
+        return isReportActive;
+    }
+
+
     private void loadDetilReportView(){
 
-        ArrayList<ReportModel> reportModelListtmp = new ArrayList<>();
+  /*      ArrayList<ReportModel> reportModelListtmp = new ArrayList<>();
         for (ReportModel reportModel : reportModelList){
             if (reportModel.isPrefSelected()){
                 if (reportModel.getModels().size()>0)
                     reportModel.setExpanded(false);
                      reportModelListtmp.add(reportModel);
+            }
+        }
+*/
+        ArrayList<ReportModel> reportModelListtmp = new ArrayList<>();
+        for (GetAllLineByKey.DataBean getAllLineByKey:getAllLineByKey.getData()) {
+            if (isReportChecked(getAllLineByKey.getReportName().getId())){
+                ReportModel reportModel = new ReportModel();
+                ArrayList<DataModel> dataModels = new ArrayList<>();
+                reportModel.setReportName(getAllLineByKey.getReportName().getName());
+                reportModel.setReportId(getAllLineByKey.getReportName().getId());
+
+                for (GetAllLineByKey.DataBean.ReportDataBean reportDataBean: getAllLineByKey.getReportData()) {
+                    DataModel dm = new DataModel(reportDataBean.getName(),reportDataBean.getValue(),reportDataBean.isRed());
+                    dataModels.add(dm);
+                }
+                reportModel.setModels(dataModels);
+                reportModelListtmp.add(reportModel);
             }
         }
         reportMap.setReportModels(reportModelListtmp);
@@ -206,9 +265,11 @@ public class ProductLineActivity extends  BaseActivity{
     private void loadNormalReport() {
        //lineInfo.setExpanded(false);
 
-        for (GetAllLineInfo.DataBean.MyArrayListBean myArrayListBean: lineInfo.getData().getMyArrayList() ){
+    /*    for (GetAllLineInfo.DataBean.MyArrayListBean myArrayListBean: lineInfo.getData().getMyArrayList() ){
             myArrayListBean.getMap().setExpanded(false);
         }
+
+     */
         adapter = new RecAdapter(this, lineInfo, true);
         recyclerView.setVisibility(View.VISIBLE);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
