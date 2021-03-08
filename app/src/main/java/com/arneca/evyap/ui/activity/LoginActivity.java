@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.WindowManager;import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.GetKVKK;
 import com.arneca.evyap.api.response.GetLogin;
 import com.arneca.evyap.databinding.LoginBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
@@ -71,6 +72,15 @@ public class LoginActivity extends BaseActivity{
         }
     }
 
+    private void goKvkkActivity() {
+        Intent intent = new Intent(this, KVKKActivity.class);
+        Bundle b = new Bundle();
+        b.putString("UserName", loginBinding.loginEmailEd.getText().toString()); //Your id
+        intent.putExtras(b);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+
+    }
 
     private void goSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
@@ -78,10 +88,6 @@ public class LoginActivity extends BaseActivity{
         startActivity(intent);
         finish();
     }
-
-
-
-
 
     private boolean isValid() {
         boolean res = true;
@@ -119,8 +125,12 @@ public class LoginActivity extends BaseActivity{
                     PreferencesHelper.setAppKey(this,response.headers().get("appKey")); // burada appKey set edilecek
                     goSettingsActivity();
                 }else{
-                    Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
-                }
+                    if (!loginResponse.isKVKKConfirmed()){
+                        goKvkkActivity();
+                    }else{
+                        Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+                    }
+               }
             }
         });
     }

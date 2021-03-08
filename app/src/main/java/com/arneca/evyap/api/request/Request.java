@@ -39,6 +39,15 @@ public class Request {
         Client.Instance().getTokens(headersMap).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void getKvkkText(Context context, Completed completed) {
+        Client.Instance().getKvkkText().enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void confirmKvkkByUserName( HashMap<String, Object> map, Context context, Completed completed) {
+        Client.Instance().confirmKvkkByUserName(map).enqueue(CallBack.callback(context, completed));
+    }
+
+
     public static void sendSecurtyCode(String mail, Context context, Completed completed) {
         Client.Instance().sendSecurtyCode(mail).enqueue(CallBack.callback(context, completed));
     }

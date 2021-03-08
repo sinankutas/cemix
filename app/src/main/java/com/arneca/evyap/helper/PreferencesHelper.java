@@ -17,6 +17,7 @@ public class PreferencesHelper extends BaseObservable {
     private static boolean isResumePassive;
     private static boolean isRememberMe;
     private static boolean isAppOpenedFirst;
+    private static boolean isKVKKReaded;
     private static String userName ;
     private static String password ;
     private static String appKey ;
@@ -84,6 +85,15 @@ public class PreferencesHelper extends BaseObservable {
     public static void setIsAppOpenedFirst(Context context, boolean isAppOpenedFirst) {
         PreferencesHelper.isAppOpenedFirst = isAppOpenedFirst;
         SharedPreferenceHelper.setSharedPreferenceBoolean(context, "isAppOpenedFirst", isAppOpenedFirst);
+    }
+
+    public static boolean isIsKVKKReaded(Context context) {
+        return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isKVKKReaded", false);
+    }
+
+    public static void setIsKVKKReaded(Context context, boolean isKVKKReaded) {
+        PreferencesHelper.isKVKKReaded = isKVKKReaded;
+        SharedPreferenceHelper.setSharedPreferenceBoolean(context, "isKVKKReaded", isKVKKReaded);
     }
 
     public static ArrayList<ReportModel> getReportModels() {

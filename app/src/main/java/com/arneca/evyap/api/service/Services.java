@@ -6,6 +6,8 @@ import com.arneca.evyap.api.response.GetAllLineInfo;
 import com.arneca.evyap.api.response.GetAllLineInfoByLine;
 import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.api.response.GetKPIKeys;
+import com.arneca.evyap.api.response.GetKVKConfirm;
+import com.arneca.evyap.api.response.GetKVKK;
 import com.arneca.evyap.api.response.GetLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
@@ -46,6 +48,12 @@ public interface Services {
 
     @GET("Login")
     Call<GetLogin> getTokens(@HeaderMap HashMap<String, Object> headers);
+
+    @GET("kvkk/getKvkkText")
+    Call<GetKVKK> getKvkkText();
+
+    @POST("kvkk/confirmKvkkByUserName")
+    Call<GetKVKConfirm> confirmKvkkByUserName(@Body HashMap<String, Object> map);
 
     @GET("password/resetPassword/{mail}")
     Call<GetSendSecurtyCode> sendSecurtyCode(@Path("mail") String mail);
