@@ -55,12 +55,29 @@ public class RestorePasswordActivity  extends BaseActivity{
             if (getSendSecurtyCode!=null){
                 if(getSendSecurtyCode.isResponse()){ // burada status kontrolü yapılacak
                     Tool.hideDialog();
-                    goValidate();
+                   goValidate();  // burası goValidate() goKvkkActivity(); olacak
                 }else{
-                    Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+                    if(getSendSecurtyCode.isKVKKConfirmed()==false){ // burası false olacak
+                        // goto kvkk activity
+                        goKvkkActivity();
+                    }else{
+                        Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+                    }
                 }
             }
         });
+    }
+
+
+    private void goKvkkActivity() {
+        Intent intent = new Intent(this, KVKKActivity.class);
+        Bundle b = new Bundle();
+        b.putString("UserName", binding.loginEmailEd.getText().toString());
+        b.putBoolean("isRestorePassActivity",true);
+        intent.putExtras(b);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+
     }
 
     private void goValidate() {

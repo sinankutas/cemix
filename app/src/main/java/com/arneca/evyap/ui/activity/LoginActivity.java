@@ -75,7 +75,8 @@ public class LoginActivity extends BaseActivity{
     private void goKvkkActivity() {
         Intent intent = new Intent(this, KVKKActivity.class);
         Bundle b = new Bundle();
-        b.putString("UserName", loginBinding.loginEmailEd.getText().toString()); //Your id
+        b.putString("UserName", loginBinding.loginEmailEd.getText().toString());
+        b.putString("password", loginBinding.loginPasswordEd.getText().toString());//Your id
         intent.putExtras(b);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);

@@ -17,6 +17,7 @@ public class GetSendSecurtyCode {
     private String status;
     private boolean response;
     private DataBean data;
+    private boolean  isKVKKConfirmed;
 
     public String getStatus() {
         return status;
@@ -44,5 +45,13 @@ public class GetSendSecurtyCode {
 
     public static class DataBean {
         private List<?> myArrayList;
+    }
+
+    public boolean isKVKKConfirmed() {
+        return isKVKKConfirmed;
+    }
+
+    public void setKVKKConfirmed(boolean KVKKConfirmed) {
+        isKVKKConfirmed = KVKKConfirmed;
     }
 }

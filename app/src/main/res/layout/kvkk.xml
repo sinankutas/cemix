@@ -4,14 +4,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E5E5E5"
+        android:background="#FFFFFF"
         android:orientation="vertical">
         <com.arneca.evyap.helper.RelativeLayoutWithBackground
             android:id="@+id/loginRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="45dp"
-            android:background="#E5E5E5">
+            android:background="#FFFFFF">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -40,15 +40,17 @@
                     <ScrollView
                         android:id="@+id/SCROLLER_ID"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:scrollbars="vertical"
-                        android:fillViewport="true">
+                        android:fillViewport="true"
+                        android:layout_marginBottom="100dp">
 
-                        <TextView
-                            android:id="@+id/kvkkText"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_weight="1.0"/>
+                        <WebView
+                            android:id="@+id/webview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:ignore="WebViewLayout"
+                            android:background="#E5E5E5"/>
                     </ScrollView>
                 </LinearLayout>
 
@@ -62,31 +64,31 @@
                 android:orientation="vertical"
                 android:layout_alignParentBottom="true"
                 >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/lytChecked"
-                android:layout_alignParentBottom="true"
-                >
-                <ImageView
-                    android:id="@+id/checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/uncheckedbox"
-                    android:layout_marginLeft="30dp"
-                    android:layout_gravity="center"
-                    />
-                <arneca.com.utility.view.text.TextViewWithBoldFont
-                    android:id="@+id/totalSelection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/login_header"
-                    android:layout_marginLeft="16dp"
-                    android:textColor="@color/grayTextDark"
-                    android:text="@string/imreaded"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:id="@+id/lytChecked"
+                    android:layout_alignParentBottom="true"
+                    >
+                    <ImageView
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/uncheckedbox"
+                        android:layout_marginLeft="30dp"
+                        android:layout_gravity="center"
+                        />
+                    <arneca.com.utility.view.text.TextViewWithBoldFont
+                        android:id="@+id/totalSelection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_header"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="@color/grayTextDark"
+                        android:text="@string/imreaded"
+                        android:textSize="14sp" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="400dp"
                     android:layout_height="wrap_content"
