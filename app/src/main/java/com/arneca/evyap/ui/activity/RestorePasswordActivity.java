@@ -55,7 +55,7 @@ public class RestorePasswordActivity  extends BaseActivity{
             if (getSendSecurtyCode!=null){
                 if(getSendSecurtyCode.isResponse()){ // burada status kontrolü yapılacak
                     Tool.hideDialog();
-                   goValidate();  // burası goValidate() goKvkkActivity(); olacak
+                    goValidate();  // burası  goValidate olacak
                 }else{
                     if(getSendSecurtyCode.isKVKKConfirmed()==false){ // burası false olacak
                         // goto kvkk activity

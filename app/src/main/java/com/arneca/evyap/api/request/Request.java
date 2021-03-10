@@ -47,6 +47,10 @@ public class Request {
         Client.Instance().confirmKvkkByUserName(map).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void confirmKvkkByMail( HashMap<String, Object> map, Context context, Completed completed) {
+        Client.Instance().confirmKvkkByMail(map).enqueue(CallBack.callback(context, completed));
+    }
+
 
     public static void sendSecurtyCode(String mail, Context context, Completed completed) {
         Client.Instance().sendSecurtyCode(mail).enqueue(CallBack.callback(context, completed));

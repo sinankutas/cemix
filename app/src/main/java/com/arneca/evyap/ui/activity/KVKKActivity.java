@@ -17,6 +17,7 @@ import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetKVKConfirm;
 import com.arneca.evyap.api.response.GetKVKK;
 import com.arneca.evyap.api.response.GetLogin;
+import com.arneca.evyap.api.response.GetSendSecurtyCode;
 import com.arneca.evyap.databinding.KvkkBinding;
 import com.arneca.evyap.databinding.LoginBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
@@ -74,7 +75,44 @@ public class KVKKActivity extends BaseActivity{
         kvkkBinding.btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmKVKK();
+                Bundle b = getIntent().getExtras();
+                userName = "";
+                isRestorePassActivity = false;
+                if(b != null){
+                    userName = b.getString("UserName");
+                    isRestorePassActivity = b.getBoolean("isRestorePassActivity");
+                }
+                if (!isRestorePassActivity){
+                    confirmKVKK();
+                }else{
+                    confirmKVKKByMail();
+                }
+
+            }
+        });
+    }
+
+    private void confirmKVKKByMail() {
+        Bundle b = getIntent().getExtras();
+        userName = "";
+        isRestorePassActivity = false;
+        if(b != null){
+            userName = b.getString("UserName");
+            isRestorePassActivity = b.getBoolean("isRestorePassActivity");
+        }
+
+        Tool.openDialog(this);
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("UserMail",userName);
+        Request.confirmKvkkByMail(params, this, response -> {
+            Tool.hideDialog();
+            GetKVKConfirm getKVKK = (GetKVKConfirm) response.body();
+
+            if (getKVKK!=null){
+
+                    sendSecurtyCodeRequest(userName);
+            }else{
+                Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
             }
         });
     }
@@ -96,17 +134,33 @@ public class KVKKActivity extends BaseActivity{
             GetKVKConfirm getKVKK = (GetKVKConfirm) response.body();
 
             if (getKVKK!=null){
-                if (isRestorePassActivity == false){
-                    loginRequest();
-                }else{
-                    goValidate();
-                }
+                loginRequest();
             }else{
                 Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
             }
         });
-
     }
+
+    private void sendSecurtyCodeRequest(String userName){
+        Tool.openDialog(this);
+        HashMap<String, Object> headerMap = headersMap(false);
+
+        //  headerMap.put("Authorization","Basic "+toBase64(base64Str).replaceAll("\n",""));
+        Request.sendSecurtyCode(userName, this, response -> {
+            GetSendSecurtyCode getSendSecurtyCode = (GetSendSecurtyCode) response.body();
+            response.headers();
+            Tool.hideDialog();
+            if (getSendSecurtyCode!=null){
+                if(getSendSecurtyCode.isResponse()){ // burada status kontrolü yapılacak
+                    Tool.hideDialog();
+                    goValidate();  // burası goValidate() goKvkkActivity(); olacak
+                }else{
+                      Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+                }
+            }
+        });
+    }
+
 
     private void goValidate() {
         Intent intent = new Intent(this, ValidateSecurtyCodeActivity.class);

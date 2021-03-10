@@ -35,6 +35,7 @@ public class ValidateSecurtyCodeActivity extends BaseActivity{
 
     private void setViewProperties() {
         binding = DataBindingUtil.setContentView(this, R.layout.validate_securty_code);
+        binding.login.setText(R.string.verifysecurtycodesend);
         binding.login.setOnClickListener(v -> onLoginClick());
     }
 

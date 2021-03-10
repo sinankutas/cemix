@@ -55,6 +55,9 @@ public interface Services {
     @POST("kvkk/confirmKvkkByUserName")
     Call<GetKVKConfirm> confirmKvkkByUserName(@Body HashMap<String, Object> map);
 
+    @POST("kvkk/confirmKvkkByMail")
+    Call<GetKVKConfirm> confirmKvkkByMail(@Body HashMap<String, Object> map);
+
     @GET("password/resetPassword/{mail}")
     Call<GetSendSecurtyCode> sendSecurtyCode(@Path("mail") String mail);
 
