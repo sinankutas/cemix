@@ -23,7 +23,6 @@ import com.arneca.evyap.api.response.GetAllLineInfo;
 import com.arneca.evyap.api.response.GetAllLineInfoByLine;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.databinding.ProductLineBinding;
-import com.arneca.evyap.databinding.ProductLineBindingImpl;
 import com.arneca.evyap.helper.LinearLayoutManagerWithSmoothScroller;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.ReportEnum;
@@ -118,7 +117,13 @@ public class ProductLineActivity extends  BaseActivity{
         binding = DataBindingUtil.setContentView(this, R.layout.product_line);
        binding.toolbar.back.setVisibility(View.GONE);
         recyclerView = findViewById(R.id.recview);
-        binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
+        if (PreferencesHelper.getSelectedFactory().getFactoryName().equalsIgnoreCase("krem")){
+            binding.factoryTitle.setText("Kozmetik - Kişisel Bakım");
+        }else if (PreferencesHelper.getSelectedFactory().getFactoryName().equalsIgnoreCase("likit")){
+            binding.factoryTitle.setText("Kozmetik - Kişisel Temizlik");
+        }else{
+            binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
+        }
         binding.factoryTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -295,7 +300,13 @@ public class ProductLineActivity extends  BaseActivity{
         }else{
             isFactoryListExpanded = false;
             binding.subItem.setVisibility(View.GONE);
-            binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
+            if (PreferencesHelper.getSelectedFactory().getFactoryName().equalsIgnoreCase("krem")){
+                binding.factoryTitle.setText("Kozmetik - Kişisel Bakım");
+            }else if (PreferencesHelper.getSelectedFactory().getFactoryName().equalsIgnoreCase("likit")){
+                binding.factoryTitle.setText("Kozmetik - Kişisel Temizlik");
+            }else{
+                binding.factoryTitle.setText(PreferencesHelper.getSelectedFactory().getFactoryName());
+            }
         }
     }
 

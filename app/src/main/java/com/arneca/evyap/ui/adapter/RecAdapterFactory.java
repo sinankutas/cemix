@@ -84,8 +84,14 @@ public class RecViewHolder extends RecyclerView.ViewHolder {
         boolean expanded = factories.isExpanded();
 
         subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-        title.setText(factories.getData().getMyArrayList().get(position).getMap().getFactoryName());
 
+        if (factories.getData().getMyArrayList().get(position).getMap().getFactoryName().equalsIgnoreCase("krem")){
+            title.setText("Kozmetik - Kişisel Bakım");
+        }else if (factories.getData().getMyArrayList().get(position).getMap().getFactoryName().equalsIgnoreCase("likit")){
+            title.setText("Kozmetik - Kişisel Temizlik");
+        }else{
+            title.setText(factories.getData().getMyArrayList().get(position).getMap().getFactoryName());
+        }
 
 
     /*    gridView = (RecyclerView) itemView.findViewById(R.id.gridView);

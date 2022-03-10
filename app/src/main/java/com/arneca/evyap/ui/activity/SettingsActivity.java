@@ -29,7 +29,7 @@ import androidx.databinding.DataBindingUtil;
 public class SettingsActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
     private SettingsBinding binding;
-    ArrayList<String> factoryList ;
+    ArrayList<String> factoryList,factoryListReplaced ;
     GetFactories factories;
     GetKPIKeys getKPIKeys;
     private ArrayList<ReportModel> reportNames = new ArrayList<>();
@@ -77,6 +77,16 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
     }
 
     private void setViewProperties() {
+            factoryListReplaced = new ArrayList<>();
+            for (String name : factoryList){
+                if (name.equalsIgnoreCase("krem")){
+                    name = "Kozmetik - Kişisel Bakım";
+                }
+                if (name.equalsIgnoreCase("likit")){
+                    name = "Kozmetik - Kişisel Temizlik";
+                }
+                factoryListReplaced.add(name);
+            }
         binding = DataBindingUtil.setContentView(this, R.layout.settings);
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,7 +96,7 @@ public class SettingsActivity extends BaseActivity implements AdapterView.OnItem
             });
 
         Spinner spin = binding.spinner;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, factoryList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, factoryListReplaced);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spin.setAdapter(adapter);
         spin.setOnItemSelectedListener(this);
