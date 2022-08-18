@@ -49,7 +49,7 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="@color/grayTextDark"
-                        android:text="Belge Id"></TextView>
+                        android:text="Kod"></TextView>
                     <TextView
                         android:id="@+id/txtCode"
                         android:layout_marginTop="10dp"

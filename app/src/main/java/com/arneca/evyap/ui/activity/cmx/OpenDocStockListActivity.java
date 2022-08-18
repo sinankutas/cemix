@@ -67,9 +67,9 @@ public class OpenDocStockListActivity extends BaseActivity {
         seriNo = myIntent.getStringExtra("seriNo");
         viewTitle = myIntent.getStringExtra("viewTitle");
         binding.toolbar.txtViewTitle.setText(viewTitle);
-        binding.txtDocId.setText("Belge No: "+docId);
-        binding.txtSeriId.setText("Seri No: "+seriNo);
-        binding.txtOrderId.setText("Sıra No: "+orderNo);
+        binding.txtDocId.setText("Belge No "+docId);
+        binding.txtSeriId.setText("Seri "+seriNo);
+        binding.txtOrderId.setText("Sıra "+orderNo);
 
 
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -189,7 +189,7 @@ public class OpenDocStockListActivity extends BaseActivity {
 
             }else{
                 Tool.hideDialog();
-                Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
+               // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
             }
         });
     }

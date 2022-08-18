@@ -108,8 +108,9 @@ public class OpenDocRecordsActivity extends BaseActivity {
 
 
     public void openCariBottom(){
-        companyBottomFragment = new CompanyBottomFragment().newInstance(true);
-        companyBottomFragment.show(getSupportFragmentManager(), "");
+       // companyBottomFragment = new CompanyBottomFragment().newInstance(true);
+        //companyBottomFragment.show(getSupportFragmentManager(), "");
+        gotoOpenDocStockList();
     }
 
     public void gotoDocList(){
