@@ -6,7 +6,7 @@
         android:id="@+id/loginRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_back">
+        android:background="@drawable/logincmx">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,21 +19,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-60dp"
             android:padding="1dp"
-            android:layout_marginBottom="50dp"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:background="@drawable/evyap"
-                android:visibility="invisible"/>
+
             <ImageView
                 android:id="@+id/login_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="125dp"
+                android:layout_height="72dp"
                 android:layout_gravity="top|center"
-                android:background="@drawable/evyaplogo_xmini" />
+                android:background="@drawable/cemixlogo" />
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,16 +123,16 @@
                     <arneca.com.utility.view.text.TextViewWithBoldFont
                         android:id="@+id/login"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="26dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="26dp"
                         android:background="@drawable/circle_register_btn_back"
                         android:gravity="center"
                         android:imeOptions="actionDone"
                         android:paddingStart="10dp"
-                        android:paddingTop="10dp"
+                        android:paddingTop="5dp"
                         android:paddingEnd="10dp"
                         android:paddingBottom="10dp"
                         android:textSize="18sp"
@@ -147,22 +142,23 @@
                     <arneca.com.utility.view.text.TextViewWithBoldFont
                         android:id="@+id/restorePass"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="26dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="26dp"
                         android:background="@drawable/circle_register_btn_back"
                         android:gravity="center"
                         android:imeOptions="actionDone"
                         android:paddingStart="10dp"
-                        android:paddingTop="10dp"
+                        android:paddingTop="5dp"
                         android:paddingEnd="10dp"
                         android:paddingBottom="10dp"
                         android:textSize="18sp"
-                        android:text="@string/forgotpassword"
+                        android:text="Şifremi Değiştir"
+
                         android:textColor="@color/white"
-                        tools:text="@string/forgotpassword"  />
+                        tools:text="Şifremi Değiştir"  />
 
                 </LinearLayout>
 

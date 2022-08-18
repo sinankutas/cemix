@@ -7,7 +7,7 @@
     <application
         android:name="com.arneca.evyap.EvyapApp"
         android:allowBackup="true"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/iconcemix"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Evyap">
@@ -26,6 +26,52 @@
             android:theme="@style/AppTheme.TransparentStatus"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name=".ui.activity.cmx.HomeActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.cmx.OrderActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.cmx.OpenDocListActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.cmx.OpenDocStockListActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.cmx.AddProductActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.cmx.RBMatrisActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.cmx.OpenDocRecordsActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+
+
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme.TransparentStatus"

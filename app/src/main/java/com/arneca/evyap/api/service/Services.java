@@ -12,10 +12,20 @@ import com.arneca.evyap.api.response.GetLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
 import com.arneca.evyap.api.response.GetSendSecurtyCode;
+import com.arneca.evyap.api.response.cmx.LoginResponse;
+import com.arneca.evyap.api.response.cmx.NewDocResponse;
+import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
+import com.arneca.evyap.api.response.cmx.OpenDocRecordsResponse;
+import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
+import com.arneca.evyap.api.response.cmx.OpenDocumentStockListResponse;
+import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
+import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
+import com.arneca.evyap.api.response.cmx.STHEkleRespone;
 import com.arneca.evyap.ui.activity.ChangePassword;
 
 import java.util.HashMap;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -67,41 +77,38 @@ public interface Services {
     @POST("password/changePasswordWithCode")
     Call<ChangePassword> changePassword(@Body HashMap<String, Object> map);
 
+    /*
+    *  Cemix
+    *
+    * */
 
 
-  /*
-    @POST("Users/{userName}/Services/GetApplicationKeyExpirationInfo")
-    Call<ApplicationKeyExpirationInfo> getTokens(@HeaderMap HashMap<String, Object> headers, @Path("userName") String userName, @Body HashMap<String, Object> map);
+    @POST("Login")
+    Call<LoginResponse> login(@Body RequestBody body);
+
+    @POST("Satis/AcikBelgeler")
+    Call<OpenDocumentListResponse> openDocs(@Body RequestBody body);
+
+    @POST("Satis/AcikBelgeStoklar")
+    Call<OpenDocumentStockListResponse> openDocStocks(@Body RequestBody body);
+
+    @POST("Satis/StokAra")
+    Call<ProductSearchResponse> productSearch(@Body RequestBody body);
+
+    @POST("Satis/RBMatris")
+    Call<RBMatrisResponse> rbMAtris(@Body RequestBody body);
+
+    @POST("Satis/STHEkle")
+    Call<STHEkleRespone> sthEkle(@Body RequestBody body);
+
+    @POST("Satis/AcikBelgeTamamla")
+    Call<OpenDocCompletedResponse> openDocCompleted(@Body RequestBody body);
+
+    @POST("Satis/YeniBelgeKontrol")
+    Call<OpenDocRecordsResponse> openDocRecords(@Body RequestBody body);
+
+    @POST("Satis/YeniBelge")
+    Call<NewDocResponse> createNewDoc(@Body RequestBody body);
 
 
-@POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetFloorData")
-    Call<FloorData> getFloorData(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetParkingSlotCountByFloorNameAndLocation")
-    Call<ParkingSlotCountByFloorNameAndLocation> getParkingSlotCountByFloorNameAndLocation(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetParkingSummaryByFloorName")
-    Call<ParkingSummaryByFloorName> getParkingSummaryByFloorName(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetMemberInfo")
-    Call<MemberInfoResponse> getMemberInfo(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/ChangeMemberPassword")
-    Call<ChangePasswordResponse> changePass(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetMemberStats")
-    Call<MemberStatsResponse> getMemberStats(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/GetReservedParkingSlotForMember")
-    Call<ReservervedParkingResponse> getReservedInfo(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileApp_API_Thing/Services/UpdateReleaseCalendar")
-    Call<ReleaseListResponse> getReleaseList(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileAppSecurity_API_Thing/Services/SendSecurityCodeViaEmail")
-    Call<SendSecurityCodeViaEmailResponse> getSecurtyCode(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-
-    @POST("/Thingworx/Things/SMPRK_MobileAppSecurity_API_Thing/Services/AssignNewPasswordWithSecurityCode")
-    Call<AssignNewPasswordWithSecurityCodeResponse> assignNewPass(@HeaderMap HashMap<String, Object> headers, @Body HashMap<String, Object> map);
-*/
 }

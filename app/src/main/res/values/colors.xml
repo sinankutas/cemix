@@ -14,8 +14,9 @@
     <color name="statusBarColor">#0031E6</color>
     <color name="colorAccent">#EB1C45DA</color>
     <color name="textextGray">#B2B5AD</color>
-    <color name="colorPrimaryDark2">#162F87</color>
+    <color name="colorPrimaryDark2">#2d4376</color>
     <color name="greenText">#A0AD69</color>
+    <color name="greenText2">#A9C630</color>
     <color name="redText">#FA4C4C</color>
 
     <color name="grayText">#555B6E</color>

@@ -7,7 +7,7 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_top">
+        android:background="@drawable/cemixtopmini">
 
         <RelativeLayout
             android:id="@+id/toolbar"
@@ -28,14 +28,22 @@
                     android:gravity="center">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/change_data"
+                        android:id="@+id/profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_marginStart="5dp"
-                        android:background="@drawable/change_data"
+                        android:background="@drawable/avatar"
                         android:padding="5dp" />
-
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/change_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/avatar"
+                        android:padding="5dp" />
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/back"
                         android:layout_width="28dp"
@@ -47,19 +55,19 @@
                         android:visibility="gone"/>
 
             </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/centerContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/rightContainer"
                     android:layout_toEndOf="@+id/leftContainer"
                     android:gravity="center">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="100dp"
-                        android:layout_height="129dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/evlap_logo_top_anka" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/test" />
                 </LinearLayout>
 
 
@@ -79,7 +87,8 @@
                         android:layout_gravity="bottom"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/settings_icon"
-                        android:padding="5dp" />
+                        android:padding="5dp"
+                        android:visibility="invisible"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="10dp"

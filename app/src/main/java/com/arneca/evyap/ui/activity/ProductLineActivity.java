@@ -185,7 +185,7 @@ public class ProductLineActivity extends  BaseActivity{
 
     @Override
     public void onBackPressed() {
-        Tool.showInfo(this,this.getString(R.string.info),this.getString(R.string.closeapp), (dialog, which) -> ((BaseActivity) this).finish(),null);
+       // Tool.showInfo(this,this.getString(R.string.info),this.getString(R.string.closeapp), (dialog, which) -> ((BaseActivity) this).finish(),null);
     }
 
     private void logout() {

@@ -7,7 +7,10 @@ import android.content.Context;
 import com.arneca.evyap.api.ReportMap;
 import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetFactories;
+import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.orhanobut.hawk.Hawk;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,15 @@ public class PreferencesHelper extends BaseObservable {
     private static GetFactories.DataBean.MyArrayListBean.MapBean selectedFactory;
     private static ArrayList<ReportModel> reportModels;
     private static int totalSelection;
+
+
+    /*
+     Cemix
+     */
+
+    private static LoginResponse loginResponse;
+    private static LoginResponse.ResultBean.CarilerBean selectedCompany;
+    private static JSONArray jsonArrayForMatris = new JSONArray();
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -114,4 +126,29 @@ public class PreferencesHelper extends BaseObservable {
         PreferencesHelper.totalSelection = totalSelection;
         SharedPreferenceHelper.setSharedPreferenceInt(context, "totalSelection", totalSelection);
     }
+
+    public static LoginResponse getLoginResponse() {
+        return loginResponse;
+    }
+
+    public static void setLoginResponse(LoginResponse loginResponse) {
+        PreferencesHelper.loginResponse = loginResponse;
+    }
+
+    public static LoginResponse.ResultBean.CarilerBean getSelectedCompany() {
+        return selectedCompany;
+    }
+
+    public static void setSelectedCompany(LoginResponse.ResultBean.CarilerBean selectedCompany) {
+        PreferencesHelper.selectedCompany = selectedCompany;
+    }
+
+    public static JSONArray getJsonArrayForMatris() {
+        return jsonArrayForMatris;
+    }
+
+    public static void setJsonArrayForMatris(JSONArray jsonArrayForMatris) {
+        PreferencesHelper.jsonArrayForMatris = jsonArrayForMatris;
+    }
+
 }

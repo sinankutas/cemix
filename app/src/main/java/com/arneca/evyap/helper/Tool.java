@@ -521,6 +521,34 @@ public class Tool {
                 .show();
     }
 
+    public static void showInfo2action(Context context, String title, String message, MaterialDialog.SingleButtonCallback buttonCallback, MaterialDialog.SingleButtonCallback buttonCallback1,String positiveTitle,String negativeTitle) {
+        new MaterialDialog.Builder(context)
+                .title(title)
+                .titleColor(context.getResources().getColor(R.color.colorPrimary))
+                .content(message)
+                .positiveText(positiveTitle)
+                .negativeText(negativeTitle)
+                .onPositive(buttonCallback)
+                .onNegative(buttonCallback1)
+                .positiveColor(context.getResources().getColor(R.color.colorPrimary))
+                .cancelable(false)
+                .show();
+    }
+
+    public static void showInfo(Context context, String title, String message,
+                                MaterialDialog.SingleButtonCallback buttonCallback,String positiveTitle) {
+        new MaterialDialog.Builder(context)
+                .title(title)
+                .contentColor(context.getResources().getColor(R.color.colorPrimaryDark))
+                .titleColor(context.getResources().getColor(R.color.colorPrimary))
+                .content(message)
+                .positiveText(positiveTitle)
+                .onPositive(buttonCallback)
+                .positiveColor(context.getResources().getColor(R.color.colorPrimary))
+                .cancelable(false)
+                .show();
+    }
+
     public static void showInfo(Context context, String title, String message,
                                 MaterialDialog.SingleButtonCallback buttonCallback) {
         new MaterialDialog.Builder(context)

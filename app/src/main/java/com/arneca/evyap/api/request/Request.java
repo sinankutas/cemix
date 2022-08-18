@@ -8,6 +8,7 @@ import com.arneca.evyap.ui.Completed;
 
 import java.util.HashMap;
 
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Path;
@@ -63,5 +64,51 @@ public class Request {
     public static void changePassword(@Body HashMap<String, Object> map, Context context, Completed completed) {
         Client.Instance().changePassword(map).enqueue(CallBack.callback(context, completed));
     }
+
+
+    /*
+     *  Cemix
+     *
+     * */
+
+    public static void login(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().login(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void openDocs(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().openDocs(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void openDocStocks(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().openDocStocks(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void productSearch(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().productSearch(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void rbMAtris(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().rbMAtris(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void sthEkle(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().sthEkle(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void openDocCompleted(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().openDocCompleted(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void openDocRecords(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().openDocRecords(body).enqueue(CallBack.callback(context, completed));
+    }
+
+
+    public static void createNewDoc(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().createNewDoc(body).enqueue(CallBack.callback(context, completed));
+    }
+
+
+
 
 }

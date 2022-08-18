@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/md_transparent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:id="@+id/lytLinear"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical">
+
+        <arneca.com.utility.view.text.TextViewWithBoldFont
+            android:id="@+id/txtMenuTitle"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="left|center"
+            android:imeOptions="actionDone"
+            android:textSize="18sp"
+            android:textColor="@color/grayTextDark"
+            android:text="Satışa Devam">
+        </arneca.com.utility.view.text.TextViewWithBoldFont>
+
+    </LinearLayout>
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+    android:background="@color/textextGray"/>
+
+</LinearLayout>

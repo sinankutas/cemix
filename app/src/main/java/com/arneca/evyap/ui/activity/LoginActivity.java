@@ -9,9 +9,11 @@ import android.view.WindowManager;import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetKVKK;
 import com.arneca.evyap.api.response.GetLogin;
+import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.databinding.LoginBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
+import com.arneca.evyap.ui.activity.cmx.HomeActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -19,6 +21,8 @@ import java.util.List;
 
 import androidx.databinding.DataBindingUtil;
 import okhttp3.Headers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Header;
 
 public class LoginActivity extends BaseActivity{
@@ -38,16 +42,16 @@ public class LoginActivity extends BaseActivity{
         loginBinding.rememberMe.setOnClickListener(v -> onRememberClick());
         loginBinding.restorePass.setOnClickListener(v -> onRestorePass());
         if (PreferencesHelper.isIsRememberMe(this)){
-            loginBinding.rememberMeButton.setBackgroundResource(R.drawable.checked);
+            loginBinding.rememberMeButton.setBackgroundResource(R.drawable.checkedwhite);
             loginBinding.loginPasswordEd.setText(PreferencesHelper.getPassword(this));
             loginBinding.loginEmailEd.setText(PreferencesHelper.getUserName(this));
         }
     }
 
     private void onRestorePass() {
-        Intent intent = new Intent(this, RestorePasswordActivity.class);
+     /*   Intent intent = new Intent(this, RestorePasswordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);
+        startActivity(intent);*/
 
     }
 
@@ -59,7 +63,7 @@ public class LoginActivity extends BaseActivity{
             PreferencesHelper.setUserName(this,"");
             PreferencesHelper.setIsRememberMe(this,false);
         }else{
-            loginBinding.rememberMeButton.setBackgroundResource(R.drawable.checked);
+            loginBinding.rememberMeButton.setBackgroundResource(R.drawable.checkedwhite);
             PreferencesHelper.setIsRememberMe(this,true);
         }
     }
@@ -109,29 +113,47 @@ public class LoginActivity extends BaseActivity{
 
     private void loginRequest(){
         Tool.openDialog(this);
-        HashMap<String, Object> headerMap = headersMap(false);
-        String base64Str = loginBinding.loginEmailEd.getText().toString()+":"+loginBinding.loginPasswordEd.getText().toString();
-        headerMap.put("Authorization","Basic "+toBase64(base64Str).replaceAll("\n",""));
-        Request.getTokens(headerMap, this, response -> {
-            GetLogin loginResponse = (GetLogin) response.body();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Kullanici","mad");
+        map.put("Sifre","123*?");
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("Kullanici", loginBinding.loginEmailEd.getText().toString())
+                .addFormDataPart("Sifre", loginBinding.loginPasswordEd.getText().toString())
+                .build();
+
+        Request.login(requestBody, this, response -> {
+            LoginResponse loginResponse = (LoginResponse) response.body();
             response.headers();
 
             if (loginResponse!=null){
-                if(loginResponse.isResponse()){ // burada status kontrolü yapılacak
+
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(intent);
+                finish();
+                Tool.hideDialog();
+                PreferencesHelper.setLoginResponse(loginResponse);
+                if (PreferencesHelper.isIsRememberMe(this)){
+                    PreferencesHelper.setUserName(this,loginBinding.loginEmailEd.getText().toString());
+                    PreferencesHelper.setPassword(this,loginBinding.loginPasswordEd.getText().toString());
+                }
+             /*   if(loginResponse.isResponse()){ // burada status kontrolü yapılacak
                     Tool.hideDialog();
                     if (PreferencesHelper.isIsRememberMe(this)){
                         PreferencesHelper.setUserName(this,loginBinding.loginEmailEd.getText().toString());
                         PreferencesHelper.setPassword(this,loginBinding.loginPasswordEd.getText().toString());
                      }
                     PreferencesHelper.setAppKey(this,response.headers().get("appKey")); // burada appKey set edilecek
-                    goSettingsActivity();
+                    goSettingsActivity();*/
                 }else{
-                    if (!loginResponse.isKVKKConfirmed()){
+              /*      if (!loginResponse.isKVKKConfirmed()){
                         goKvkkActivity();
                     }else{
                         Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
-                    }
-               }
+                    }*/
             }
         });
     }
