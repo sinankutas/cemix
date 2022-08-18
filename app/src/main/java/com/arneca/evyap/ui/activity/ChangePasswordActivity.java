@@ -4,20 +4,27 @@ package com.arneca.evyap.ui.activity;/*
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetValidateSecurtyCode;
+import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.databinding.ChangePasswordBinding;
 import com.arneca.evyap.databinding.ChangePasswordBindingImpl;
 import com.arneca.evyap.databinding.ValidateSecurtyCodeBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
+import com.arneca.evyap.ui.activity.cmx.HomeActivity;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 import androidx.databinding.DataBindingUtil;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class ChangePasswordActivity extends BaseActivity{
     private ChangePasswordBindingImpl binding;
@@ -40,42 +47,51 @@ public class ChangePasswordActivity extends BaseActivity{
     private void setViewProperties() {
         binding = DataBindingUtil.setContentView(this, R.layout.change_password);
         binding.login.setOnClickListener(v -> onLoginClick());
+        binding.txtCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void onLoginClick() {
         if (isValid()) {
             changePassword();
         } else {
-            Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
+            Tool.showInfo(this, getString(R.string.error), "Alanlar boş geçilemez. Ve Yeni Şifre alanları farklı olamaz");
         }
     }
 
 
     private void changePassword(){
         Tool.openDialog(this);
-        HashMap<String, Object> params = new HashMap<>();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("Kullanici",binding.usernameEd.getText().toString())
+                .addFormDataPart("Sifre",md5(binding.existingPassEd.getText().toString()))
+                .addFormDataPart("YeniSifre1",md5(binding.pass1ed.getText().toString()))
+                .addFormDataPart("YeniSifre2",md5(binding.pass2ed.getText().toString()))
+                .build();
 
-        params.put("newPassword",binding.pass1ed.getText().toString());
-        params.put("newPasswordConfirm",binding.pass2ed.getText().toString());
-        params.put("userEmail",email);
-        params.put("securityCode",securtyCode);
-
-        Request.changePassword(params, this, response -> {
-
-            ChangePassword validateSecurtyCode = (ChangePassword) response.body();
+        Request.changePass(requestBody, this, response -> {
+            LoginResponse loginResponse = (LoginResponse) response.body();
             response.headers();
 
-            if (validateSecurtyCode!=null){
-                if(validateSecurtyCode.isResponse()){ // burada status kontrolü yapılacak
-                    Tool.hideDialog();
-                    Tool.showInfo(this,
-                            getString(R.string.info),
-                            validateSecurtyCode.getStatus(),
-                            (dialog, which) -> goLogin());
+            if (loginResponse.getResult()!=null){
+                Tool.showInfo(this, "Bilgi", loginResponse.getResult_message().getMessage());
 
-                }else{
-                    Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
+                Tool.hideDialog();
+                PreferencesHelper.setLoginResponse(loginResponse);
+                if (PreferencesHelper.isIsRememberMe(this)){
+                    PreferencesHelper.setUserName(this,binding.usernameEd.getText().toString());
+                    PreferencesHelper.setPassword(this,binding.pass2ed.getText().toString());
                 }
+                finish();
+            }else{
+                Tool.hideDialog();
+                Tool.showInfo(this, "Hata", loginResponse.getResult_message().getMessage());
+
             }
         });
     }
@@ -91,16 +107,33 @@ public class ChangePasswordActivity extends BaseActivity{
 
     private boolean isValid() {
         boolean res = true;
-        if (binding.pass1ed.getText().toString().trim().length() < 10) {
-            //  Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
+        if (binding.usernameEd.getText().toString().trim().length() < 1) {
+            //   Tool.showInfo(this, getString(R.string.error),"Kullanıcı adı boş geçilemez");
+            // binding.pass2ed.setError(getString(R.string.enterpass2));
+            res = false;
+        } else {
+            binding.usernameEd.setError(null);
+        }
+
+        if (binding.existingPassEd.getText().toString().trim().length() < 1) {
+            //   Tool.showInfo(this, getString(R.string.error),"Şifre boş geçilemez");
+            // binding.pass2ed.setError(getString(R.string.enterpass2));
+            res = false;
+        } else {
+            binding.existingPassEd.setError(null);
+        }
+
+
+        if (binding.pass1ed.getText().toString().trim().length() < 1) {
+            //    Tool.showInfo(this, getString(R.string.error),"Yeni Şifre1 boş geçilemez");
             // binding.pass2ed.setError(getString(R.string.enterpass2));
             res = false;
         } else {
             binding.pass1ed.setError(null);
         }
 
-        if (binding.pass2ed.getText().toString().trim().length() < 10) {
-            //   Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
+        if (binding.pass2ed.getText().toString().trim().length() < 1) {
+            //   Tool.showInfo(this, getString(R.string.error),"Yeni Şifre2 boş geçilemez");
             // binding.pass2ed.setError(getString(R.string.enterpass2));
             res = false;
         } else {
@@ -108,17 +141,39 @@ public class ChangePasswordActivity extends BaseActivity{
         }
 
         if (!binding.pass1ed.getText().toString().equals(binding.pass2ed.getText().toString())) {
-            //   Tool.showInfo(this, getString(R.string.error), getString(R.string.enterpass2));
+            //    Tool.showInfo(this, getString(R.string.error),"Yeni Şifre 1 ve 2 aynı olmalı");
            // binding.pass2ed.setError(getString(R.string.enterpass2));
             res = false;
         }else{
             binding.pass2ed.setError(null);
             binding.pass1ed.setError(null);
         }
-
-
-
         return res;
+    }
+
+    public static String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

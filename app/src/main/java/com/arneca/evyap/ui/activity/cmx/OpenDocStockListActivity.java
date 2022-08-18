@@ -106,36 +106,28 @@ public class OpenDocStockListActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (PreferencesHelper.getSelectedCompany() != null){
-                    new MaterialAlertDialogBuilder(OpenDocStockListActivity.this)
-                            .setTitle("Bilgi")
-                            .setMessage("Açık belgeler kapanacak.")
-                            .setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    completedDoc();
-                                }
-                            })
-                            .setNegativeButton("İptal", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                }
-                            })
-                            .show();
+                    Tool.showInfo2action(OpenDocStockListActivity.this,"Uyarı",
+                            "Açık belgeler kapanacak",
+                            (dialog, which) ->  completedDoc(),
+                            (dialog, which) -> dismissToolDialog(),"Tamam","İptal");
                 }else{
-                    new MaterialAlertDialogBuilder(OpenDocStockListActivity.this)
-                            .setTitle("Uyarı")
-                            .setMessage("Cari Seçmelisiniz.")
-                            .setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
+                    Tool.showInfo(OpenDocStockListActivity.this,"Uyarı",
+                            "Cari Seçmelisiniz.",
+                            (dialog, which) ->  showCompanies(),"Tamam");
 
-                                }
-                            })
-                            .show();
+
                 }
             }
         });
+    }
+
+    private void showCompanies() {
+        companyBottomFragment = new CompanyBottomFragment().newInstance(false);
+        companyBottomFragment.show(getSupportFragmentManager(), "");
+    }
+
+    private void dismissToolDialog(){
+
     }
 
     private void completedDoc() {
@@ -154,15 +146,10 @@ public class OpenDocStockListActivity extends BaseActivity {
             response.headers();
             hideDialog();
             if (openDocCompletedResponse!=null){
-                new MaterialAlertDialogBuilder(OpenDocStockListActivity.this)
-                        .setTitle("Bilgi")
-                        .setMessage(openDocCompletedResponse.getResult_message().getMessage())
-                        .setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        })
-                        .show();
+
+                Tool.showInfo(OpenDocStockListActivity.this,"Bilgi",
+                        openDocCompletedResponse.getResult_message().getMessage(),
+                        (dialog, which) ->  dismissToolDialog(),"Tamam");
             }else{
 
             }

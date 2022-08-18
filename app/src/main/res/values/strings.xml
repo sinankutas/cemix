@@ -22,7 +22,7 @@
     <string name="forgotpassword">Şifremi Unuttum</string>
     <string name="passwordnotmatch">Şifreler Uyumsuz</string>
     <string name="enterpass">10 haneli şifre giriniz</string>
-    <string name="enterpass2">Lütfen alanlara 10 haneli ve aynı şifreyi giriniz</string>
+    <string name="enterpass2">Lütfen alanlara aynı şifreyi giriniz</string>
     <string name="imreaded">Okudum, onaylıyorum</string>
     <string name="letcontinue">Devam Et</string>
     <string name="title_home">Home</string>

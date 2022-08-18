@@ -49,9 +49,9 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void onRestorePass() {
-     /*   Intent intent = new Intent(this, RestorePasswordActivity.class);
+        Intent intent = new Intent(this, ChangePasswordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);*/
+        startActivity(intent);
 
     }
 
@@ -135,22 +135,11 @@ public class LoginActivity extends BaseActivity{
                     PreferencesHelper.setUserName(this,loginBinding.loginEmailEd.getText().toString());
                     PreferencesHelper.setPassword(this,loginBinding.loginPasswordEd.getText().toString());
                 }
-             /*   if(loginResponse.isResponse()){ // burada status kontrolü yapılacak
-                    Tool.hideDialog();
-                    if (PreferencesHelper.isIsRememberMe(this)){
-                        PreferencesHelper.setUserName(this,loginBinding.loginEmailEd.getText().toString());
-                        PreferencesHelper.setPassword(this,loginBinding.loginPasswordEd.getText().toString());
-                     }
-                    PreferencesHelper.setAppKey(this,response.headers().get("appKey")); // burada appKey set edilecek
-                    goSettingsActivity();*/
+
                 }else{
                 Tool.hideDialog();
                 Tool.showInfo(this, "Hata", loginResponse.getResult_message().getMessage());
-              /*      if (!loginResponse.isKVKKConfirmed()){
-                        goKvkkActivity();
-                    }else{
-                        Tool.showInfo(this, getString(R.string.error), getString(R.string.available_token_not_found));
-                    }*/
+
             }
         });
     }

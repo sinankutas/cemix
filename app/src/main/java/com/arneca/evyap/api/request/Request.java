@@ -75,6 +75,10 @@ public class Request {
         Client.Instance().login(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void changePass(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().changePass(body).enqueue(CallBack.callback(context, completed));
+    }
+
     public static void openDocs(@Body RequestBody body, Context context, Completed completed) {
         Client.Instance().openDocs(body).enqueue(CallBack.callback(context, completed));
     }

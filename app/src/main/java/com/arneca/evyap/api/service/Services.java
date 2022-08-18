@@ -86,6 +86,9 @@ public interface Services {
     @POST("Login")
     Call<LoginResponse> login(@Body RequestBody body);
 
+    @POST(" Login/SifreDegistir")
+    Call<LoginResponse> changePass(@Body RequestBody body);
+
     @POST("Satis/AcikBelgeler")
     Call<OpenDocumentListResponse> openDocs(@Body RequestBody body);
 
@@ -109,6 +112,7 @@ public interface Services {
 
     @POST("Satis/YeniBelge")
     Call<NewDocResponse> createNewDoc(@Body RequestBody body);
+
 
 
 }
