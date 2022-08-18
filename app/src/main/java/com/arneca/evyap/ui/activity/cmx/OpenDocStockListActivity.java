@@ -144,7 +144,7 @@ public class OpenDocStockListActivity extends BaseActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
                 .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
-                .addFormDataPart("BelgeTuru", "satis")
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .addFormDataPart("guid", guid)
                 .addFormDataPart("cari_kod", PreferencesHelper.getSelectedCompany().getKod())
                 .build();
@@ -186,7 +186,7 @@ public class OpenDocStockListActivity extends BaseActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
                 .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
-                .addFormDataPart("BelgeTuru", "satis")
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .addFormDataPart("guid", guid)
                 .build();
 
@@ -194,14 +194,15 @@ public class OpenDocStockListActivity extends BaseActivity {
             OpenDocumentStockListResponse openDocumentStockListResponse = ( OpenDocumentStockListResponse) response.body();
             response.headers();
             hideDialog();
-            if (openDocumentStockListResponse!=null){
+            if (openDocumentStockListResponse.getResult()!=null){
                 binding.swipeRefreshLayout.setRefreshing(false);
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
                 adapter = new OpenDocStockListAdapter(this, openDocumentStockListResponse);
                 binding.openDocList.setAdapter(adapter);
 
             }else{
-
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
             }
         });
     }

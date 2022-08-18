@@ -113,11 +113,6 @@ public class LoginActivity extends BaseActivity{
 
     private void loginRequest(){
         Tool.openDialog(this);
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("Kullanici","mad");
-        map.put("Sifre","123*?");
-
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("Kullanici", loginBinding.loginEmailEd.getText().toString())
@@ -128,7 +123,7 @@ public class LoginActivity extends BaseActivity{
             LoginResponse loginResponse = (LoginResponse) response.body();
             response.headers();
 
-            if (loginResponse!=null){
+            if (loginResponse.getResult()!=null){
 
                 Intent intent = new Intent(this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -149,6 +144,8 @@ public class LoginActivity extends BaseActivity{
                     PreferencesHelper.setAppKey(this,response.headers().get("appKey")); // burada appKey set edilecek
                     goSettingsActivity();*/
                 }else{
+                Tool.hideDialog();
+                Tool.showInfo(this, "Hata", loginResponse.getResult_message().getMessage());
               /*      if (!loginResponse.isKVKKConfirmed()){
                         goKvkkActivity();
                     }else{

@@ -66,21 +66,22 @@ public class OpenDocListActivity extends BaseActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
                 .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
-                .addFormDataPart("BelgeTuru", "satis")
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .build();
 
         Request.openDocs(requestBody, this, response -> {
             OpenDocumentListResponse openDocumentListResponse = ( OpenDocumentListResponse) response.body();
             response.headers();
             hideDialog();
-            if (openDocumentListResponse!=null){
+            if (openDocumentListResponse.getResult()!=null){
                 cmxopenDocsActivityBinding.swipeRefreshLayout.setRefreshing(false);
                 cmxopenDocsActivityBinding.openDocList.setLayoutManager(new LinearLayoutManager(this));
                 adapter = new OpenDocListAdapter(this, openDocumentListResponse,viewTitle);
                 cmxopenDocsActivityBinding.openDocList.setAdapter(adapter);
 
             }else{
-
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", openDocumentListResponse.getResult_message().getMessage());
             }
         });
     }

@@ -37,6 +37,7 @@ public class PreferencesHelper extends BaseObservable {
     private static LoginResponse loginResponse;
     private static LoginResponse.ResultBean.CarilerBean selectedCompany;
     private static JSONArray jsonArrayForMatris = new JSONArray();
+    private static String activeDocType ;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -151,4 +152,11 @@ public class PreferencesHelper extends BaseObservable {
         PreferencesHelper.jsonArrayForMatris = jsonArrayForMatris;
     }
 
+    public static String getActiveDocType() {
+        return activeDocType;
+    }
+
+    public static void setActiveDocType(String activeDocType) {
+        PreferencesHelper.activeDocType = activeDocType;
+    }
 }

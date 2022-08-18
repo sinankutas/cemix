@@ -103,14 +103,15 @@ public class AddProductActivity  extends BaseActivity {
             ProductSearchResponse productSearchResponse = ( ProductSearchResponse) response.body();
             response.headers();
             hideDialog();
-            if (productSearchResponse!=null){
+            if (productSearchResponse.getResult()!=null){
                 binding.swipeRefreshLayout.setRefreshing(false);
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
                 adapter = new ProductSearchAdapter(this, productSearchResponse,guid,docId,viewTitle,isStockActive);
                 binding.openDocList.setAdapter(adapter);
 
             }else{
-
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", productSearchResponse.getResult_message().getMessage());
             }
         });
     }

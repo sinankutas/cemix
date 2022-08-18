@@ -10,14 +10,12 @@ import android.view.WindowManager;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.databinding.HomeActivityBinding;
-import com.arneca.evyap.databinding.LoginBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.ui.activity.BaseActivity;
 import com.arneca.evyap.ui.adapter.cmx.MenuGridAdapter;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeActivity extends BaseActivity implements MenuGridAdapter.ItemClickListener {
     private HomeActivityBinding homeActivityBinding;
@@ -42,17 +40,26 @@ public class HomeActivity extends BaseActivity implements MenuGridAdapter.ItemCl
     public void onItemClick(View view, int position) {
 
         if (PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Satis")){
-            // goto siparis 0
-            Intent intent = new Intent(this, OrderActivity.class);
+            // goto satış 0
+            PreferencesHelper.setActiveDocType("satis");
+            Intent intent = new Intent(this, SaleActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             startActivity(intent);
 
         }else if ((PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Siparis"))){
-
+            // goto sipariş 1
+            PreferencesHelper.setActiveDocType("siparis");
+            Intent intent = new Intent(this, OrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            startActivity(intent);
         }else if ((PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Teklif"))){
-
+            // goto teklif 2
+            PreferencesHelper.setActiveDocType("teklif");
+            Intent intent = new Intent(this, OfferActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            startActivity(intent);
         }else if ((PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Sayim"))){
-
+            PreferencesHelper.setActiveDocType("sayim");
         }else if ((PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Stokgor"))){
             Intent intent = new Intent(HomeActivity.this, AddProductActivity.class);
             intent.putExtra("guid","guid");

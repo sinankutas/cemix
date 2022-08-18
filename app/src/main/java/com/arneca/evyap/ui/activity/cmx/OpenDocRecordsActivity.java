@@ -57,14 +57,14 @@ public class OpenDocRecordsActivity extends BaseActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
                 .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
-                .addFormDataPart("BelgeTuru","satis")
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .build();
 
         Request.openDocRecords(requestBody, this, response -> {
             OpenDocRecordsResponse openDocRecordsResponse = ( OpenDocRecordsResponse) response.body();
      //       response.headers();
             hideDialog();
-            if (openDocRecordsResponse!=null){
+            if (openDocRecordsResponse.getResult()!=null){
                 if (openDocRecordsResponse.getResult().getAcikBelgeSayisi()>0){
                     getRecordMessage(openDocRecordsResponse.getResult_message().getMessage(),openDocRecordsResponse.getResult().getAcikBelgeSayisi());
                 }else{
@@ -72,7 +72,8 @@ public class OpenDocRecordsActivity extends BaseActivity {
                     companyBottomFragment.show(getSupportFragmentManager(), "");
                 }
             }else{
-
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", openDocRecordsResponse.getResult_message().getMessage());
             }
         });
     }
@@ -124,7 +125,7 @@ public class OpenDocRecordsActivity extends BaseActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
                 .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
-                .addFormDataPart("BelgeTuru", "satis")
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .addFormDataPart("cari_kod", PreferencesHelper.getSelectedCompany().getKod())
                 .build();
 
@@ -132,7 +133,7 @@ public class OpenDocRecordsActivity extends BaseActivity {
             NewDocResponse newDocResponse = ( NewDocResponse) response.body();
             response.headers();
             hideDialog();
-            if (newDocResponse!=null){
+            if (newDocResponse.getResult()!=null){
                 Intent intent = new Intent(OpenDocRecordsActivity.this, OpenDocStockListActivity.class);
                 intent.putExtra("guid",String.valueOf(newDocResponse.getResult().getGuid()));
                 intent.putExtra("docId",String.valueOf(newDocResponse.getResult().getBelge_id()));
@@ -143,7 +144,8 @@ public class OpenDocRecordsActivity extends BaseActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 startActivity(intent);
             }else{
-
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", newDocResponse.getResult_message().getMessage());
             }
         });
     }

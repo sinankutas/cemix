@@ -59,8 +59,7 @@ public class RBMatrisActivity extends BaseActivity {
 
         if (isStockActive)
             binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
-        else
-            binding.toolbar2.rightContainer.setVisibility(View.VISIBLE);
+
 
         binding.toolbar2.rightContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +151,7 @@ public class RBMatrisActivity extends BaseActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
                 .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
-                .addFormDataPart("BelgeTuru", "satis")
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .addFormDataPart("guid", guid)
                 .addFormDataPart("belge_id", docId)
                 .addFormDataPart("Detay", this.jsonArray.toString())
@@ -186,10 +185,11 @@ public class RBMatrisActivity extends BaseActivity {
             rbMatrisResponse = ( RBMatrisResponse) response.body();
             response.headers();
             hideDialog();
-            if (rbMatrisResponse!=null){
+            if (rbMatrisResponse.getResult()!=null){
                 loadTableData(rbMatrisResponse);
             }else{
-
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", rbMatrisResponse.getResult_message().getMessage());
             }
         });
     }
@@ -214,17 +214,17 @@ public class RBMatrisActivity extends BaseActivity {
 
             }
 
-         /*   if (rbMatrisResponse.getResult().get(1)!=null){
-                binding.txtTab2.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getKod());
-                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getAd());
-                binding.txtPrice.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getFiyat()+" $ ");
+            if (rbMatrisResponse.getResult().get(1)!=null){
+                binding.txtTab2.setText(rbMatrisResponse.getResult().get(1).getKod());
+                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(1).getAd());
+                binding.txtPrice.setText(rbMatrisResponse.getResult().get(1).getFiyat()+" $ ");
             }
 
             if (rbMatrisResponse.getResult().get(2)!=null){
-                binding.txtTab3.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getKod());
-                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getAd());
-                binding.txtPrice.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getFiyat()+" $ ");
-            }*/
+                binding.txtTab3.setText(rbMatrisResponse.getResult().get(2).getKod());
+                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(2).getAd());
+                binding.txtPrice.setText(rbMatrisResponse.getResult().get(2).getFiyat()+" $ ");
+            }
 
         }
 

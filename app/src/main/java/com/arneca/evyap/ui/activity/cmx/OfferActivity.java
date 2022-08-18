@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class OrderActivity extends BaseActivity {
+public class OfferActivity  extends BaseActivity {
     private OrderActivityBinding orderActivityBinding;
     StandartListAdapter adapter;
     @Override
@@ -24,10 +24,10 @@ public class OrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         orderActivityBinding = DataBindingUtil.setContentView(this, R.layout.order_activity);
-        orderActivityBinding.toolbar.txtViewTitle.setText("Sipariş");
+        orderActivityBinding.toolbar.txtViewTitle.setText("Teklif");
         ArrayList<String> menuNames = new ArrayList<>();
-        menuNames.add("Siparişe Devam");
-        menuNames.add("Yeni Sipariş");
+        menuNames.add("Teklife Devam");
+        menuNames.add("Yeni Teklif");
 
         orderActivityBinding.toolbar.backButton.setOnClickListener(new View.OnClickListener() {
             @Override

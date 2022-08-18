@@ -249,6 +249,30 @@ public class LoginResponse {
         private String code;
         private String message;
         private String type;
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
     }
 
     public ResultBean getResult() {
@@ -257,5 +281,13 @@ public class LoginResponse {
 
     public void setResult(ResultBean result) {
         this.result = result;
+    }
+
+    public ResultMessageBean getResult_message() {
+        return result_message;
+    }
+
+    public void setResult_message(ResultMessageBean result_message) {
+        this.result_message = result_message;
     }
 }
