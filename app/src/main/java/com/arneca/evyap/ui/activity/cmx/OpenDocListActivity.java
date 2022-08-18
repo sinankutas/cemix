@@ -33,7 +33,7 @@ public class OpenDocListActivity extends BaseActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         cmxopenDocsActivityBinding = DataBindingUtil.setContentView(this, R.layout.cmxopen_docs_activity);
 
-
+        PreferencesHelper.setSelectedCompany(null);
         Intent myIntent = getIntent(); // gets the previously created intent
         viewTitle = myIntent.getStringExtra("viewTitle");
         cmxopenDocsActivityBinding.toolbar.txtViewTitle.setText(viewTitle);

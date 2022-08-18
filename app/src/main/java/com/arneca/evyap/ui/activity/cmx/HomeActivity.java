@@ -39,17 +39,7 @@ public class HomeActivity extends BaseActivity implements MenuGridAdapter.ItemCl
 
     @Override
     public void onItemClick(View view, int position) {
-
-        /*
-        * [17:59, 18.08.2022] Mahmut Dokumacı: PERAKENDE SATIŞ MÜŞTERİLERİ
-        default code120.34.001
-        * */
-        for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
-            if (carilerBean.getKod().equals("120.34.001")){
-                PreferencesHelper.setSelectedCompany(carilerBean);
-            }
-        }
-
+        PreferencesHelper.setSelectedCompany(null);
         if (PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Satis")){
             // goto satış 0
             PreferencesHelper.setActiveDocType("satis");

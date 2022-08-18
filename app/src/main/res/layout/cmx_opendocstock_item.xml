@@ -47,7 +47,7 @@
                         android:layout_marginLeft="2dp"
 
                         android:imeOptions="actionDone"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textColor="@color/grayTextDark"
                         android:text="5">
                     </TextView>
@@ -55,7 +55,7 @@
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
                 >
@@ -82,7 +82,7 @@
                     android:layout_marginLeft="2dp"
                     android:maxLines="2"
                     android:imeOptions="actionDone"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/grayTextDark"
                     android:text="dsada dasdsda dasddsad asdsadsada dasdsda dasddsad asdsad">
                 </TextView>
@@ -115,7 +115,7 @@
                     android:layout_marginLeft="2dp"
 
                     android:imeOptions="actionDone"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/grayTextDark"
                     android:text="15">
                 </TextView>
@@ -149,7 +149,7 @@
                     android:layout_marginLeft="2dp"
 
                     android:imeOptions="actionDone"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/grayTextDark"
                     android:text="15">
                 </TextView>

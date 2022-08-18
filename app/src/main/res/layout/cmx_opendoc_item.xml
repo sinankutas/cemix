@@ -148,6 +148,7 @@
                 android:orientation="vertical"
                 android:layout_width="45dp"
                 android:layout_marginLeft="5dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -194,7 +195,7 @@
                   android:textSize="14sp"
                   android:textStyle="bold"
                   android:textColor="@color/grayTextDark"
-                  android:text="Stok"></TextView>
+                  android:text="Miktar"></TextView>
               <TextView
                   android:id="@+id/txtStock"
                   android:layout_width="wrap_content"

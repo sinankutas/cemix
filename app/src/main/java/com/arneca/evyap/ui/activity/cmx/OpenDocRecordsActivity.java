@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.NewDocResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocRecordsResponse;
@@ -48,6 +49,17 @@ public class OpenDocRecordsActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+
+             /*
+        * [17:59, 18.08.2022] Mahmut Dokumacı: PERAKENDE SATIŞ MÜŞTERİLERİ
+        default code120.34.001
+        * */
+        for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
+            if (carilerBean.getKod().equals("120.34.001")){
+                PreferencesHelper.setSelectedCompany(carilerBean);
+            }
+        }
+
         loadData();
     }
 
