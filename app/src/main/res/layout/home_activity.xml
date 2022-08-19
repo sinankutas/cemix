@@ -26,10 +26,15 @@
             android:orientation="vertical"
             android:layout_below="@id/toolbar">
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp">
+            <LinearLayout
                 android:id="@+id/sub_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="6dp"
+
                 android:orientation="vertical">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/menuGrid"
@@ -39,7 +44,7 @@
 
                     />
             </LinearLayout>
-
+            </LinearLayout>
         </LinearLayout>
 
     </com.arneca.evyap.helper.RelativeLayoutWithBackground>

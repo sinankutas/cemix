@@ -278,7 +278,7 @@ public class BaseActivity extends AppCompatActivity {
         View currentFocusedView = activity.getCurrentFocus();
         if (currentFocusedView != null) {
             assert inputManager != null;
-            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.SHOW_FORCED);
         }
     }
 

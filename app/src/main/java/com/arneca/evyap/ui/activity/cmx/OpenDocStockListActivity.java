@@ -107,9 +107,9 @@ public class OpenDocStockListActivity extends BaseActivity {
             public void onClick(View view) {
                 if (PreferencesHelper.getSelectedCompany() != null){
                     Tool.showInfo2action(OpenDocStockListActivity.this,"Uyarı",
-                            "Açık belgeler kapanacak",
+                            "Belge kapansın mı?",
                             (dialog, which) ->  completedDoc(),
-                            (dialog, which) -> dismissToolDialog(),"Tamam","İptal");
+                            (dialog, which) -> dismissToolDialog(),"Evet","Hayır");
                 }else{
                     Tool.showInfo(OpenDocStockListActivity.this,"Uyarı",
                             "Cari Seçmelisiniz.",

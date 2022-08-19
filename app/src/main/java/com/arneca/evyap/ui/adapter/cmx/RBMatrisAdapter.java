@@ -4,6 +4,7 @@ package com.arneca.evyap.ui.adapter.cmx;/*
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.arneca.evyap.R;
 import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
 import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
 import com.arneca.evyap.helper.PreferencesHelper;
+import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
 import com.arneca.evyap.ui.activity.cmx.RBMatrisActivity;
 import com.google.gson.JsonObject;
 
@@ -62,12 +65,43 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         holder.txtDP2.setText(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD14()));
         holder.txtDP3.setText(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD89()));
         holder.edtAmount.setHint(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getStock()));
+        String color = "";
+        if (String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getRenk()).length()==0){
+            color = "#FFFFFF";
+        }else{
+            color = "#"+String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getRenk()).replace(" ","");
+        }
 
+        int decodedColor = Color.parseColor(color);
+        holder.img.setBackgroundColor(decodedColor);
         if (isStockActive){
             holder.edtAmount.setVisibility(View.INVISIBLE);
             holder.txtamountTitle.setVisibility(View.INVISIBLE);
         }
 
+        holder.edtAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    ((RBMatrisActivity)context).binding.scroll.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            View lastChild =   ((RBMatrisActivity)context).binding.scroll.getChildAt(  ((RBMatrisActivity)context).binding.scroll.getChildCount() - 1);
+                            int bottom = lastChild.getBottom() +   ((RBMatrisActivity)context).binding.scroll.getPaddingBottom();
+                            int sy =   ((RBMatrisActivity)context).binding.scroll.getScrollY();
+                            int sh =   ((RBMatrisActivity)context).binding.scroll.getHeight();
+                            int delta = bottom - (sy + sh);
+                            ((RBMatrisActivity)context).binding.scroll.smoothScrollBy(12000, 12000);
+                        }
+                    }, 200);
+                }
+            }
+        });
+
+
+
+
+        ((RBMatrisActivity)context).showSoftKeyboard(holder.edtAmount);
         JSONObject obj = new JSONObject();
         holder.edtAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -145,6 +179,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtColor,txtDP1,txtDP2,txtDP3,txtColorTitle,txtamountTitle,txtDP3Title,txtDP2Title,txtDP1Title,txtKNumberIdTitle;
+        TextView img ;
         EditText edtAmount;
         LinearLayout lnrLyt;
 
@@ -162,7 +197,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             txtDP2Title = itemView.findViewById(R.id.txtDP2Title);
             txtDP1Title = itemView.findViewById(R.id.txtDP1Title);
             txtKNumberIdTitle = itemView.findViewById(R.id.txtKNumberIdTitle);
-
+            img = itemView.findViewById(R.id.imgColor);
             lnrLyt = itemView.findViewById(R.id.lnrLyt);
             itemView.setOnClickListener(this);
         }

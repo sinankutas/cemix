@@ -16,8 +16,8 @@
             android:src="@drawable/test"
 
             android:layout_marginTop="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             ></ImageView>
         <TextView
             android:id="@+id/item_title"
@@ -27,7 +27,7 @@
             android:imeOptions="actionDone"
             android:textStyle="bold"
             android:textColor="@color/grayTextDark"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="Menu Title" />
     </LinearLayout>
 

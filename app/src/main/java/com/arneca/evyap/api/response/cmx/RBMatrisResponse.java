@@ -88,6 +88,7 @@ public class RBMatrisResponse {
             private int d14;
             private int d89;
             private int stock;
+            private String renk;
 
             public String getId() {
                 return id;
@@ -143,6 +144,14 @@ public class RBMatrisResponse {
 
             public void setStock(int stock) {
                 this.stock = stock;
+            }
+
+            public String getRenk() {
+                return renk;
+            }
+
+            public void setRenk(String renk) {
+                this.renk = renk;
             }
         }
 

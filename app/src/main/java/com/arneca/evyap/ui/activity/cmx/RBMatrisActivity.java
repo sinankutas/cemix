@@ -2,11 +2,13 @@ package com.arneca.evyap.ui.activity.cmx;/*
  * Created by Sinan KUTAS on 8/16/22.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
@@ -32,7 +34,7 @@ import okhttp3.RequestBody;
 public class RBMatrisActivity extends BaseActivity {
 
     private int currentSelectedIndex = 0;
-    private RbmatrisActivityBinding binding;
+    public RbmatrisActivityBinding binding;
     private RBMatrisAdapter adapter;
     private String bedenId = "";
     private String guid = "";
@@ -56,6 +58,8 @@ public class RBMatrisActivity extends BaseActivity {
         binding.toolbar.txtViewTitle.setText(viewTitle);
         binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
         loadData();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         if (isStockActive)
             binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
@@ -134,6 +138,15 @@ public class RBMatrisActivity extends BaseActivity {
                 loadTableData(rbMatrisResponse);
             }
         });
+    }
+
+
+    public void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 
     public void setJsonArray(JSONArray jsonArray){

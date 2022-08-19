@@ -4,10 +4,12 @@ package com.arneca.evyap.ui.activity.cmx;/*
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ public class AddProductActivity  extends BaseActivity {
     private boolean isStockActive;
 
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -50,6 +54,26 @@ public class AddProductActivity  extends BaseActivity {
         viewTitle = myIntent.getStringExtra("viewTitle");
         isStockActive = myIntent.getBooleanExtra("isStockActive",false);
         binding.toolbar.txtViewTitle.setText(viewTitle);
+      //  showSoftKeyboard( binding.edtSearch);
+        binding.edtSearch.setSelected(true);
+        binding.edtSearch.setFocusable(true);
+
+        binding.edtSearch.requestFocus();
+    //    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        binding.edtSearch.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                  //  Toast.makeText(AddProductActivity.this, binding.edtSearch.getText(), Toast.LENGTH_SHORT).show();
+                    searchData();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         binding.edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -61,6 +85,7 @@ public class AddProductActivity  extends BaseActivity {
                 return false;
             }
         });
+
 
         binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +108,13 @@ public class AddProductActivity  extends BaseActivity {
         });
     }
 
+    public void showSoftKeyboard(View view) {
+        if(view.requestFocus()){
+            InputMethodManager imm =(InputMethodManager)
+                    getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view,InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
     @Override
     protected void onResume() {
         super.onResume();

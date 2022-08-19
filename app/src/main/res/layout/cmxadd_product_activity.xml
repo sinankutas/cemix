@@ -32,6 +32,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:weightSum="2">
                 <EditText
                     android:id="@+id/edtSearch"
@@ -42,7 +44,9 @@
                     android:imeOptions="actionDone"
                     android:singleLine="true"
                     android:drawableLeft="@drawable/searchgray"
-                    android:hint="  Ara..."></EditText>
+                    android:hint="  Ara...">
+                    <requestFocus />
+                </EditText>
                 <Button
                     android:id="@+id/btnSearch"
                     android:layout_width="wrap_content"
