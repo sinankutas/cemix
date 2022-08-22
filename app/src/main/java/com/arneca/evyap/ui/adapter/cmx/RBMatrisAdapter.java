@@ -83,7 +83,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
-                    ((RBMatrisActivity)context).binding.scroll.postDelayed(new Runnable() {
+               /*((RBMatrisActivity)context).binding.scroll.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             View lastChild =   ((RBMatrisActivity)context).binding.scroll.getChildAt(  ((RBMatrisActivity)context).binding.scroll.getChildCount() - 1);
@@ -93,7 +93,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                             int delta = bottom - (sy + sh);
                             ((RBMatrisActivity)context).binding.scroll.smoothScrollBy(12000, 12000);
                         }
-                    }, 200);
+                    }, 200);*/
                 }
             }
         });

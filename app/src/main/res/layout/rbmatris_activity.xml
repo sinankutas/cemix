@@ -129,11 +129,7 @@
                 </LinearLayout>
 
 
-            <ScrollView
-                android:id="@+id/scroll"
-                android:fillViewport="true"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+
             <LinearLayout
                 android:id="@+id/sub_item"
                 android:layout_width="match_parent"
@@ -141,7 +137,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="160dp"
+                android:layout_marginBottom="60dp"
                 android:orientation="vertical">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/openDocList"
@@ -151,7 +147,6 @@
 
                     />
             </LinearLayout>
-            </ScrollView>
         </LinearLayout>
 
     </com.arneca.evyap.helper.RelativeLayoutWithBackground>

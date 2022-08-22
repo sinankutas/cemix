@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -18,12 +19,15 @@ import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
 import com.arneca.evyap.api.response.cmx.STHEkleRespone;
 import com.arneca.evyap.databinding.CmxOpendocStockActivityBinding;
 import com.arneca.evyap.databinding.RbmatrisActivityBinding;
+import com.arneca.evyap.helper.AndroidBug5497Workaround2;
+import com.arneca.evyap.helper.CustomEditTextBottomPopup;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.BaseActivity;
 import com.arneca.evyap.ui.adapter.cmx.ProductSearchAdapter;
 import com.arneca.evyap.ui.adapter.cmx.RBMatrisAdapter;
 import com.google.gson.JsonArray;
+import com.lxj.xpopup.XPopup;
 
 import org.json.JSONArray;
 
@@ -42,6 +46,11 @@ public class RBMatrisActivity extends BaseActivity {
     private String docId = "";
     private String viewTitle = "";
     private boolean isStockActive;
+    private final boolean USE_IMMERSIVE_MODE = true;
+    public final boolean DISABLE_IMMERSIVE_MODE_ON_KEYBOARD_OPEN = false; // might be helpful to solve keyboard jumping issue when pop up
+
+    public AndroidBug5497Workaround2 helper;
+
 
     private JSONArray jsonArray = new JSONArray();
     RBMatrisResponse rbMatrisResponse ;
@@ -50,6 +59,7 @@ public class RBMatrisActivity extends BaseActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.rbmatris_activity);
 
+         loadKeyboard();
 
         Intent myIntent = getIntent(); // gets the previously created intent
         bedenId = myIntent.getStringExtra("bedenId");
@@ -61,7 +71,7 @@ public class RBMatrisActivity extends BaseActivity {
         binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
         loadData();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+      //  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         if (isStockActive)
             binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
@@ -140,6 +150,78 @@ public class RBMatrisActivity extends BaseActivity {
                 loadTableData(rbMatrisResponse);
             }
         });
+    }
+
+    private void loadKeyboard() {
+        AndroidBug5497Workaround2.SoftKeyBoardStatusListener listener = new AndroidBug5497Workaround2.SoftKeyBoardStatusListener() {
+            @Override
+            public void onKeyBoardShow(View rootView, int totalScreenHeight) {
+            }
+
+            @Override
+            public void onKeyBoardHide(View rootView, int totalScreenHeight) {
+
+                if (USE_IMMERSIVE_MODE){
+                    returnToImmersiveMode();
+                }
+            }
+        };
+        helper = AndroidBug5497Workaround2.assistActivity(this, listener);
+
+
+        View v = findViewById(R.id.toolbar2);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new XPopup.Builder(RBMatrisActivity.this)
+                        .autoOpenSoftInput(true)
+                        .asCustom(new CustomEditTextBottomPopup(RBMatrisActivity.this))
+                        .show();
+            }
+        });
+    }
+
+    private void returnToImmersiveMode(){
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                immersiveMode();
+            }
+        }, 300);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (USE_IMMERSIVE_MODE){
+            immersiveMode();
+        }
+    }
+
+    public void disableImmersiveMode() {
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
+
+    public void immersiveMode() {
+        final View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
 
