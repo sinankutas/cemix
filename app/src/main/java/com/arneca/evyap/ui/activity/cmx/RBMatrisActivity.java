@@ -4,6 +4,7 @@ package com.arneca.evyap.ui.activity.cmx;/*
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -48,6 +49,7 @@ public class RBMatrisActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.rbmatris_activity);
+
 
         Intent myIntent = getIntent(); // gets the previously created intent
         bedenId = myIntent.getStringExtra("bedenId");
@@ -217,7 +219,7 @@ public class RBMatrisActivity extends BaseActivity {
 
     private void setViews(RBMatrisResponse rbMatrisResponse) {
         if (rbMatrisResponse.getResult()!=null){
-            if (rbMatrisResponse.getResult().get(0)!=null){
+            if (currentSelectedIndex == 0 && rbMatrisResponse.getResult().get(0)!=null){
 
                 binding.txtTab1.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getKod());
                 binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getAd());
@@ -227,13 +229,13 @@ public class RBMatrisActivity extends BaseActivity {
 
             }
 
-            if (rbMatrisResponse.getResult().get(1)!=null){
+            if (currentSelectedIndex == 1 && rbMatrisResponse.getResult().get(1)!=null){
                 binding.txtTab2.setText(rbMatrisResponse.getResult().get(1).getKod());
                 binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(1).getAd());
                 binding.txtPrice.setText(rbMatrisResponse.getResult().get(1).getFiyat()+" $ ");
             }
 
-            if (rbMatrisResponse.getResult().get(2)!=null){
+            if (currentSelectedIndex == 2 && rbMatrisResponse.getResult().get(2)!=null){
                 binding.txtTab3.setText(rbMatrisResponse.getResult().get(2).getKod());
                 binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(2).getAd());
                 binding.txtPrice.setText(rbMatrisResponse.getResult().get(2).getFiyat()+" $ ");

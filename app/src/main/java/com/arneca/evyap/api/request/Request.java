@@ -112,6 +112,14 @@ public class Request {
         Client.Instance().createNewDoc(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void deleteDoc(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().deleteDoc(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void docUpdate(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().docUpdate(body).enqueue(CallBack.callback(context, completed));
+    }
+
 
 
 

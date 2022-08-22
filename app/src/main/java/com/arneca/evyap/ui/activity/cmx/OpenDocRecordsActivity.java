@@ -95,27 +95,6 @@ public class OpenDocRecordsActivity extends BaseActivity {
                 acikBelgeSayisi+" "+message,
                 (dialog, which) -> gotoDocList(),
                 (dialog, which) -> openCariBottom(),"Açık Belge Listesi","Yeni Belge Oluştur");
-        /* new MaterialAlertDialogBuilder(OpenDocRecordsActivity.this)
-                .setTitle("Bilgi")
-                .setMessage(acikBelgeSayisi+" "+message)
-                .setPositiveButton("Açık Belge Listesi", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // goto satışa devam ilk ekranı
-                        Intent intent = new Intent(OpenDocRecordsActivity.this, OpenDocListActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                        intent.putExtra("viewTitle","Yeni Satış");
-                        OpenDocRecordsActivity.this.startActivity(intent);
-                    }
-                "})
-                .setNegativeButton("Yeni Belge Oluştur", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        companyBottomFragment = new CompanyBottomFragment().newInstance(true);
-                        companyBottomFragment.show(getSupportFragmentManager(), "");
-                    }
-                })
-                .show();*/
     }
 
 

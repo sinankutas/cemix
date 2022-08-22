@@ -167,7 +167,7 @@ public class OpenDocStockListActivity extends BaseActivity {
     }
 
 
-    private void loadData() {
+    public void loadData() {
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -184,7 +184,7 @@ public class OpenDocStockListActivity extends BaseActivity {
             if (openDocumentStockListResponse.getResult()!=null){
                 binding.swipeRefreshLayout.setRefreshing(false);
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new OpenDocStockListAdapter(this, openDocumentStockListResponse);
+                adapter = new OpenDocStockListAdapter(this, openDocumentStockListResponse,guid);
                 binding.openDocList.setAdapter(adapter);
 
             }else{

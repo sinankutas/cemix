@@ -12,6 +12,7 @@ import com.arneca.evyap.api.response.GetLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
 import com.arneca.evyap.api.response.GetSendSecurtyCode;
+import com.arneca.evyap.api.response.cmx.DocUpdateResponse;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.NewDocResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
@@ -112,6 +113,12 @@ public interface Services {
 
     @POST("Satis/YeniBelge")
     Call<NewDocResponse> createNewDoc(@Body RequestBody body);
+
+    @POST("Satis/BelgeDetaySil")
+    Call<DocUpdateResponse> deleteDoc(@Body RequestBody body);
+
+    @POST("Satis/BelgeDetayMiktarGuncelle")
+    Call<DocUpdateResponse> docUpdate(@Body RequestBody body);
 
 
 
