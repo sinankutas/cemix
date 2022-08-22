@@ -22,6 +22,7 @@ import com.arneca.evyap.api.response.cmx.OpenDocumentStockListResponse;
 import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
 import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
 import com.arneca.evyap.api.response.cmx.STHEkleRespone;
+import com.arneca.evyap.api.response.cmx.TanimlarResponse;
 import com.arneca.evyap.ui.activity.ChangePassword;
 
 import java.util.HashMap;
@@ -119,6 +120,10 @@ public interface Services {
 
     @POST("Satis/BelgeDetayMiktarGuncelle")
     Call<DocUpdateResponse> docUpdate(@Body RequestBody body);
+
+    @POST("Sayim/TanimlariCek")
+    Call<TanimlarResponse> getTanim(@Body RequestBody body);
+
 
 
 

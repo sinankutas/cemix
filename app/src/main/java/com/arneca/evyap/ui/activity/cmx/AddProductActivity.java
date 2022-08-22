@@ -140,6 +140,7 @@ public class AddProductActivity  extends BaseActivity {
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
                 adapter = new ProductSearchAdapter(this, productSearchResponse,guid,docId,viewTitle,isStockActive);
                 binding.openDocList.setAdapter(adapter);
+                binding.edtSearch.setText("");
 
             }else{
                 Tool.hideDialog();

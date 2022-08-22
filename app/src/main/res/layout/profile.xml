@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.arneca.evyap.helper.RelativeLayoutWithBackground
+        android:id="@+id/loginRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark2">
+
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/tool_top"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_below="@id/toolbar"
+            >
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtProductTitle"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayTextDark"
+                    android:layout_gravity="center"
+                    android:text="Kullanıcı"></TextView>
+
+                <TextView
+                    android:id="@+id/txtUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:text="85 $"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/textextGray"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayTextDark"
+                    android:layout_gravity="center"
+                    android:text="Telefon"></TextView>
+
+                <TextView
+                    android:id="@+id/txtGSM"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:text="05387000800"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/textextGray"></View>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayTextDark"
+                    android:layout_gravity="center"
+                    android:text="E-Posta"></TextView>
+
+                <TextView
+                    android:id="@+id/txtMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:text="skutas@gmail.com"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/textextGray"></View>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayTextDark"
+                    android:layout_gravity="center"
+                    android:text="Şube Id"></TextView>
+
+                <TextView
+                    android:id="@+id/txtSubeId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:text="14"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/textextGray"></View>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayTextDark"
+                    android:layout_gravity="center"
+                    android:text="Şube Kod"></TextView>
+
+                <TextView
+                    android:id="@+id/txtSubeKod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:text="146"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/textextGray"></View>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayTextDark"
+                    android:layout_gravity="center"
+                    android:text="E-Posta"></TextView>
+
+                <TextView
+                    android:id="@+id/txtSubeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:text="Zeytinburnu"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/textextGray"></View>
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.arneca.evyap.helper.RelativeLayoutWithBackground>
+
+</layout>

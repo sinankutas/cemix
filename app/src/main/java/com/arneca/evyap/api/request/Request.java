@@ -120,6 +120,11 @@ public class Request {
         Client.Instance().docUpdate(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void getTanim(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().getTanim(body).enqueue(CallBack.callback(context, completed));
+    }
+
+
 
 
 

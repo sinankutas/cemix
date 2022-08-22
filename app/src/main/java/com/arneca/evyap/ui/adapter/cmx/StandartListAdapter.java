@@ -11,13 +11,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.arneca.evyap.R;
+import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
+import com.arneca.evyap.api.response.cmx.TanimlarResponse;
 import com.arneca.evyap.helper.PreferencesHelper;
+import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
+import com.arneca.evyap.ui.activity.cmx.TanimlarActivity;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapter.ViewHolder>{
     private ArrayList<String> listdata;
@@ -41,6 +49,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final String myListData = listdata.get(position);
+        final boolean[] isSayimActive = {false};
         holder.textView.setText(listdata.get(position));
         holder.lytLinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,17 +66,53 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                     viewTitle1 = "Teklife Devam";
                     viewTitle2 = "Yeni Teklife";
                 }
-                if (position==0){
-                    Intent intent = new Intent(context, OpenDocListActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                    intent.putExtra("viewTitle",viewTitle1);
-                    context.startActivity(intent);
-                }else if (position==1){
-                    Intent intent = new Intent(context, OpenDocRecordsActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                    intent.putExtra("viewTitle",viewTitle2);
-                    context.startActivity(intent);
+                else if(PreferencesHelper.getActiveDocType().equals("sayim")){
+                    isSayimActive[0] = true;
+                    viewTitle1 = "Sayımları Çek";
+                    viewTitle2 = "Yeni Sayım";
                 }
+
+                if (position==0){
+                    if (isSayimActive[0]== true){
+                        loadTanim();
+                    }else{
+                        Intent intent = new Intent(context, OpenDocListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                        intent.putExtra("viewTitle",viewTitle1);
+                        context.startActivity(intent);
+                    }
+                }else if (position==1){
+                    if (isSayimActive[0]== true){
+
+                    }else{
+                        Intent intent = new Intent(context, OpenDocRecordsActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                        intent.putExtra("viewTitle",viewTitle2);
+                        context.startActivity(intent);
+                    }
+                }
+            }
+        });
+    }
+
+    private void loadTanim() {
+
+        Tool.openDialog((TanimlarActivity)context);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .build();
+
+        Request.getTanim(requestBody, context, response -> {
+            TanimlarResponse tanimlarResponse = ( TanimlarResponse) response.body();
+            response.headers();
+            ( (TanimlarActivity)context).hideDialog();
+            if (tanimlarResponse.getResult()!=null){
+                Tool.showInfo(context, "Bilgi", tanimlarResponse.getResult_message().getMessage());
+            }else{
+                Tool.hideDialog();
+                Tool.showInfo(context, "Bilgi", tanimlarResponse.getResult_message().getMessage());
             }
         });
     }

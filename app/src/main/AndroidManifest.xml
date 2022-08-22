@@ -78,6 +78,19 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.cmx.TanimlarActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <activity
+            android:name=".ui.activity.cmx.ProfileActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name=".ui.activity.cmx.OfferActivity"
             android:theme="@style/AppTheme.TransparentStatus"
             android:screenOrientation="portrait">
