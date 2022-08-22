@@ -4,6 +4,7 @@ package com.arneca.evyap.ui.adapter.cmx;/*
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResponse;
+import com.arneca.evyap.helper.Const;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
@@ -110,11 +112,15 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
             ( (TanimlarActivity)context).hideDialog();
             if (tanimlarResponse.getResult()!=null){
                 Tool.showInfo(context, "Bilgi", tanimlarResponse.getResult_message().getMessage());
+                writeToDb(tanimlarResponse);
             }else{
                 Tool.hideDialog();
                 Tool.showInfo(context, "Bilgi", tanimlarResponse.getResult_message().getMessage());
             }
         });
+    }
+
+    private void writeToDb(TanimlarResponse tanimlarResponse) {
     }
 
 
