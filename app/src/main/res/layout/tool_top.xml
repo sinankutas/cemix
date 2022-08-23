@@ -41,6 +41,7 @@
                     android:layout_gravity="center"
                     android:textSize="18dp"
                     android:textStyle="bold"
+                    android:text="sasaassa"
                     tools:ignore="MissingConstraints"
                     android:textColor="@color/white"></TextView>
                 </LinearLayout>

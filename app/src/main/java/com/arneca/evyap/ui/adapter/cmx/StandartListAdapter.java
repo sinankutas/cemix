@@ -4,23 +4,31 @@ package com.arneca.evyap.ui.adapter.cmx;/*
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResponse;
 import com.arneca.evyap.helper.Const;
+import com.arneca.evyap.helper.DBHelper;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
+import com.arneca.evyap.ui.activity.cmx.NewSayimActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
+import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
 import com.arneca.evyap.ui.activity.cmx.TanimlarActivity;
+import com.arneca.evyap.ui.fragment.CompanyBottomFragment;
+import com.arneca.evyap.ui.fragment.TanimBottomSheetFragment;
 
 import java.util.ArrayList;
 
@@ -33,8 +41,9 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
     private ArrayList<String> listdata;
     private Context context;
     private String activeDocType;
-
+    private DBHelper dbHelper ;
     // RecyclerView recyclerView;
+    private TanimBottomSheetFragment tanimBottomSheetFragment;
     public StandartListAdapter(Context context, ArrayList<String> listdata) {
         this.listdata = listdata;
         this.context = context;
@@ -45,6 +54,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem= layoutInflater.inflate(R.layout.cmx_standart_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
+        dbHelper =  new DBHelper(context);
         return viewHolder;
     }
 
@@ -76,7 +86,9 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
 
                 if (position==0){
                     if (isSayimActive[0]== true){
-                        loadTanim();
+                        Tool.showInfo(context,"Uyarı",
+                                "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
+                                (dialog, which) -> loadTanim(),"Tamam");
                     }else{
                         Intent intent = new Intent(context, OpenDocListActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -85,7 +97,17 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                     }
                 }else if (position==1){
                     if (isSayimActive[0]== true){
+                        // get New Sayim
 
+                        if (dbHelper.numberOfRows()>0) {
+                            Intent intent = new Intent(context, NewSayimActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                            intent.putExtra("viewTitle", viewTitle2);
+                            context.startActivity(intent);
+                        }  else{
+                            Tool.showInfo(context,"Tanım Bulunamadı. Tanımlar Yüklensin mi?",
+                                "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
+                                (dialog, which) -> loadTanim(),"Tamam");}
                     }else{
                         Intent intent = new Intent(context, OpenDocRecordsActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -99,6 +121,15 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
 
     private void loadTanim() {
 
+        // silme işlemi için yapıldı silsede silmesede loadtanim
+        if (dbHelper.deleteAll()==1){
+            continueLoadTanim();
+        }else{
+            continueLoadTanim();
+        }
+    }
+
+    private void continueLoadTanim(){
         Tool.openDialog((TanimlarActivity)context);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -109,9 +140,11 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
         Request.getTanim(requestBody, context, response -> {
             TanimlarResponse tanimlarResponse = ( TanimlarResponse) response.body();
             response.headers();
-            ( (TanimlarActivity)context).hideDialog();
+            //  ( (TanimlarActivity)context).hideDialog();
             if (tanimlarResponse.getResult()!=null){
-                Tool.showInfo(context, "Bilgi", tanimlarResponse.getResult_message().getMessage());
+                Tool.showInfo(context,"Bilgi",
+                        tanimlarResponse.getResult_message().getMessage(),
+                        (dialog, which) ->  Tool.hideDialog(),"Tamam");
                 writeToDb(tanimlarResponse);
             }else{
                 Tool.hideDialog();
@@ -121,6 +154,32 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
     }
 
     private void writeToDb(TanimlarResponse tanimlarResponse) {
+    //    Tool.openDialog((TanimlarActivity)context);
+
+        Toast.makeText(context,"Veriler Kaydediliyor",Toast.LENGTH_SHORT).show();
+        int i = 0;
+        for (TanimlarResponse.ResultBean trBean : tanimlarResponse.getResult()){
+          //  id text, kod text, ad text, anagrup_kod text, beden text, beden_kodu text, renk text, renk_id text, pkadet text, dvz text, satis_fiyat text, d1 text, d14 text, d89 text, src text
+          dbHelper.insertRecord(""+trBean.getD1(),trBean.getKod(),trBean.getAd(),trBean.getAnagrup_kod(),trBean.getBeden(),trBean.getBeden_kodu(),trBean.getRenk(),""+trBean.getRenk_id()
+                  ,trBean.getPkadet(),trBean.getDvz(),trBean.getSatis_fiyat(),trBean.getD1(),trBean.getD14(),trBean.getD89(),trBean.getSrc());
+       /*  i = i+1;
+          if (i==50)
+              break;*/
+        }
+     //   Tool.hideDialog();
+
+        Log.d("*** src ",""+ dbHelper.numberOfRows());
+       ;
+     /*   ArrayList<TanimlarResponse.ResultBean> records = new ArrayList<>();
+        Cursor arr = dbHelper.getAllRecordsCursor();
+        if (arr != null) {
+            if (arr.moveToFirst()) {
+                do {
+                   Log.d("*** src ",""+arr.getString(arr.getColumnIndex("src")));
+                  //  records.add(r);
+                } while (arr.moveToNext());
+            }
+        }*/
     }
 
 

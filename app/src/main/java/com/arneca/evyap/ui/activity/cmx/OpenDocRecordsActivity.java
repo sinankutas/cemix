@@ -80,8 +80,10 @@ public class OpenDocRecordsActivity extends BaseActivity {
                 if (openDocRecordsResponse.getResult().getAcikBelgeSayisi()>0){
                     getRecordMessage(openDocRecordsResponse.getResult_message().getMessage(),openDocRecordsResponse.getResult().getAcikBelgeSayisi());
                 }else{
-                    companyBottomFragment = new CompanyBottomFragment().newInstance(true);
-                    companyBottomFragment.show(getSupportFragmentManager(), "");
+
+                    gotoOpenDocStockList();
+                 //   companyBottomFragment = new CompanyBottomFragment().newInstance(true);
+                  //  companyBottomFragment.show(getSupportFragmentManager(), "");
                 }
             }else{
                 Tool.hideDialog();

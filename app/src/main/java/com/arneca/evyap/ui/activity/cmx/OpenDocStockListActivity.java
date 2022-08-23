@@ -188,6 +188,7 @@ public class OpenDocStockListActivity extends BaseActivity {
                 binding.openDocList.setAdapter(adapter);
 
             }else{
+                binding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
                // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
             }

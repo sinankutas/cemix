@@ -1,28 +1,24 @@
 package com.arneca.evyap.ui.adapter.cmx;/*
- * Created by Sinan KUTAS on 8/16/22.
+ * Created by Sinan KUTAS on 8/23/22.
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.arneca.evyap.R;
-import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
 import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
+import com.arneca.evyap.api.response.cmx.TanimlarResponse;
+import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
 import com.arneca.evyap.helper.PreferencesHelper;
-import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
-import com.arneca.evyap.ui.activity.cmx.RBMatrisActivity;
-import com.google.gson.JsonObject;
+import com.arneca.evyap.ui.activity.cmx.LocalRBMatrisActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,9 +27,9 @@ import org.json.JSONObject;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewHolder> {
+public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdapter.ViewHolder> {
 
-    private RBMatrisResponse mData;
+    private TanimlarResultModel mData;
     private LayoutInflater mInflater;
     private OpenDocListAdapter.ItemClickListener mClickListener;
     private Context context;
@@ -41,7 +37,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
     JSONArray jsonArray = PreferencesHelper.getJsonArrayForMatris();
     private boolean isStockActive;
     // data is passed into the constructor
-    public RBMatrisAdapter(Context context, RBMatrisResponse data, int currentIndex, boolean isStockActive) {
+    public LocalRBMatrisAdapter(Context context, TanimlarResultModel data, int currentIndex, boolean isStockActive) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.mData = data;
@@ -52,25 +48,26 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
     // inflates the cell layout from xml when needed
     @Override
     @NonNull
-    public RBMatrisAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LocalRBMatrisAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.rbmatris_item, parent, false);
-        return new RBMatrisAdapter.ViewHolder(view);
+        return new LocalRBMatrisAdapter.ViewHolder(view);
     }
 
     // binds the data to the TextView in each cell
     @Override
-    public void onBindViewHolder(@NonNull RBMatrisAdapter.ViewHolder holder, int position) {
-        holder.txtColor.setText(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getRnk_kirilim()));
-        holder.txtDP1.setText(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD1()));
-        holder.txtDP2.setText(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD14()));
-        holder.txtDP3.setText(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD89()));
-        holder.edtAmount.setHint(String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getStock()));
-        String color = "";
+    public void onBindViewHolder(@NonNull LocalRBMatrisAdapter.ViewHolder holder, int position) {
+        holder.txtColor.setText(String.valueOf(mData.getRenk()));
+        holder.txtDP1.setText(String.valueOf(mData.getD1()));
+        holder.txtDP2.setText(String.valueOf(mData.getD14()));
+        holder.txtDP3.setText(String.valueOf(mData.getD89()));
+        holder.edtAmount.setHint(String.valueOf("0"));
+        String color = "#FFFFFF";
+     /*   String color = "";
         if (String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getRenk()).length()==0){
             color = "#FFFFFF";
         }else{
             color = "#"+String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getRenk()).replace(" ","");
-        }
+        }*/
 
         int decodedColor = Color.parseColor(color);
         holder.img.setBackgroundColor(decodedColor);
@@ -91,7 +88,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
 
 
 
-        ((RBMatrisActivity)context).showSoftKeyboard(holder.edtAmount);
+        ((LocalRBMatrisActivity)context).showSoftKeyboard(holder.edtAmount);
         JSONObject obj = new JSONObject();
         holder.edtAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,11 +97,12 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
             public void afterTextChanged(Editable editable) {
-                try {
+                mData.setMiktar(Integer.parseInt(editable.toString()));
+                 /*  try {
 
-                    mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(editable.toString()));
+                    mData.setMiktar(Integer.parseInt(editable.toString()));
 
-                    boolean isfounded = false;
+                 boolean isfounded = false;
                     int existingIndex = 0;
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject row = jsonArray.getJSONObject(i);
@@ -130,8 +128,9 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                }            }*/
+
                 }
-            }
         });
 
         if (position!=0){
@@ -159,10 +158,10 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
     // total number of cells
     @Override
     public int getItemCount() {
-        if (mData.getResult() == null)
-            return 0;
-        else
-            return mData.getResult().get(currentIndex).getRenkDetay().size();
+      //  if (mData.getResult() == null)
+            return 1;
+       /* else
+            return mData.getResult().get(currentIndex).getRenkDetay().size();*/
     }
 
 
@@ -200,7 +199,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
 
     // convenience method for getting data at click position
     public String getItem(int id) {
-        return mData.getResult().get(id).getAd();
+        return mData.getAd();
     }
 
     // allows clicks events to be caught

@@ -96,6 +96,18 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".ui.activity.cmx.NewSayimActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <activity
+            android:name=".ui.activity.cmx.LocalRBMatrisActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".ui.activity.LoginActivity"

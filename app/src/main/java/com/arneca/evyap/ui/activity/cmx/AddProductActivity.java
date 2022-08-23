@@ -143,6 +143,7 @@ public class AddProductActivity  extends BaseActivity {
                 binding.edtSearch.setText("");
 
             }else{
+                binding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
                 Tool.showInfo(this, "Bilgi", productSearchResponse.getResult_message().getMessage());
             }

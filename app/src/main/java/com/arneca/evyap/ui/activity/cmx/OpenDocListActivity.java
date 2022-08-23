@@ -80,6 +80,7 @@ public class OpenDocListActivity extends BaseActivity {
                 cmxopenDocsActivityBinding.openDocList.setAdapter(adapter);
 
             }else{
+                cmxopenDocsActivityBinding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
                 Tool.showInfo(this, "Bilgi", openDocumentListResponse.getResult_message().getMessage());
             }

@@ -10,9 +10,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.arneca.evyap.api.response.cmx.TanimlarResponse;
+import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
+
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -55,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
         );
     }
 
-    public boolean insertContact (String id, String kod, String ad, String anagrup_kod, String beden,
+    public boolean insertRecord (String id, String kod, String ad, String anagrup_kod, String beden,
                                   String beden_kodu, String renk, String renk_id, String pkadet, String dvz, String satis_fiyat,
                                   String d1, String d14, String d89, String src) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -88,11 +90,16 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public Integer deleteRecord (String id) {
+    public Integer deleteRecord (String src) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(Const.TANIM_TABLE_NAME,
-                "id = ? ",
-                new String[] { id });
+                "'"+Const.SRC+"' = ? ",
+                new String[] { src });
+    }
+
+    public Integer deleteAll () {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(Const.TANIM_TABLE_NAME, null, null);
     }
 
     public boolean updateRecords  (String id, String kod, String ad, String anagrup_kod, String beden,
@@ -119,19 +126,76 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<String> getAllRecords() {
-        ArrayList<String> array_list = new ArrayList<String>();
+    public ArrayList<TanimlarResultModel> getRecord(String src){
+        ArrayList <TanimlarResultModel> tanimlar = new ArrayList<>();
+        TanimlarResultModel tanim = new TanimlarResultModel();
+        SQLiteDatabase db = this.getReadableDatabase();
+       // Cursor cursor = db.rawQuery("select * from " + Const.TANIM_TABLE_NAME + " like '"+Const.SRC+"' % '" +src + "'" , null);
 
+        String query = "SELECT * FROM " +  Const.TANIM_TABLE_NAME + " WHERE " +
+                Const.SRC + " LIKE '%" + src + "%'" ;
+        SQLiteDatabase db2 = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        cursor.moveToFirst();
+        while(cursor.isAfterLast() == false){
+            tanim = new TanimlarResultModel();
+            tanim.setId(cursor.getString(cursor.getColumnIndex(Const.ID)));
+            tanim.setKod(cursor.getString(cursor.getColumnIndex(Const.KOD)));
+            tanim.setAd(cursor.getString(cursor.getColumnIndex(Const.AD)));
+            tanim.setAnagrup_kod(cursor.getString(cursor.getColumnIndex(Const.ANAGRUP_KOD)));
+            tanim.setBeden(cursor.getString(cursor.getColumnIndex(Const.BEDEN)));
+            tanim.setBeden_kodu(cursor.getString(cursor.getColumnIndex(Const.BEDEN_KODU)));
+            tanim.setRenk(cursor.getString(cursor.getColumnIndex(Const.RENK)));
+            tanim.setRenk_id(cursor.getString(cursor.getColumnIndex(Const.RENK_ID)));
+            tanim.setPkadet(cursor.getString(cursor.getColumnIndex(Const.PKADET)));
+            tanim.setDvz(cursor.getString(cursor.getColumnIndex(Const.DVZ)));
+            tanim.setSatis_fiyat(cursor.getString(cursor.getColumnIndex(Const.SATIS_FIYAT)));
+            tanim.setD1(cursor.getString(cursor.getColumnIndex(Const.D1)));
+            tanim.setD14(cursor.getString(cursor.getColumnIndex(Const.D14)));
+            tanim.setD89(cursor.getString(cursor.getColumnIndex(Const.D89)));
+            tanim.setSrc(cursor.getString(cursor.getColumnIndex(Const.SRC)));
+
+
+            tanimlar.add(tanim);
+          //  tanimlar.set(cursor.getString(cursor.getColumnIndex(Const.AD)));
+            cursor.moveToNext();
+        }
+        return tanimlar;
+    }
+
+    public ArrayList<TanimlarResultModel> getAllRecords() {
+        ArrayList <TanimlarResultModel> tanimlar = new ArrayList<>();
+        TanimlarResultModel tanim = new TanimlarResultModel();
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from contacts", null );
-        res.moveToFirst();
+        Cursor cursor =  db.rawQuery( "select * from  '"+Const.TANIM_TABLE_NAME+"'", null );
+        cursor.moveToFirst();
 
-        while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(Const.AD)));
-            res.moveToNext();
+        while(cursor.isAfterLast() == false){
+            tanim = new TanimlarResultModel();
+            tanim.setId(cursor.getString(cursor.getColumnIndex(Const.ID)));
+            tanim.setKod(cursor.getString(cursor.getColumnIndex(Const.KOD)));
+            tanim.setAd(cursor.getString(cursor.getColumnIndex(Const.AD)));
+            tanim.setAnagrup_kod(cursor.getString(cursor.getColumnIndex(Const.ANAGRUP_KOD)));
+            tanim.setBeden(cursor.getString(cursor.getColumnIndex(Const.BEDEN)));
+            tanim.setBeden_kodu(cursor.getString(cursor.getColumnIndex(Const.BEDEN_KODU)));
+            tanim.setRenk(cursor.getString(cursor.getColumnIndex(Const.RENK)));
+            tanim.setRenk_id(cursor.getString(cursor.getColumnIndex(Const.RENK_ID)));
+            tanim.setPkadet(cursor.getString(cursor.getColumnIndex(Const.PKADET)));
+            tanim.setDvz(cursor.getString(cursor.getColumnIndex(Const.DVZ)));
+            tanim.setSatis_fiyat(cursor.getString(cursor.getColumnIndex(Const.SATIS_FIYAT)));
+            tanim.setD1(cursor.getString(cursor.getColumnIndex(Const.D1)));
+            tanim.setD14(cursor.getString(cursor.getColumnIndex(Const.D14)));
+            tanim.setD89(cursor.getString(cursor.getColumnIndex(Const.D89)));
+            tanim.setSrc(cursor.getString(cursor.getColumnIndex(Const.SRC)));
+
+
+            tanimlar.add(tanim);
+            //  tanimlar.set(cursor.getString(cursor.getColumnIndex(Const.AD)));
+            cursor.moveToNext();
         }
-        return array_list;
+        return tanimlar;
     }
 
     public Cursor getAllRecordsCursor(){

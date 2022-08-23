@@ -290,4 +290,7 @@ public class LoginResponse {
     public void setResult_message(ResultMessageBean result_message) {
         this.result_message = result_message;
     }
+
+
+
 }

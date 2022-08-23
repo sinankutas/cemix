@@ -2,6 +2,7 @@ package com.arneca.evyap.ui.activity.cmx;/*
  * Created by Sinan KUTAS on 8/22/22.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -9,7 +10,9 @@ import android.view.WindowManager;
 import com.arneca.evyap.R;
 import com.arneca.evyap.databinding.OrderActivityBinding;
 import com.arneca.evyap.databinding.TanimlarBinding;
+import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.ui.activity.BaseActivity;
+import com.arneca.evyap.ui.adapter.cmx.LocalRBMatrisAdapter;
 import com.arneca.evyap.ui.adapter.cmx.StandartListAdapter;
 
 import java.util.ArrayList;
@@ -49,4 +52,6 @@ public class TanimlarActivity extends BaseActivity {
     public void hideDialog() {
         super.hideDialog();
     }
+
+
 }

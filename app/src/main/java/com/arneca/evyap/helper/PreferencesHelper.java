@@ -8,11 +8,13 @@ import com.arneca.evyap.api.ReportMap;
 import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
+import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
 import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.databinding.BaseObservable;
 
@@ -28,7 +30,7 @@ public class PreferencesHelper extends BaseObservable {
     private static GetFactories.DataBean.MyArrayListBean.MapBean selectedFactory;
     private static ArrayList<ReportModel> reportModels;
     private static int totalSelection;
-
+    private static TanimlarResultModel tanimlarResultModel;
 
     /*
      Cemix
@@ -158,5 +160,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setActiveDocType(String activeDocType) {
         PreferencesHelper.activeDocType = activeDocType;
+    }
+
+    public static TanimlarResultModel getTanimlarResultModel() {
+        return tanimlarResultModel;
+    }
+
+    public static void setTanimlarResultModel(TanimlarResultModel tanimlarResultModel) {
+        PreferencesHelper.tanimlarResultModel = tanimlarResultModel;
     }
 }
