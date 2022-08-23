@@ -29,7 +29,11 @@ import com.arneca.evyap.ui.adapter.cmx.TanimlarBottomSheetAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +47,7 @@ public class TanimBottomSheetFragment extends BottomSheetDialogFragment {
     private DBHelper dbHelper ;
     //  public List<LoginResponse.ResultBean.CarilerBean> carilerBeans = new ArrayList<>();
     ArrayList<TanimlarResultModel> tanimlar = new ArrayList<>();
+    Map<String,List<TanimlarResultModel>> tanimMap = new HashMap<>();
 
     public static TanimBottomSheetFragment newInstance() {
         TanimBottomSheetFragment fragment = new TanimBottomSheetFragment();
@@ -86,7 +91,7 @@ public class TanimBottomSheetFragment extends BottomSheetDialogFragment {
 
         dbHelper =  new DBHelper(getContext());
 
-        adapter= new TanimlarBottomSheetAdapter(getContext(), tanimlar,this);
+        adapter= new TanimlarBottomSheetAdapter(getContext(), tanimlar,this,tanimMap);
         // mAdapter = new PlanAdapter(result -> mListener.onClicked(result));
         mBinding.recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         mBinding.recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -99,6 +104,7 @@ public class TanimBottomSheetFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
+
 
         mBinding.edtSearchTanim.addTextChangedListener(new TextWatcher() {
             @Override
@@ -117,8 +123,16 @@ public class TanimBottomSheetFragment extends BottomSheetDialogFragment {
                //     adapter.setData(carilerBeansOrj); clear data
                 }
                 else{
-                    //    carilerBeans = filterCity(PreferencesHelper.getLoginResponse().getResult().getCariler(),s.toString().toLowerCase());
-                //    adapter.setData(filterTanim(s.toString().toLowerCase()));
+                    ArrayList<TanimlarResultModel> tanimlarResultModels = dbHelper.getRecord(s.toString());
+                    Map<String,List<TanimlarResultModel>> tanimMap = new HashMap<>();
+                    for(TanimlarResultModel p : tanimlarResultModels){
+                        if(!tanimMap.containsKey(p.getKod()))
+                        {
+                            tanimMap.put(p.getKod(), new ArrayList<>());
+                        }
+                        tanimMap.get(p.getKod()).add(p);
+                    }
+                    PreferencesHelper.setTanimMap(tanimMap);
                     adapter.setData(dbHelper.getRecord(s.toString()));
                 }
             }

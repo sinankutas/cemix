@@ -28,6 +28,13 @@ import com.lxj.xpopup.XPopup;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import okhttp3.MultipartBody;
@@ -48,7 +55,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
 
     private JSONArray jsonArray = new JSONArray();
-    TanimlarResultModel tanimlarResponse ;
+    TanimlarResultModel tanimlarResponse  = PreferencesHelper.getTanimlarResultModel();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -243,44 +250,56 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
 
     private void loadTableData(TanimlarResultModel tanimlarResponse) {
-        setViews(tanimlarResponse);
-        binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new LocalRBMatrisAdapter(this, PreferencesHelper.getTanimlarResultModel(),currentSelectedIndex,isStockActive);
-        binding.openDocList.setAdapter(adapter);
+        setViews();
+
     }
 
 
-    private void setViews(TanimlarResultModel rbMatrisResponse) {
-        if (rbMatrisResponse!=null){
-
-            binding.txtTab1.setText(rbMatrisResponse.getKod());
-            binding.txtProductTitle.setText(rbMatrisResponse.getAd());
-            binding.txtProductTitle.setText(rbMatrisResponse.getAd());
-            binding.txtPrice.setText(rbMatrisResponse.getSatis_fiyat()+" $ ");
-
-      /*      if (currentSelectedIndex == 0 && rbMatrisResponse.getResult().get(0)!=null){
-
-                binding.txtTab1.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getKod());
-                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getAd());
-                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getAd());
-                binding.txtPrice.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getSatis_fiyat()+" $ ");
-
-            }
-
-            if (currentSelectedIndex == 1 && rbMatrisResponse.getResult().get(1)!=null){
-                binding.txtTab2.setText(rbMatrisResponse.getResult().get(1).getKod());
-                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(1).getAd());
-                binding.txtPrice.setText(rbMatrisResponse.getResult().get(1).getSatis_fiyat()+" $ ");
-            }
-
-            if (currentSelectedIndex == 2 && rbMatrisResponse.getResult().get(2)!=null){
-                binding.txtTab3.setText(rbMatrisResponse.getResult().get(2).getKod());
-                binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(2).getAd());
-                binding.txtPrice.setText(rbMatrisResponse.getResult().get(2).getSatis_fiyat()+" $ ");
-            }*/
-
+    private void setViews() {
+        ArrayList<String> keys = new ArrayList<>();
+        for ( String key : PreferencesHelper.getTanimMap().keySet() ) {
+            System.out.println( key );
+            keys.add(key);
         }
+          ArrayList<TanimlarResultModel>   rbMatrisResponse = ( ArrayList<TanimlarResultModel>) PreferencesHelper.getTanimMap().get(keys.get(0));
+         if (currentSelectedIndex == 0 && keys.get(0)!=null){
+
+             binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+             adapter = new LocalRBMatrisAdapter(this, rbMatrisResponse,currentSelectedIndex,isStockActive); // buraya aktif tab gelecek
+             binding.openDocList.setAdapter(adapter);
+
+                binding.txtTab1.setText(keys.get(0));
+                binding.txtProductTitle.setText(rbMatrisResponse.get(0).getAd());
+                binding.txtProductTitle.setText(rbMatrisResponse.get(0).getAd());
+                binding.txtPrice.setText(rbMatrisResponse.get(0).getSatis_fiyat()+" $ ");
+
+            }
+
+        try {
+            if (keys.get(1)!=null){
+                binding.txtTab2.setText(keys.get(1));
+                binding.txtProductTitle.setText(rbMatrisResponse.get(01).getAd());
+                binding.txtProductTitle.setText(rbMatrisResponse.get(1).getAd());
+                binding.txtPrice.setText(rbMatrisResponse.get(1).getSatis_fiyat()+" $ ");
+            }
+            }catch (Exception e){
+
+            }
+
+            try {
+                if (keys.get(2)!=null){
+                    binding.txtTab3.setText(keys.get(2));
+                    binding.txtProductTitle.setText(rbMatrisResponse.get(2).getAd());
+                    binding.txtProductTitle.setText(rbMatrisResponse.get(2).getAd());
+                    binding.txtPrice.setText(rbMatrisResponse.get(2).getSatis_fiyat()+" $ ");
+                }
+            }catch (Exception e){
+
+            }
+         /**/
 
     }
+
+
 }
 

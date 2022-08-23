@@ -24,12 +24,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdapter.ViewHolder> {
 
-    private TanimlarResultModel mData;
+    private List<TanimlarResultModel> mData;
     private LayoutInflater mInflater;
     private OpenDocListAdapter.ItemClickListener mClickListener;
     private Context context;
@@ -37,7 +39,7 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
     JSONArray jsonArray = PreferencesHelper.getJsonArrayForMatris();
     private boolean isStockActive;
     // data is passed into the constructor
-    public LocalRBMatrisAdapter(Context context, TanimlarResultModel data, int currentIndex, boolean isStockActive) {
+    public LocalRBMatrisAdapter(Context context, List<TanimlarResultModel> data, int currentIndex, boolean isStockActive) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.mData = data;
@@ -56,10 +58,10 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
     // binds the data to the TextView in each cell
     @Override
     public void onBindViewHolder(@NonNull LocalRBMatrisAdapter.ViewHolder holder, int position) {
-        holder.txtColor.setText(String.valueOf(mData.getRenk()));
-        holder.txtDP1.setText(String.valueOf(mData.getD1()));
-        holder.txtDP2.setText(String.valueOf(mData.getD14()));
-        holder.txtDP3.setText(String.valueOf(mData.getD89()));
+        holder.txtColor.setText(String.valueOf(mData.get(position).getRenk()));
+        holder.txtDP1.setText(String.valueOf(mData.get(position).getD1()));
+        holder.txtDP2.setText(String.valueOf(mData.get(position).getD14()));
+        holder.txtDP3.setText(String.valueOf(mData.get(position).getD89()));
         holder.edtAmount.setHint(String.valueOf("0"));
         String color = "#FFFFFF";
      /*   String color = "";
@@ -97,7 +99,7 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
             public void afterTextChanged(Editable editable) {
-                mData.setMiktar(Integer.parseInt(editable.toString()));
+                mData.get(position).setMiktar(Integer.parseInt(editable.toString()));
                  /*  try {
 
                     mData.setMiktar(Integer.parseInt(editable.toString()));
@@ -158,10 +160,10 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
     // total number of cells
     @Override
     public int getItemCount() {
-      //  if (mData.getResult() == null)
+        if (mData != null)
+            return mData.size();
+        else
             return 1;
-       /* else
-            return mData.getResult().get(currentIndex).getRenkDetay().size();*/
     }
 
 
@@ -199,7 +201,7 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
 
     // convenience method for getting data at click position
     public String getItem(int id) {
-        return mData.getAd();
+        return mData.get(id).getAd();
     }
 
     // allows clicks events to be caught

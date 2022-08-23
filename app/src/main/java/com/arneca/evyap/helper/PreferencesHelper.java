@@ -15,6 +15,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import androidx.databinding.BaseObservable;
 
@@ -31,6 +32,7 @@ public class PreferencesHelper extends BaseObservable {
     private static ArrayList<ReportModel> reportModels;
     private static int totalSelection;
     private static TanimlarResultModel tanimlarResultModel;
+    private static Map<String,List<TanimlarResultModel>> tanimMap;
 
     /*
      Cemix
@@ -168,5 +170,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setTanimlarResultModel(TanimlarResultModel tanimlarResultModel) {
         PreferencesHelper.tanimlarResultModel = tanimlarResultModel;
+    }
+
+    public static Map<String, List<TanimlarResultModel>> getTanimMap() {
+        return tanimMap;
+    }
+
+    public static void setTanimMap(Map<String, List<TanimlarResultModel>> tanimMap) {
+        PreferencesHelper.tanimMap = tanimMap;
     }
 }

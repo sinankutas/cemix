@@ -18,7 +18,9 @@ import com.arneca.evyap.ui.fragment.CompanyBottomFragment;
 import com.arneca.evyap.ui.fragment.TanimBottomSheetFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,20 +30,23 @@ public class TanimlarBottomSheetAdapter extends RecyclerView.Adapter<TanimlarBot
     private LayoutInflater mInflater;
     private OpenDocListAdapter.ItemClickListener mClickListener;
     public List<TanimlarResultModel> tanimlar = new ArrayList<>();
+    public Map<String,List<TanimlarResultModel>> tanimMap = new HashMap<>();
     private Context context;
     public TanimBottomSheetFragment fragment;
 
     // data is passed into the constructor
-    public TanimlarBottomSheetAdapter(Context context, List<TanimlarResultModel> tanimlar, TanimBottomSheetFragment fragment) {
+    public TanimlarBottomSheetAdapter(Context context, List<TanimlarResultModel> tanimlar, TanimBottomSheetFragment fragment, Map<String,List<TanimlarResultModel>> tanimMap) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.tanimlar = tanimlar;
         this.fragment = fragment;
+        this.tanimMap = tanimMap;
     }
 
     public void setData(List<TanimlarResultModel> tanimlar){
         this.tanimlar.clear();
         this.tanimlar.addAll(tanimlar);
+        this.tanimMap.clear();
         notifyDataSetChanged();
     }
     // inflates the cell layout from xml when needed
@@ -62,6 +67,7 @@ public class TanimlarBottomSheetAdapter extends RecyclerView.Adapter<TanimlarBot
             @Override
             public void onClick(View view) {
                 PreferencesHelper.setTanimlarResultModel(tanimlar.get(position));
+           //     PreferencesHelper.setTanimMap(tanimMap);
                 fragment.dissmisView();
             }
         });
