@@ -115,7 +115,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
         });
 
         binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
-        loadTableData(tanimlarResponse);
+        loadTableData(0);
         binding.txtTab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +124,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(tanimlarResponse);
+                loadTableData(0);
             }
         });
 
@@ -136,7 +136,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(tanimlarResponse);
+                loadTableData(1);
             }
         });
 
@@ -148,7 +148,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(tanimlarResponse);
+                loadTableData(2);
             }
         });
     }
@@ -249,24 +249,25 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
 
 
-    private void loadTableData(TanimlarResultModel tanimlarResponse) {
-        setViews();
-
+    private void loadTableData(int index) {
+        setViews(index);
     }
 
 
-    private void setViews() {
+    private void setViews(int index) {
         ArrayList<String> keys = new ArrayList<>();
         for ( String key : PreferencesHelper.getTanimMap().keySet() ) {
             System.out.println( key );
             keys.add(key);
         }
-          ArrayList<TanimlarResultModel>   rbMatrisResponse = ( ArrayList<TanimlarResultModel>) PreferencesHelper.getTanimMap().get(keys.get(0));
-         if (currentSelectedIndex == 0 && keys.get(0)!=null){
+          ArrayList<TanimlarResultModel>   rbMatrisResponse = ( ArrayList<TanimlarResultModel>) PreferencesHelper.getTanimMap().get(keys.get(index));
 
-             binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-             adapter = new LocalRBMatrisAdapter(this, rbMatrisResponse,currentSelectedIndex,isStockActive); // buraya aktif tab gelecek
-             binding.openDocList.setAdapter(adapter);
+        try {
+            if (currentSelectedIndex == 0 && keys.get(0)!=null){
+
+                binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+                adapter = new LocalRBMatrisAdapter(this, rbMatrisResponse,currentSelectedIndex,isStockActive); // buraya aktif tab gelecek
+                binding.openDocList.setAdapter(adapter);
 
                 binding.txtTab1.setText(keys.get(0));
                 binding.txtProductTitle.setText(rbMatrisResponse.get(0).getAd());
@@ -274,11 +275,18 @@ public class LocalRBMatrisActivity  extends BaseActivity {
                 binding.txtPrice.setText(rbMatrisResponse.get(0).getSatis_fiyat()+" $ ");
 
             }
+        }catch (Exception e){
+
+    }
 
         try {
             if (keys.get(1)!=null){
+                binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+                adapter = new LocalRBMatrisAdapter(this, rbMatrisResponse,currentSelectedIndex,isStockActive); // buraya aktif tab gelecek
+                binding.openDocList.setAdapter(adapter);
+
                 binding.txtTab2.setText(keys.get(1));
-                binding.txtProductTitle.setText(rbMatrisResponse.get(01).getAd());
+                binding.txtProductTitle.setText(rbMatrisResponse.get(1).getAd());
                 binding.txtProductTitle.setText(rbMatrisResponse.get(1).getAd());
                 binding.txtPrice.setText(rbMatrisResponse.get(1).getSatis_fiyat()+" $ ");
             }
