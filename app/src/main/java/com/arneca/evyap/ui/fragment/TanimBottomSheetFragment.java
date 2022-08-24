@@ -133,7 +133,7 @@ public class TanimBottomSheetFragment extends BottomSheetDialogFragment {
                         tanimMap.get(p.getKod()).add(p);
                     }
                     PreferencesHelper.setTanimMap(tanimMap);
-                    adapter.setData(dbHelper.getRecord(s.toString()));
+                    adapter.setData(tanimlarResultModels);
                 }
             }
 

@@ -114,6 +114,7 @@ public class RBMatrisActivity extends BaseActivity {
             }
         });
 
+
         binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
         binding.txtTab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,6 +302,9 @@ public class RBMatrisActivity extends BaseActivity {
 
     private void setViews(RBMatrisResponse rbMatrisResponse) {
         if (rbMatrisResponse.getResult()!=null){
+            binding.txtTab1.setText(rbMatrisResponse.getResult().get(0).getKod());
+            binding.txtTab2.setText(rbMatrisResponse.getResult().get(1).getKod());
+            binding.txtTab3.setText(rbMatrisResponse.getResult().get(2).getKod());
             if (currentSelectedIndex == 0 && rbMatrisResponse.getResult().get(0)!=null){
 
                 binding.txtTab1.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getKod());

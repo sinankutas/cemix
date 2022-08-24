@@ -2,10 +2,13 @@ package com.arneca.evyap.ui.fragment;/*
  * Created by Sinan KUTAS on 8/15/22.
  */
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,8 @@ import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
 import com.arneca.evyap.ui.adapter.cmx.CompanyBottomSheetAdapter;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -44,6 +49,26 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
     }
 
 
+    private void setupFullHeight(BottomSheetDialog bottomSheetDialog) {
+        FrameLayout bottomSheet = (FrameLayout) bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+        ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
+
+        int windowHeight = getWindowHeight();
+        if (layoutParams != null) {
+            layoutParams.height = windowHeight;
+        }
+        bottomSheet.setLayoutParams(layoutParams);
+        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+    private int getWindowHeight() {
+        // Calculate window height for fullscreen use
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.heightPixels;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +78,16 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
     }
 
 
-
+    @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override public void onShow(DialogInterface dialogInterface) {
+                BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
+                setupFullHeight(bottomSheetDialog);
+            }
+        });
+        return  dialog;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +108,10 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
         mBinding.getRoot().post(() -> {
             Display mDisplay = getActivity().getWindowManager().getDefaultDisplay();
             final int width = mDisplay.getWidth();
-            final int height = mDisplay.getHeight() -50;/// 2;
+            final int height = mDisplay.getHeight() +1000;/// 2;
 
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width, height);
-            mBinding.getRoot().setLayoutParams(layoutParams);
+        //    mBinding.getRoot().setLayoutParams(layoutParams);
         });
 
        adapter= new CompanyBottomSheetAdapter(getContext(),PreferencesHelper.getLoginResponse().getResult().getCariler(),this);

@@ -2,7 +2,9 @@ package com.arneca.evyap.ui.adapter.cmx;/*
  * Created by Sinan KUTAS on 8/15/22.
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,16 +101,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                 }else if (position==1){
                     if (isSayimActive[0]== true){
                         // get New Sayim
-
-                        if (dbHelper.numberOfRows()>0) {
-                            Intent intent = new Intent(context, NewSayimActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                            intent.putExtra("viewTitle", viewTitle2);
-                            context.startActivity(intent);
-                        }  else{
-                            Tool.showInfo(context,"Tanım Bulunamadı. Tanımlar Yüklensin mi?",
-                                "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
-                                (dialog, which) -> loadTanim(),"Tamam");}
+                        loadDescription(viewTitle2);
                     }else{
                         Intent intent = new Intent(context, OpenDocRecordsActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -117,6 +111,43 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                 }
             }
         });
+    }
+
+    private void loadDescription(String viewTitle) {
+        final EditText txtDescription = new EditText(context);
+        txtDescription.setHint("Açıklama");
+        new AlertDialog.Builder(context)
+                .setTitle("Sayım Açıklaması")
+                .setMessage("")
+                .setView(txtDescription)
+                .setPositiveButton("Kaydet", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog1, int whichButton) {
+                        String desc = txtDescription.getText().toString();
+                        if (desc.length()>0){
+                            dbHelper.insertNewSayim(desc,PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu());
+
+                            int num = dbHelper.numberOfSayimRows();
+                            String s = ""+ num;
+                            dbHelper.getAllNewSayim();
+                            if (dbHelper.numberOfRows()>0) {
+                                Intent intent = new Intent(context, NewSayimActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                intent.putExtra("viewTitle", viewTitle);
+                                context.startActivity(intent);
+                            }  else{
+                                Tool.showInfo(context,"Tanım Bulunamadı. Tanımlar Yüklensin mi?",
+                                        "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
+                                        (dialog, which) -> loadTanim(),"Tamam");}
+                        }else{
+                            Tool.showInfo(context, "Uyarı", "Açıklama girmelisiniz");
+                        }
+                    }
+                })
+                .setNegativeButton("İptal", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                })
+                .show();
     }
 
     private void loadTanim() {

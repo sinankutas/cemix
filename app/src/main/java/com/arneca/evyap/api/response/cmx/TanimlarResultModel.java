@@ -9,6 +9,7 @@ public class TanimlarResultModel {
     private String anagrup_kod;
     private String beden;
     private String beden_kodu;
+    private String beden_id;
     private String renk;
     private String renk_id;
     private String pkadet;
@@ -146,5 +147,13 @@ public class TanimlarResultModel {
 
     public void setMiktar(int miktar) {
         this.miktar = miktar;
+    }
+
+    public String getBeden_id() {
+        return beden_id;
+    }
+
+    public void setBeden_id(String beden_id) {
+        this.beden_id = beden_id;
     }
 }

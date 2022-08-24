@@ -73,16 +73,16 @@ public class OpenDocStockListAdapter extends RecyclerView.Adapter<OpenDocStockLi
                 Tool.showInfo2action(context,"Bilgi",
                          "Yapmak istediğiniz işlemi seçin",
                         (dialog, which) -> gotoUpdate(position),
-                        (dialog, which) -> gotoDeleteDialog(position),"Mitar Güncelle","Belge Sil");
+                        (dialog, which) -> gotoDeleteDialog(position),"Mitar Güncelle","Satır Sil");
             }
         });
     }
 
     private void gotoDeleteDialog(int position) {
         Tool.showInfo2action(context,"Bilgi",
-                mData.getResult().get(position).getKod()+ "Kodlu belge silinsin mi?",
+                mData.getResult().get(position).getKod()+ "Kodlu stok silinsin mi?",
                 (dialog, which) -> gotoDelete(position),
-                (dialog, which) -> cancelDialog(),"Sil","İptal");
+                (dialog, which) -> cancelDialog(),"Satır silinsin mi?","İptal");
     }
 
     private void gotoDelete(int position) {
