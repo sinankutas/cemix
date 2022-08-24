@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
+import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
 import com.bumptech.glide.Glide;
@@ -73,7 +74,14 @@ public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.
                 intent.putExtra("docId",String.valueOf(mData.getResult().get(position).getBelge_id()));
                 intent.putExtra("orderNo",String.valueOf(mData.getResult().get(position).getSira()));
                 intent.putExtra("seriNo",String.valueOf(mData.getResult().get(position).getSeri()));
+                intent.putExtra("cariKod",String.valueOf(mData.getResult().get(position).getCari_kod()));
                 intent.putExtra("viewTitle",viewTitle);
+
+                for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
+                    if (carilerBean.getKod().equals(String.valueOf(mData.getResult().get(position).getCari_kod()))){
+                        PreferencesHelper.setSelectedCompany(carilerBean);
+                    }
+                }
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(intent);

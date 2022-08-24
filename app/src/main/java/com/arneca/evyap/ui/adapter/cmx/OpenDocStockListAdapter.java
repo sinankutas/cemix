@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,7 @@ public class OpenDocStockListAdapter extends RecyclerView.Adapter<OpenDocStockLi
 
     private void openInputDialog(int position) {
         final EditText txtAmount = new EditText(context);
+        txtAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
         txtAmount.setHint(mData.getResult().get(position).getMiktar());
         new AlertDialog.Builder(context)
                 .setTitle("Yeni Miktar")

@@ -39,7 +39,8 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
     private CompanyBottomSheetAdapter adapter;
     private boolean isRecordActivity = false;
   //  public List<LoginResponse.ResultBean.CarilerBean> carilerBeans = new ArrayList<>();
-    ArrayList<LoginResponse.ResultBean.CarilerBean> carilerBeansOrj = new ArrayList<>();
+    ArrayList<LoginResponse.ResultBean.CarilerBean> carilerBeansOrj = new ArrayList<>();;
+    ArrayList<LoginResponse.ResultBean.CarilerBean> carilerNewSheet = new ArrayList<>();
 
     public static CompanyBottomFragment newInstance(boolean isRecordActivity) {
         CompanyBottomFragment fragment = new CompanyBottomFragment();
@@ -73,6 +74,9 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.cmx_company_bottomfragment, container, false);
+        for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
+            carilerNewSheet.add(carilerBean);
+        }
         setViews();
         return mBinding.getRoot();
     }
@@ -114,7 +118,7 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
         //    mBinding.getRoot().setLayoutParams(layoutParams);
         });
 
-       adapter= new CompanyBottomSheetAdapter(getContext(),PreferencesHelper.getLoginResponse().getResult().getCariler(),this);
+       adapter= new CompanyBottomSheetAdapter(getContext(),carilerNewSheet,this);
         // mAdapter = new PlanAdapter(result -> mListener.onClicked(result));
         mBinding.recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         mBinding.recycler.setLayoutManager(new LinearLayoutManager(requireContext()));

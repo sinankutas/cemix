@@ -58,7 +58,7 @@ public class RBMatrisActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.rbmatris_activity);
-
+        PreferencesHelper.setJsonArrayForMatris(new JSONArray());
          loadKeyboard();
 
         Intent myIntent = getIntent(); // gets the previously created intent
@@ -266,6 +266,7 @@ public class RBMatrisActivity extends BaseActivity {
                         (dialog, which) ->  dismissToolDialogFinish(),"Tamam");
                 Tool.showInfo(this,"Bilgi",sTHEkleRespone.getResult_message().getMessage());
                 binding.toolbar2.rightContainer.setVisibility(View.GONE);
+                PreferencesHelper.setJsonArrayForMatris(new JSONArray());
 
             }else{
                 Tool.showInfo(this,"Hata","Kayıt İşlemi Başarısız.");

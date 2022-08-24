@@ -101,9 +101,11 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                    if (!editable.toString().equals("")){
-                        mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(editable.toString()));
+                    String amountFromEditable = editable.toString();
+                    if (amountFromEditable.equals("")){
+                        amountFromEditable = "0";
                     }
+                    mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amountFromEditable));
 
 
                     boolean isfounded = false;
@@ -123,7 +125,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                     obj.put("StokKodu", String.valueOf(mData.getResult().get(currentIndex).getKod()));
                     obj.put("StokIdx", String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getId()));
                     obj.put("RenkId", String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getRnk_kirilim_id()));
-                    obj.put("Miktar", ""+editable.toString());
+                    obj.put("Miktar", ""+amountFromEditable);
                     obj.put("Fiyat", ""+String.valueOf(mData.getResult().get(currentIndex).getFiyat()));
                     obj.put("Dvz", "1");
 

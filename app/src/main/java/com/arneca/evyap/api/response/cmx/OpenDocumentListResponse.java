@@ -71,6 +71,7 @@ public class OpenDocumentListResponse {
         private String tarih;
         private int detay_kayit_sayisi;
         private String detay_stok_miktari;
+        private String cari_kod;
 
         public int getBelge_id() {
             return belge_id;
@@ -126,6 +127,14 @@ public class OpenDocumentListResponse {
 
         public void setDetay_stok_miktari(String detay_stok_miktari) {
             this.detay_stok_miktari = detay_stok_miktari;
+        }
+
+        public String getCari_kod() {
+            return cari_kod;
+        }
+
+        public void setCari_kod(String cari_kod) {
+            this.cari_kod = cari_kod;
         }
     }
 

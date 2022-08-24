@@ -38,6 +38,8 @@ public class OpenDocStockListActivity extends BaseActivity {
     private String docId = "";
     private String orderNo = "";
     private String seriNo = "";
+    private String cariKod = "";
+
     private String viewTitle ;
     MaterialDialog dialog;
     private OpenDocStockListAdapter adapter;
@@ -62,6 +64,8 @@ public class OpenDocStockListActivity extends BaseActivity {
         Intent myIntent = getIntent(); // gets the previously created intent
         guid = myIntent.getStringExtra("guid");
         docId = myIntent.getStringExtra("docId");
+
+        cariKod = myIntent.getStringExtra("cariKod");
 
         orderNo = myIntent.getStringExtra("orderNo");
         seriNo = myIntent.getStringExtra("seriNo");

@@ -80,7 +80,7 @@ public class CompanyBottomSheetAdapter extends RecyclerView.Adapter<CompanyBotto
     // total number of cells
     @Override
     public int getItemCount() {
-        return PreferencesHelper.getLoginResponse().getResult().getCariler().size();
+        return carilerBeans.size();
     }
 
 
