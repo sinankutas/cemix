@@ -75,6 +75,7 @@ public class TanimlarResponse {
         private String d1;
         private String d14;
         private String d89;
+        private String renk_kodu_x;
         private String src;
 
         public int getId() {
@@ -195,6 +196,14 @@ public class TanimlarResponse {
 
         public void setSrc(String src) {
             this.src = src;
+        }
+
+        public String getRenk_kodu_x() {
+            return renk_kodu_x;
+        }
+
+        public void setRenk_kodu_x(String renk_kodu_x) {
+            this.renk_kodu_x = renk_kodu_x;
         }
     }
 

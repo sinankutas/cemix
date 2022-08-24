@@ -18,6 +18,8 @@ public class TanimlarResultModel {
     private String d1;
     private String d14;
     private String d89;
+
+    private String renk_kodu_x;
     private String src;
     private int miktar;
 
@@ -155,5 +157,13 @@ public class TanimlarResultModel {
 
     public void setBeden_id(String beden_id) {
         this.beden_id = beden_id;
+    }
+
+    public String getRenk_kodu_x() {
+        return renk_kodu_x;
+    }
+
+    public void setRenk_kodu_x(String renk_kodu_x) {
+        this.renk_kodu_x = renk_kodu_x;
     }
 }

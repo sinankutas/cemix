@@ -56,14 +56,14 @@ public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.
         holder.txtOrderNo.setText(String.valueOf(mData.getResult().get(position).getSira()));
         holder.txtStock.setText(String.valueOf(mData.getResult().get(position).getDetay_stok_miktari()));
 
-        if (position!=0){
+   //     if (position!=0){
             holder. txtStockTitle.setVisibility(View.GONE);
             holder. txtOrderNoTitle.setVisibility(View.GONE);
             holder. txtKNumberTitle.setVisibility(View.GONE);
             holder. txtSeriTitle.setVisibility(View.GONE);
             holder. txtDocTitle.setVisibility(View.GONE);
             holder. txtDateTitle.setVisibility(View.GONE);
-        }
+     //   }
 
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override

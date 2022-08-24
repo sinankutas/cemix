@@ -131,6 +131,103 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="50dp"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/lnrLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            >
+                            <TextView
+                                android:id="@+id/txtCodeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:gravity="left"
+                                android:layout_marginLeft="2dp"
+                                android:imeOptions="actionDone"
+                                android:minWidth="50dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/grayTextDark"
+                                android:text="Kod"></TextView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="150dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/txtNameTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="center"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:minWidth="50dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Ürün Adı"></TextView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        >
+                        <TextView
+                            android:id="@+id/txtColorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:minWidth="50dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Renk"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        >
+                        <TextView
+                            android:id="@+id/txtAmountTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:minWidth="50dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Miktar"></TextView>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/swipeRefreshLayout"
                     android:layout_width="match_parent"
@@ -145,6 +242,7 @@
                     android:scrollbars="vertical"
                     />
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
             </LinearLayout>
         </LinearLayout>
 

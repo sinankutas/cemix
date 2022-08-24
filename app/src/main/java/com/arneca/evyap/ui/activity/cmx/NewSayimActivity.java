@@ -124,7 +124,7 @@ public class NewSayimActivity  extends BaseActivity {
         if (i==0){
 
         }
-        ArrayList<TanimlarResultModel> tanimlarResultModels = dbHelper.getRecordWithGroupByBeden("");//dbHelper.getRecordWithGroupBy(binding.edtSearch.getText().toString());
+        ArrayList<TanimlarResultModel> tanimlarResultModels = dbHelper.getRecordWithGroupBy(binding.edtSearch.getText().toString());
         Map<String, List<TanimlarResultModel>> tanimMap = new HashMap<>();
         for(TanimlarResultModel p : tanimlarResultModels){
             if(!tanimMap.containsKey(p.getKod()))
@@ -141,11 +141,14 @@ public class NewSayimActivity  extends BaseActivity {
         adapter.setData(tanimlarResultModels);
     }
 
-    public void gotoRBMatris() {
-        Intent intent = new Intent(NewSayimActivity.this, LocalRBMatrisActivity.class);
+    public void gotoRBMatris(String bedenId) {
+        ArrayList<TanimlarResultModel> tabsResponse = dbHelper.getRecordWithGroupByBeden(bedenId);
+        ArrayList<TanimlarResultModel> colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(0).getKod());
+        colorDetails.size();
+     /*   Intent intent = new Intent(NewSayimActivity.this, LocalRBMatrisActivity.class);
         intent.putExtra("viewTitle","Yeni Sayım");
         intent.putExtra("bedenId", PreferencesHelper.getTanimlarResultModel().getBeden_kodu());
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 }

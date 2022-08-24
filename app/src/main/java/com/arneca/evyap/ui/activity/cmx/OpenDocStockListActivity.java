@@ -130,6 +130,7 @@ public class OpenDocStockListActivity extends BaseActivity {
 
     }
 
+
     private void completedDoc() {
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -149,11 +150,19 @@ public class OpenDocStockListActivity extends BaseActivity {
 
                 Tool.showInfo(OpenDocStockListActivity.this,"Bilgi",
                         openDocCompletedResponse.getResult_message().getMessage(),
-                        (dialog, which) ->  dismissToolDialog(),"Tamam");
+                        (dialog, which) ->  dismissToolDialogFinish(),"Tamam");
+
+
             }else{
 
             }
         });
+    }
+
+    private void dismissToolDialogFinish() {
+        finish();
+        PreferencesHelper.setIsRecordScreenClose(true);
+
     }
 
     @Override

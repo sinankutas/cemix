@@ -139,6 +139,149 @@
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="60dp"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/lnrLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/txtColorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:imeOptions="actionDone"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Renk"></TextView>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/imgColor"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                ></TextView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/txtDP1Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Merkez"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/txtKNumberIdTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:imeOptions="actionDone"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="K.Sayısı"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp">
+                        <TextView
+                            android:id="@+id/txtDP2Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Z.Burnu"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp">
+
+                        <TextView
+                            android:id="@+id/txtDP3Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:imeOptions="actionDone"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Laleli"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp">
+
+                        <TextView
+                            android:id="@+id/txtamountTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:imeOptions="actionDone"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Miktar"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/openDocList"
                     android:layout_width="match_parent"

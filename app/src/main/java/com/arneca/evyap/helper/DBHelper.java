@@ -52,9 +52,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
         sqLiteDatabase.execSQL(
                 "create table '"+Const.TANIM_TABLE_NAME+"' " +
-                        "(id text, kod text, ad text, anagrup_kod text, beden text, beden_kodu text, renk text, renk_id text, pkadet text, dvz text, satis_fiyat text, d1 text, d14 text, d89 text, src text)"
+                        "(id text, kod text, ad text, anagrup_kod text, beden text, beden_kodu text, renk text, renk_id text, pkadet text, dvz text, satis_fiyat text, d1 text, d14 text, d89 text, src text,renk_kodu_x text)"
         );
 
         sqLiteDatabase.execSQL(
@@ -65,7 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean insertRecord (String id, String kod, String ad, String anagrup_kod, String beden,
                                   String beden_kodu, String renk, String renk_id, String pkadet, String dvz, String satis_fiyat,
-                                  String d1, String d14, String d89, String src) {
+                                  String d1, String d14, String d89, String src,String renk_kodu_x) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -84,6 +85,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(Const.D14, d14);
         contentValues.put(Const.D89, d89);
         contentValues.put(Const.SRC, src);
+        contentValues.put(Const.RENK_KODU_X, renk_kodu_x);
         db.insert(Const.TANIM_TABLE_NAME, null, contentValues);
         return true;
     }
@@ -174,15 +176,60 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
-    public ArrayList<TanimlarResultModel> getRecordWithGroupByBeden(String src){
+    // ROOT DATA FOR TABS
+    public ArrayList<TanimlarResultModel> getRecordWithGroupRBMatris(String beden_kodu,String stok_kodu){
         ArrayList <TanimlarResultModel> tanimlar = new ArrayList<>();
         TanimlarResultModel tanim = new TanimlarResultModel();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT s.kod as stok_kodu, s.kod || '' || s.beden_kodu  || '' || s.renk_id AS id" +"  ,renk_id, renk,  d1, d14, d89" +"  FROM tanim s " +"  WHERE beden_kodu = 639" +
-                "  AND kod = stok_kodu" +
+        String query = "SELECT s.kod , s.kod || '' || s.beden_kodu  || '' || s.renk_id AS id " +
+                "  ,renk_id, renk,renk_kodu_x,  d1, d14, d89" +
+                "  FROM tanim s" +
+                "  WHERE beden_kodu = '"+beden_kodu+"'" +
+                "  AND kod = '"+stok_kodu+"'" +
                 "  order by kod, beden_kodu, renk_id";
-        String query2 = "SELECT kod, ad, anagrup_kod as anagrup, beden, satis_fiyat as fiyat" +"  FROM tanim " +"  WHERE beden_kodu = '639'" +"  GROUP BY kod, ad, anagrup_kod, beden, satis_fiyat";
+        // String query2 = "SELECT kod, ad, anagrup_kod as anagrup, beden, satis_fiyat as fiyat" +"  FROM tanim " +"  WHERE beden_kodu = '639'" +"  GROUP BY kod, ad, anagrup_kod, beden, satis_fiyat";
+        SQLiteDatabase db2 = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        cursor.moveToFirst();
+        while(cursor.isAfterLast() == false){
+            tanim = new TanimlarResultModel();
+            tanim.setId(cursor.getString(cursor.getColumnIndex(Const.ID)));
+            tanim.setKod(cursor.getString(cursor.getColumnIndex(Const.KOD)));
+        //    tanim.setAd(cursor.getString(cursor.getColumnIndex(Const.AD)));
+       //     tanim.setAnagrup_kod(cursor.getString(cursor.getColumnIndex(Const.ANAGRUP_KOD)));
+        //    tanim.setBeden(cursor.getString(cursor.getColumnIndex(Const.BEDEN)));
+            //    tanim.setBeden_id(cursor.getString(cursor.getColumnIndex(Const.BEDEN_ID)));
+            tanim.setRenk(cursor.getString(cursor.getColumnIndex(Const.RENK)));
+            tanim.setRenk_id(cursor.getString(cursor.getColumnIndex(Const.RENK_ID)));
+            tanim.setRenk_kodu_x(cursor.getString(cursor.getColumnIndex(Const.RENK_KODU_X)));
+
+            //   tanim.setPkadet(cursor.getString(cursor.getColumnIndex(Const.PKADET)));
+            //    tanim.setDvz(cursor.getString(cursor.getColumnIndex(Const.DVZ)));
+           // tanim.setSatis_fiyat(cursor.getString(cursor.getColumnIndex(Const.SATIS_FIYAT)));
+            tanim.setD1(cursor.getString(cursor.getColumnIndex(Const.D1)));
+            tanim.setD14(cursor.getString(cursor.getColumnIndex(Const.D14)));
+            tanim.setD89(cursor.getString(cursor.getColumnIndex(Const.D89)));
+            //    tanim.setSrc(cursor.getString(cursor.getColumnIndex(Const.SRC)));
+
+
+            tanimlar.add(tanim);
+            //  tanimlar.set(cursor.getString(cursor.getColumnIndex(Const.AD)));
+            cursor.moveToNext();
+        }
+        return tanimlar;
+    }
+
+    // ROOT DATA FOR TABS
+    public ArrayList<TanimlarResultModel> getRecordWithGroupByBeden(String beden_kodu){
+        ArrayList <TanimlarResultModel> tanimlar = new ArrayList<>();
+        TanimlarResultModel tanim = new TanimlarResultModel();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT kod, ad, anagrup_kod, beden, satis_fiyat " +
+                "  FROM tanim" +
+                "  WHERE beden_kodu = '"+beden_kodu+"'" +
+                "  GROUP BY kod, ad, anagrup_kod, beden, satis_fiyat";
+       // String query2 = "SELECT kod, ad, anagrup_kod as anagrup, beden, satis_fiyat as fiyat" +"  FROM tanim " +"  WHERE beden_kodu = '639'" +"  GROUP BY kod, ad, anagrup_kod, beden, satis_fiyat";
         SQLiteDatabase db2 = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -219,7 +266,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         // Cursor cursor = db.rawQuery("select * from " + Const.TANIM_TABLE_NAME + " like '"+Const.SRC+"' % '" +src + "'" , null);
         //  String query = "select kod, ad, anagrup_kod, beden, satis_fiyat, dvz, beden_kodu as beden_id from tanim s where s.src like '%"+src+"%' group by kod, ad, anagrup_kod, beden, satis_fiyat, dvz";
-        String query = "select id, kod, ad, anagrup_kod, beden,pkadet, satis_fiyat, dvz,d1,d14,d89,beden_kodu as beden_id from tanim s where s.src like '%"+src+"%' group by id, kod, ad, anagrup_kod, beden,beden_kodu,pkadet, satis_fiyat, dvz,d1,d14,d89";
+        String query = "select  kod, ad, anagrup_kod, beden,pkadet, satis_fiyat, dvz,beden_kodu as beden_id from tanim s where s.src like '%"+src+"%' group by kod, ad, anagrup_kod, beden,beden_kodu,pkadet, satis_fiyat, dvz";
     /*    String query = "select "+  Const.KOD +", "+  Const.AD +", "+  Const.ANAGRUP_KOD +", "+  Const.BEDEN +", "+  Const.SATIS_FIYAT +", "+  Const.DVZ +", "+  Const.BEDEN_KODU +" as "+  Const.BEDEN_KODU +" from "+Const.TANIM_TABLE_NAME+" s" +
                 "where s.src like '%"+src+"%'" +
                 "group by "+Const.KOD +", "+Const.AD +", "+Const.ANAGRUP_KOD +", "+Const.BEDEN +", "+Const.SATIS_FIYAT +", "+Const.DVZ +"";
@@ -231,7 +278,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while(cursor.isAfterLast() == false){
             tanim = new TanimlarResultModel();
-            tanim.setId(cursor.getString(cursor.getColumnIndex(Const.ID)));
+            //   tanim.setId(cursor.getString(cursor.getColumnIndex(Const.ID)));
             tanim.setKod(cursor.getString(cursor.getColumnIndex(Const.KOD)));
             tanim.setAd(cursor.getString(cursor.getColumnIndex(Const.AD)));
             tanim.setAnagrup_kod(cursor.getString(cursor.getColumnIndex(Const.ANAGRUP_KOD)));
@@ -242,9 +289,9 @@ public class DBHelper extends SQLiteOpenHelper {
             tanim.setPkadet(cursor.getString(cursor.getColumnIndex(Const.PKADET)));
             tanim.setDvz(cursor.getString(cursor.getColumnIndex(Const.DVZ)));
             tanim.setSatis_fiyat(cursor.getString(cursor.getColumnIndex(Const.SATIS_FIYAT)));
-            tanim.setD1(cursor.getString(cursor.getColumnIndex(Const.D1)));
-            tanim.setD14(cursor.getString(cursor.getColumnIndex(Const.D14)));
-            tanim.setD89(cursor.getString(cursor.getColumnIndex(Const.D89)));
+            //     tanim.setD1(cursor.getString(cursor.getColumnIndex(Const.D1)));
+            //    tanim.setD14(cursor.getString(cursor.getColumnIndex(Const.D14)));
+            //   tanim.setD89(cursor.getString(cursor.getColumnIndex(Const.D89)));
             //    tanim.setSrc(cursor.getString(cursor.getColumnIndex(Const.SRC)));
 
 
@@ -335,7 +382,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS contacts");
-        onCreate(sqLiteDatabase);
+    //    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS tanim");
+     //   onCreate(sqLiteDatabase);
     }
 }

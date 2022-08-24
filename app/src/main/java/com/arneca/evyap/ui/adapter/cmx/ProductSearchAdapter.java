@@ -56,12 +56,12 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
         holder.txtPaket.setText(String.valueOf(mData.getResult().get(position).getPkadet()));
         holder.txtPrice.setText(String.valueOf(mData.getResult().get(position).getFiyat()));
 
-        if (position!=0){
+    //    if (position!=0){
             holder.txtPaketTitle.setVisibility(View.GONE);
             holder.txtNameTitle.setVisibility(View.GONE);
             holder.txtCodeTitle.setVisibility(View.GONE);
             holder.txtPriceTitle.setVisibility(View.GONE);
-        }
+        //    }
 
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override

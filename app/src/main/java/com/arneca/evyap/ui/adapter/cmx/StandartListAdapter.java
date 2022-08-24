@@ -192,7 +192,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
         for (TanimlarResponse.ResultBean trBean : tanimlarResponse.getResult()){
           //  id text, kod text, ad text, anagrup_kod text, beden text, beden_kodu text, renk text, renk_id text, pkadet text, dvz text, satis_fiyat text, d1 text, d14 text, d89 text, src text
           dbHelper.insertRecord(""+trBean.getD1(),trBean.getKod(),trBean.getAd(),trBean.getAnagrup_kod(),trBean.getBeden(),trBean.getBeden_kodu(),trBean.getRenk(),""+trBean.getRenk_id()
-                  ,trBean.getPkadet(),trBean.getDvz(),trBean.getSatis_fiyat(),trBean.getD1(),trBean.getD14(),trBean.getD89(),trBean.getSrc());
+                  ,trBean.getPkadet(),trBean.getDvz(),trBean.getSatis_fiyat(),trBean.getD1(),trBean.getD14(),trBean.getD89(),trBean.getSrc(),trBean.getRenk_kodu_x());
        /*  i = i+1;
           if (i==50)
               break;*/

@@ -43,6 +43,7 @@ public class OpenDocStockListAdapter extends RecyclerView.Adapter<OpenDocStockLi
         this.context = context;
         this.mData = data;
         this.guid = guid;
+
     }
 
     // inflates the cell layout from xml when needed
@@ -61,12 +62,12 @@ public class OpenDocStockListAdapter extends RecyclerView.Adapter<OpenDocStockLi
         holder.txtColor.setText(String.valueOf(mData.getResult().get(position).getRenk()));
         holder.txtAmount.setText(String.valueOf(mData.getResult().get(position).getMiktar()));
 
-        if (position != 0){
+     //   if (position != 0){
             holder.txtCodeTitle.setVisibility(View.GONE);
             holder.txtNameTitle.setVisibility(View.GONE);
             holder.txtColorTitle.setVisibility(View.GONE);
             holder.txtAmountTitle.setVisibility(View.GONE);
-        }
+       // }
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,6 +176,10 @@ public class OpenDocStockListAdapter extends RecyclerView.Adapter<OpenDocStockLi
             return 0;
         else
           return mData.getResult().size();
+    }
+
+    public void finishActivity() {
+
     }
 
 

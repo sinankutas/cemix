@@ -74,7 +74,7 @@ public class TanimBottomSheetFragment extends BottomSheetDialogFragment {
 
     public void dissmisView(){
         dismiss();
-         ((NewSayimActivity) getActivity()).gotoRBMatris();
+     //    ((NewSayimActivity) getActivity()).gotoRBMatris();
 
     }
 

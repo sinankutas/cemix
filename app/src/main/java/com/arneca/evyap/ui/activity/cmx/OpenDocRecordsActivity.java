@@ -60,7 +60,7 @@ public class OpenDocRecordsActivity extends BaseActivity {
             }
         }
 
-        loadData();
+
     }
 
     private void loadData() {
@@ -92,7 +92,24 @@ public class OpenDocRecordsActivity extends BaseActivity {
         });
     }
 
-    private void getRecordMessage(String message,int acikBelgeSayisi) {
+    public void finishPage(){
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+       if ( PreferencesHelper.isIsRecordScreenClose()){
+           finish();
+           PreferencesHelper.setIsRecordScreenClose(false);
+       }else{
+           loadData();
+       }
+    }
+
+    private void getRecordMessage(String message, int acikBelgeSayisi) {
+        hideDialog();
         Tool.showInfo2action(OpenDocRecordsActivity.this,"Bilgi",
                 acikBelgeSayisi+" "+message,
                 (dialog, which) -> gotoDocList(),

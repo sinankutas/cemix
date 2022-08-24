@@ -261,13 +261,20 @@ public class RBMatrisActivity extends BaseActivity {
             hideDialog();
             if (sTHEkleRespone!=null){
                // iF SUCCESS  show alert
+                Tool.showInfo(RBMatrisActivity.this,"Bilgi",
+                        sTHEkleRespone.getResult_message().getMessage(),
+                        (dialog, which) ->  dismissToolDialogFinish(),"Tamam");
                 Tool.showInfo(this,"Bilgi",sTHEkleRespone.getResult_message().getMessage());
                 binding.toolbar2.rightContainer.setVisibility(View.GONE);
-                finish();
+
             }else{
                 Tool.showInfo(this,"Hata","Kayıt İşlemi Başarısız.");
             }
         });
+    }
+
+    private void dismissToolDialogFinish() {
+        finish();
     }
 
     private void loadData() {

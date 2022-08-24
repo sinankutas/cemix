@@ -38,6 +38,7 @@ public class PreferencesHelper extends BaseObservable {
      Cemix
      */
 
+    private static boolean isRecordScreenClose;
     private static LoginResponse loginResponse;
     private static LoginResponse.ResultBean.CarilerBean selectedCompany;
     private static JSONArray jsonArrayForMatris = new JSONArray();
@@ -178,5 +179,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setTanimMap(Map<String, List<TanimlarResultModel>> tanimMap) {
         PreferencesHelper.tanimMap = tanimMap;
+    }
+
+    public static boolean isIsRecordScreenClose() {
+        return isRecordScreenClose;
+    }
+
+    public static void setIsRecordScreenClose(boolean isRecordScreenClose) {
+        PreferencesHelper.isRecordScreenClose = isRecordScreenClose;
     }
 }

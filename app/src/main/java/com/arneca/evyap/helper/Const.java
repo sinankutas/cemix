@@ -20,6 +20,7 @@ public class Const {
     public static final String BEDEN_ID = "beden_id";
     public static final String RENK = "renk";
     public static final String RENK_ID = "renk_id";
+    public static final String RENK_KODU_X = "renk_kodu_x";
     public static final String PKADET = "pkadet";
     public static final String DVZ = "dvz";
     public static final String SATIS_FIYAT = "satis_fiyat";

@@ -77,7 +77,7 @@ public class NewSayimAdapter extends RecyclerView.Adapter<NewSayimAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 PreferencesHelper.setTanimlarResultModel(mData.get(position));
-                ((NewSayimActivity) context).gotoRBMatris();
+                ((NewSayimActivity) context).gotoRBMatris(mData.get(position).getBeden_id());
                /* Intent intent = new Intent(context, RBMatrisActivity.class);
                 intent.putExtra("bedenId",String.valueOf(mData.getResult().get(position).getBeden_id()));
                 intent.putExtra("guid",guid);

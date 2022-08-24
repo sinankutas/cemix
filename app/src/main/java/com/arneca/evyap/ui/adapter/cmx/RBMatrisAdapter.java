@@ -101,8 +101,10 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
+                    if (!editable.toString().equals("")){
+                        mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(editable.toString()));
+                    }
 
-                    mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(editable.toString()));
 
                     boolean isfounded = false;
                     int existingIndex = 0;
@@ -134,14 +136,14 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             }
         });
 
-        if (position!=0){
+       // if (position!=0){
             holder.txtColorTitle.setVisibility(View.INVISIBLE);
             holder.txtamountTitle.setVisibility(View.INVISIBLE);
             holder.txtDP3Title.setVisibility(View.INVISIBLE);
             holder.txtDP2Title.setVisibility(View.INVISIBLE);
             holder.txtDP1Title.setVisibility(View.INVISIBLE);
             holder.txtKNumberIdTitle.setVisibility(View.INVISIBLE);
-        }
+        // }
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

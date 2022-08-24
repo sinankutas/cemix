@@ -517,7 +517,7 @@ public class Tool {
                 .content(message)
                 .positiveText("Tamam")
                 .positiveColor(context.getResources().getColor(R.color.colorPrimary))
-                .cancelable(false)
+                .cancelable(true)
                 .show();
     }
 
@@ -531,7 +531,7 @@ public class Tool {
                 .onPositive(buttonCallback)
                 .onNegative(buttonCallback1)
                 .positiveColor(context.getResources().getColor(R.color.colorPrimary))
-                .cancelable(false)
+                .cancelable(true)
                 .show();
     }
 
@@ -545,7 +545,7 @@ public class Tool {
                 .positiveText(positiveTitle)
                 .onPositive(buttonCallback)
                 .positiveColor(context.getResources().getColor(R.color.colorPrimary))
-                .cancelable(false)
+                .cancelable(true)
                 .show();
     }
 
@@ -559,7 +559,7 @@ public class Tool {
                 .positiveText("Tamam")
                 .onPositive(buttonCallback)
                 .positiveColor(context.getResources().getColor(R.color.colorPrimary))
-                .cancelable(false)
+                .cancelable(true)
                 .show();
     }
 
@@ -584,7 +584,7 @@ public class Tool {
                 .onPositive(buttonCallback)
                 .onNegative(buttonCallback1)
                 .positiveColor(context.getResources().getColor(R.color.colorPrimary))
-                .cancelable(false)
+                .cancelable(true)
                 .show();
     }
 
