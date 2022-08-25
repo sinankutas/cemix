@@ -29,6 +29,7 @@ import com.arneca.evyap.ui.activity.cmx.NewSayimActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
+import com.arneca.evyap.ui.activity.cmx.SayimUrunEkleActivity;
 import com.arneca.evyap.ui.activity.cmx.TanimlarActivity;
 import com.arneca.evyap.ui.fragment.CompanyBottomFragment;
 import com.arneca.evyap.ui.fragment.TanimBottomSheetFragment;
@@ -133,9 +134,11 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                         String desc = txtDescription.getText().toString();
                         if (desc.length()>0){
                             dbHelper.insertNewSayim(desc,PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu(),"","");
-                                Intent intent = new Intent(context, NewSayimActivity.class);
+                                Intent intent = new Intent(context, SayimUrunEkleActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                 intent.putExtra("viewTitle", viewTitle);
+                                intent.putExtra("currentId", ""); // yeni liste olduğu için boş yolla
+
                                 context.startActivity(intent);
 
                         }else{

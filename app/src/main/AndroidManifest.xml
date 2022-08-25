@@ -66,6 +66,14 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.cmx.SayimUrunEkleActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <activity
             android:name=".ui.activity.cmx.OpenDocRecordsActivity"
             android:theme="@style/AppTheme.TransparentStatus"
             android:screenOrientation="portrait">

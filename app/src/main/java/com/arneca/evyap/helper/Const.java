@@ -14,7 +14,7 @@ public class Const {
     public static final String CIHAZ = "cihaz";
     public static final String SUBE_ID = "sube_id";
     public static final String MIKTAR = "miktar";
-    public static final String KULLANICI_ADI = "kullanici_id";
+    public static final String KULLANICI_ID = "kullanici_id";
     public static final String STOK_ADI = "stok_adi";
     public static final String TARIH = "tarih";
     public static final String ARAMA_METNI = "arama_metni";

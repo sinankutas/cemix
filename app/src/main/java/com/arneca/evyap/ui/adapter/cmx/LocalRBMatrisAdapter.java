@@ -37,17 +37,18 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
     private OpenDocListAdapter.ItemClickListener mClickListener;
     private Context context;
     private int currentIndex;
-    private String fiyat;
+    private String fiyat,stokAd;
     JSONArray jsonArray = PreferencesHelper.getJsonArrayForLocalMatris();
     private boolean isStockActive;
     // data is passed into the constructor
-    public LocalRBMatrisAdapter(Context context, List<TanimlarResultModel> data, int currentIndex, boolean isStockActive,String fiyat) {
+    public LocalRBMatrisAdapter(Context context, List<TanimlarResultModel> data, int currentIndex, boolean isStockActive,String fiyat,String stokAd) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.mData = data;
         this.currentIndex = currentIndex;
         this.isStockActive = isStockActive;
         this.fiyat = fiyat;
+        this.stokAd = stokAd;
     }
 
     // inflates the cell layout from xml when needed
@@ -130,6 +131,8 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
                     obj.put("Miktar", ""+amountFromEditable);
                     obj.put("Fiyat", ""+fiyat);
                     obj.put("Dvz", "1");
+                    obj.put("StokAdı", stokAd);
+                    obj.put("Renk", mData.get(position).getRenk());
 
                     jsonArray.put(obj);
                     ((LocalRBMatrisActivity)context).setJsonArray(jsonArray);

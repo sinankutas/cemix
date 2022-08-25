@@ -173,7 +173,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
     private void setTabLayouts() {
 
         binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(currentSelectedIndex).getSatis_fiyat()); // buraya aktif tab gelecek
+        adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(currentSelectedIndex).getSatis_fiyat(),tabsResponse.get(currentSelectedIndex).getAd()); // buraya aktif tab gelecek
         binding.openDocList.setAdapter(adapter);
 
         binding.txtTab1.setText(tabsResponse.get(0).getKod());
@@ -307,8 +307,10 @@ public class LocalRBMatrisActivity  extends BaseActivity {
                  String miktar = jsonArray.getJSONObject(i).getString("Miktar");
                  String fiyat = jsonArray.getJSONObject(i).getString("Fiyat");
                  String dvz = jsonArray.getJSONObject(i).getString("Dvz");
-                dbHelper.insertNewSayimDetay(""+sayimModels.get(sayimModels.size()-1).getId(),stok_kodu,renk_id,"arama metni"
-                        ,""+PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeID(),""+PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),miktar,"cihaz","stok_adı");
+                 String stokAd = jsonArray.getJSONObject(i).getString("StokAdı");
+                 String renk = jsonArray.getJSONObject(i).getString("Renk");
+                dbHelper.insertNewSayimDetay(""+sayimModels.get(sayimModels.size()-1).getId(),stok_kodu,renk,"arama metni"
+                        ,""+PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeID(),""+PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),miktar,"cihaz",stokAd);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -335,7 +337,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
             if (currentSelectedIndex == 0 && tabsResponse.get(0)!=null){
 
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(0).getSatis_fiyat()); // buraya aktif tab gelecek
+                adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(0).getSatis_fiyat(),tabsResponse.get(0).getAd()); // buraya aktif tab gelecek
                 binding.openDocList.setAdapter(adapter);
 
                 binding.txtTab1.setText(tabsResponse.get(0).getKod());
@@ -351,7 +353,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
         try {
             if (currentSelectedIndex == 1 && tabsResponse.get(1)!=null){
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(1).getSatis_fiyat()); // buraya aktif tab gelecek
+                adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(1).getSatis_fiyat(),tabsResponse.get(1).getAd()); // buraya aktif tab gelecek
                 binding.openDocList.setAdapter(adapter);
 
                 binding.txtTab2.setText(tabsResponse.get(1).getKod());
@@ -366,7 +368,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
             try {
                 if (currentSelectedIndex == 2 && tabsResponse.get(2)!=null){
                     binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                    adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(2).getSatis_fiyat()); // buraya aktif tab gelecek
+                    adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(2).getSatis_fiyat(),tabsResponse.get(2).getAd()); // buraya aktif tab gelecek
                     binding.openDocList.setAdapter(adapter);
                     
                     binding.txtTab3.setText(tabsResponse.get(2).getKod());

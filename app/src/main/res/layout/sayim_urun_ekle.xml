@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.arneca.evyap.helper.RelativeLayoutWithBackground
+        android:id="@+id/loginRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark2">
+
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/tool_top"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_below="@id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtSayimId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="2dp"
+                    android:padding="14dp"
+                    android:text="Belge Id: 141"></TextView>
+                <View
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="1dp"
+                    android:layout_height="33dp"
+                    android:background="@color/grayTextDark"></View>
+
+                <TextView
+                    android:id="@+id/txtSeriId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:text="Seri No: 141"></TextView>
+
+                <View
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="1dp"
+                    android:layout_height="33dp"
+                    android:background="@color/grayTextDark"></View>
+
+                <TextView
+                    android:id="@+id/txtOrderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:text="S.No 141"></TextView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/addProduct"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:background="@color/colorPrimaryDark2"
+                    android:drawableLeft="@drawable/addicon"
+                    android:padding="16dp"
+                    android:text="Ürün Ekle"/>
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent"></View>
+
+                <TextView
+                    android:id="@+id/btnCompleted"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:drawableLeft="@drawable/checkedwhite"
+                    android:padding="16dp"
+                    android:background="@color/greenText2"
+                    android:text="Tamamla"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sub_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/lnrLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            >
+                            <TextView
+                                android:id="@+id/txtCodeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:gravity="left"
+                                android:layout_marginLeft="2dp"
+                                android:imeOptions="actionDone"
+                                android:minWidth="50dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/grayTextDark"
+                                android:text="Kod"></TextView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="150dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/txtNameTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="center"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:minWidth="50dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Ürün Adı"></TextView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        >
+                        <TextView
+                            android:id="@+id/txtColorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:minWidth="50dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Renk"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        >
+                        <TextView
+                            android:id="@+id/txtAmountTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:layout_marginLeft="2dp"
+                            android:imeOptions="actionDone"
+                            android:minWidth="50dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grayTextDark"
+                            android:text="Miktar"></TextView>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swipeRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/openDocList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="vertical"
+                        />
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </com.arneca.evyap.helper.RelativeLayoutWithBackground>
+
+
+</layout>

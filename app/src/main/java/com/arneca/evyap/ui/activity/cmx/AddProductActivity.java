@@ -41,8 +41,6 @@ public class AddProductActivity  extends BaseActivity {
     private boolean isStockActive;
 
 
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -136,17 +134,31 @@ public class AddProductActivity  extends BaseActivity {
             response.headers();
             hideDialog();
             if (productSearchResponse.getResult()!=null){
-                binding.swipeRefreshLayout.setRefreshing(false);
-                binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new ProductSearchAdapter(this, productSearchResponse,guid,docId,viewTitle,isStockActive);
-                binding.openDocList.setAdapter(adapter);
-                binding.edtSearch.setText("");
-
+                if (productSearchResponse.getResult().size()==1){
+                    gotoRBMatris(productSearchResponse);
+                }else{
+                    binding.swipeRefreshLayout.setRefreshing(false);
+                    binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+                    adapter = new ProductSearchAdapter(this, productSearchResponse,guid,docId,viewTitle,isStockActive);
+                    binding.openDocList.setAdapter(adapter);
+                    binding.edtSearch.setText("");
+                }
             }else{
                 binding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
                 Tool.showInfo(this, "Bilgi", productSearchResponse.getResult_message().getMessage());
             }
         });
+    }
+
+    private void gotoRBMatris(ProductSearchResponse productSearchResponse){
+        Intent intent = new Intent(AddProductActivity.this, RBMatrisActivity.class);
+        intent.putExtra("bedenId",String.valueOf(productSearchResponse.getResult().get(0).getBeden_id()));
+        intent.putExtra("guid",guid);
+        intent.putExtra("docId",docId);
+        intent.putExtra("viewTitle",viewTitle);
+        intent.putExtra("isStockActive",isStockActive);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
     }
 }

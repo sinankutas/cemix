@@ -7,6 +7,8 @@ public class NewSayimModel {
     String idx;
     String desc;
     String subeCode;
+    String tarih;
+    String cihaz;
 
     public Integer getId() {
         return id;
@@ -38,5 +40,21 @@ public class NewSayimModel {
 
     public void setSubeCode(String subeCode) {
         this.subeCode = subeCode;
+    }
+
+    public String getTarih() {
+        return tarih;
+    }
+
+    public void setTarih(String tarih) {
+        this.tarih = tarih;
+    }
+
+    public String getCihaz() {
+        return cihaz;
+    }
+
+    public void setCihaz(String cihaz) {
+        this.cihaz = cihaz;
     }
 }
