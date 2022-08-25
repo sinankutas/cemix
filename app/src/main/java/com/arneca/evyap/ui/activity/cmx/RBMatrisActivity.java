@@ -44,6 +44,7 @@ public class RBMatrisActivity extends BaseActivity {
     private String bedenId = "";
     private String guid = "";
     private String docId = "";
+    private String selectedCode = "";
     private String viewTitle = "";
     private boolean isStockActive;
     private final boolean USE_IMMERSIVE_MODE = true;
@@ -64,6 +65,7 @@ public class RBMatrisActivity extends BaseActivity {
         guid = myIntent.getStringExtra("guid");
         docId = myIntent.getStringExtra("docId");
         viewTitle = myIntent.getStringExtra("viewTitle");
+        selectedCode = myIntent.getStringExtra("selectedCode");
         isStockActive = myIntent.getBooleanExtra("isStockActive",false);
         binding.toolbar.txtViewTitle.setText(viewTitle);
         binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
@@ -113,16 +115,20 @@ public class RBMatrisActivity extends BaseActivity {
         });
 
 
-        binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
+
         binding.txtTab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 currentSelectedIndex = 0;
                 binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
 
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
+
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(rbMatrisResponse);
+                loadTableData(rbMatrisResponse, false);
             }
         });
 
@@ -134,7 +140,11 @@ public class RBMatrisActivity extends BaseActivity {
 
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(rbMatrisResponse);
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
+                loadTableData(rbMatrisResponse,false);
             }
         });
 
@@ -144,9 +154,13 @@ public class RBMatrisActivity extends BaseActivity {
                 currentSelectedIndex = 2;
                 binding.txtTab3.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
 
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
+
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(rbMatrisResponse);
+                loadTableData(rbMatrisResponse,false);
             }
         });
     }
@@ -290,7 +304,7 @@ public class RBMatrisActivity extends BaseActivity {
             response.headers();
             hideDialog();
             if (rbMatrisResponse.getResult()!=null){
-                loadTableData(rbMatrisResponse);
+                loadTableData(rbMatrisResponse, true);
             }else{
                 Tool.hideDialog();
                 Tool.showInfo(this, "Bilgi", rbMatrisResponse.getResult_message().getMessage());
@@ -298,7 +312,17 @@ public class RBMatrisActivity extends BaseActivity {
         });
     }
 
-    private void loadTableData(RBMatrisResponse rbMatrisResponse) {
+    private void loadTableData(RBMatrisResponse rbMatrisResponse , boolean isAutoActive) {
+        if (isAutoActive){
+            int i = 0;
+            for (RBMatrisResponse.ResultBean response : rbMatrisResponse.getResult()){
+                if (response.getKod().equals(selectedCode)){
+                    currentSelectedIndex = i;
+                }
+                i=i+1;
+            }
+        }
+
         setViews(rbMatrisResponse);
         binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RBMatrisAdapter(this, rbMatrisResponse,currentSelectedIndex,isStockActive);
@@ -317,6 +341,13 @@ public class RBMatrisActivity extends BaseActivity {
                 binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getAd());
                 binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getAd());
                 binding.txtPrice.setText(rbMatrisResponse.getResult().get(currentSelectedIndex).getFiyat()+" $ ");
+                binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
+                binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));;
+                binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
 
 
             }
@@ -325,12 +356,27 @@ public class RBMatrisActivity extends BaseActivity {
                 binding.txtTab2.setText(rbMatrisResponse.getResult().get(1).getKod());
                 binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(1).getAd());
                 binding.txtPrice.setText(rbMatrisResponse.getResult().get(1).getFiyat()+" $ ");
+                binding.txtTab2.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));;
+                binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
+                binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
             }
 
             if (currentSelectedIndex == 2 && rbMatrisResponse.getResult().get(2)!=null){
                 binding.txtTab3.setText(rbMatrisResponse.getResult().get(2).getKod());
                 binding.txtProductTitle.setText(rbMatrisResponse.getResult().get(2).getAd());
                 binding.txtPrice.setText(rbMatrisResponse.getResult().get(2).getFiyat()+" $ ");
+                binding.txtTab3.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
+                binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
+                binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));;
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.white));
+
             }
 
         }

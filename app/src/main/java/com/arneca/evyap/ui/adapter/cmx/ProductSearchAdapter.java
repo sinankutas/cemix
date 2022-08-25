@@ -71,6 +71,7 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
                 intent.putExtra("guid",guid);
                 intent.putExtra("docId",docId);
                 intent.putExtra("viewTitle",viewTitle);
+                intent.putExtra("selectedCode",mData.getResult().get(position).getKod());
                 intent.putExtra("isStockActive",isStockActive);
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(intent);

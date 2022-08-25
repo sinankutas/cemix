@@ -29,6 +29,7 @@ public class LoginResponse {
         private List<ModulYetkileriBean> ModulYetkileri;
         private List<DepoYetkileriBean> DepoYetkileri;
         private List<CarilerBean> Cariler;
+        private List<PlasiyerKodlariBean> PlasiyerKodlari;
 
 
         public static class ProfilBean {
@@ -195,6 +196,24 @@ public class LoginResponse {
             }
         }
 
+
+        public static class PlasiyerKodlariBean {
+            /**
+             * kod : 120.01.001
+             * ad : YALI ÇOCUK GİYİM SAN. TİC. LTD. ŞTİ. ( MERKEZ ) 12.05.2022 MUTABIKIZ
+             */
+
+            private String plasiyer_kodu_isyeri;
+
+            public String getPlasiyer_kodu_isyeri() {
+                return plasiyer_kodu_isyeri;
+            }
+
+            public void setPlasiyer_kodu_isyeri(String plasiyer_kodu_isyeri) {
+                this.plasiyer_kodu_isyeri = plasiyer_kodu_isyeri;
+            }
+        }
+
         public String getOturumKodu() {
             if (OturumKodu == null)
                 OturumKodu = "";
@@ -235,6 +254,14 @@ public class LoginResponse {
 
         public void setCariler(List<CarilerBean> cariler) {
             Cariler = cariler;
+        }
+
+        public List<PlasiyerKodlariBean> getPlasiyerKodlari() {
+            return PlasiyerKodlari;
+        }
+
+        public void setPlasiyerKodlari(List<PlasiyerKodlariBean> plasiyerKodlari) {
+            PlasiyerKodlari = plasiyerKodlari;
         }
     }
 

@@ -138,6 +138,10 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
                 colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(0).getKod());
                 loadTableData();
             }
@@ -151,6 +155,10 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
                 colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(1).getKod());
                 loadTableData();
             }
@@ -164,6 +172,10 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
                 colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(2).getKod());
                 loadTableData();
             }
