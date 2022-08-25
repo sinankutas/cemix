@@ -72,6 +72,13 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".ui.activity.cmx.LokalSayimlarActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:screenOrientation="portrait">
+        </activity>
+
 
         <activity
             android:name=".ui.activity.cmx.OpenDocRecordsActivity"

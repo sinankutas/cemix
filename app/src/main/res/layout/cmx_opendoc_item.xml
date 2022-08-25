@@ -181,6 +181,7 @@
             </LinearLayout>
 
           <LinearLayout
+              android:id="@+id/lytAmount"
               android:orientation="vertical"
               android:layout_width="65dp"
               android:layout_marginLeft="5dp"

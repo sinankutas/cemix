@@ -25,6 +25,7 @@ import com.arneca.evyap.helper.Const;
 import com.arneca.evyap.helper.DBHelper;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
+import com.arneca.evyap.ui.activity.cmx.LokalSayimlarActivity;
 import com.arneca.evyap.ui.activity.cmx.NewSayimActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
@@ -72,6 +73,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
             public void onClick(View view) {
                 String viewTitle1 = "";
                 String viewTitle2 = "";
+                String viewTitle3 = "";
                 if (PreferencesHelper.getActiveDocType().equals("satis")){
                     viewTitle1 = "Satışa Devam";
                     viewTitle2 = "Yeni Satış";
@@ -86,6 +88,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                     isSayimActive[0] = true;
                     viewTitle1 = "Sayımları Çek";
                     viewTitle2 = "Yeni Sayım";
+                    viewTitle3 = "Eski Sayım";
                 }
 
                 if (position==0){
@@ -117,6 +120,11 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                         intent.putExtra("viewTitle",viewTitle2);
                         context.startActivity(intent);
                     }
+                }else if (position == 2){
+                    Intent intent = new Intent(context, LokalSayimlarActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                    intent.putExtra("viewTitle",viewTitle3);
+                    context.startActivity(intent);
                 }
             }
         });
@@ -138,7 +146,6 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                 intent.putExtra("viewTitle", viewTitle);
                                 intent.putExtra("currentId", ""); // yeni liste olduğu için boş yolla
-
                                 context.startActivity(intent);
 
                         }else{

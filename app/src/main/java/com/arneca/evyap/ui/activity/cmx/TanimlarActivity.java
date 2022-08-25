@@ -34,7 +34,7 @@ public class TanimlarActivity extends BaseActivity {
         menuNames.add("Tanımları Çek");
         menuNames.add("Yeni Sayım");
         menuNames.add("Eski Sayım");
-        menuNames.add("Sayımı Bitir");
+    //    menuNames.add("Sayımı Bitir");
         binding.toolbar.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
