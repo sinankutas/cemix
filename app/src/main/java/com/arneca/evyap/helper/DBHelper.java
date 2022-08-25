@@ -50,6 +50,21 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, name, factory, version, errorHandler);
     }
 
+    /*
+*
+CREATE TABLE sayim_detay (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+sayim_id INTEGER,
+stok_kodu TEXT(50),
+renk_id INTEGER,
+arama_metni TEXT(50),
+sube_id INTEGER,
+kullanici_id INTEGER,
+miktar INTEGER,
+cihaz TEXT(150)
+, stok_adi TEXT(150), renk TEXT(50));
+* */
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
@@ -59,8 +74,13 @@ public class DBHelper extends SQLiteOpenHelper {
         );
 
         sqLiteDatabase.execSQL(
+                "create table '"+Const.TANIM_TABLE_NAME_NEW_SAYIM_DETAY+"' " +
+                        "( id INTEGER PRIMARY KEY AUTOINCREMENT, sayim_id text, stok_kodu text, renk_id text,arama_metni text,sube_id text,kullanici_id text,miktar text,cihaz text ,stok_adi text)"
+        );
+
+        sqLiteDatabase.execSQL(
                 "create table '"+Const.TANIM_TABLE_NAME_NEW_SAYIM+"' " +
-                        "( id INTEGER PRIMARY KEY AUTOINCREMENT, description text, idx text, sube_code text)"
+                        "( id INTEGER PRIMARY KEY AUTOINCREMENT, description text, idx text, sube_code text,cihaz text,date text)"
         );
     }
 
@@ -90,14 +110,33 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean insertNewSayim (String desc, String idx, String sube_code) {
+    public boolean insertNewSayim (String desc, String idx, String sube_code,String cihaz,String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
     //    contentValues.put(Const.ID, id);
         contentValues.put(Const.DESCRIPTION, desc);
         contentValues.put(Const.IDX, idx);
         contentValues.put(Const.SUBE_CODE, sube_code);
+        contentValues.put(Const.TARIH, date);
+        contentValues.put(Const.CIHAZ, cihaz);
         db.insert(Const.TANIM_TABLE_NAME_NEW_SAYIM, null, contentValues);
+        return true;
+    }
+
+    public boolean insertNewSayimDetay (String sayim_id, String stok_kodu, String renk_id,String arama_metni,String sube_id,String kullanici_id,String miktar,String cihaz,String stok_adi) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        //    contentValues.put(Const.ID, id);
+        contentValues.put(Const.SAYIM_ID, sayim_id);
+        contentValues.put(Const.STOK_KODU, stok_kodu);
+        contentValues.put(Const.RENK_ID, renk_id);
+        contentValues.put(Const.ARAMA_METNI, arama_metni);
+        contentValues.put(Const.SUBE_ID, sube_id);
+        contentValues.put(Const.KULLANICI_ADI, kullanici_id);
+        contentValues.put(Const.MIKTAR, miktar);
+        contentValues.put(Const.CIHAZ, cihaz);
+        contentValues.put(Const.STOK_ADI, stok_adi);
+        db.insert(Const.TANIM_TABLE_NAME_NEW_SAYIM_DETAY, null, contentValues);
         return true;
     }
 

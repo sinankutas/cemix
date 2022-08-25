@@ -88,9 +88,6 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             }
         });
 
-
-
-
         ((RBMatrisActivity)context).showSoftKeyboard(holder.edtAmount);
         JSONObject obj = new JSONObject();
         holder.edtAmount.addTextChangedListener(new TextWatcher() {

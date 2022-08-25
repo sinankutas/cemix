@@ -66,7 +66,7 @@ public class TanimlarBottomSheetAdapter extends RecyclerView.Adapter<TanimlarBot
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PreferencesHelper.setTanimlarResultModel(tanimlar.get(position));
+           //     PreferencesHelper.setTanimlarResultModel(tanimlar.get(position));
            //     PreferencesHelper.setTanimMap(tanimMap);
                 fragment.dissmisView();
             }

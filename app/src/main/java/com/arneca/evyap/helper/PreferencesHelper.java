@@ -31,7 +31,6 @@ public class PreferencesHelper extends BaseObservable {
     private static GetFactories.DataBean.MyArrayListBean.MapBean selectedFactory;
     private static ArrayList<ReportModel> reportModels;
     private static int totalSelection;
-    private static TanimlarResultModel tanimlarResultModel;
     private static Map<String,List<TanimlarResultModel>> tanimMap;
 
     /*
@@ -42,6 +41,7 @@ public class PreferencesHelper extends BaseObservable {
     private static LoginResponse loginResponse;
     private static LoginResponse.ResultBean.CarilerBean selectedCompany;
     private static JSONArray jsonArrayForMatris = new JSONArray();
+    private static JSONArray jsonArrayForLocalMatris = new JSONArray();
     private static String activeDocType ;
 
     public static boolean isIsRememberMe(Context context) {
@@ -165,14 +165,6 @@ public class PreferencesHelper extends BaseObservable {
         PreferencesHelper.activeDocType = activeDocType;
     }
 
-    public static TanimlarResultModel getTanimlarResultModel() {
-        return tanimlarResultModel;
-    }
-
-    public static void setTanimlarResultModel(TanimlarResultModel tanimlarResultModel) {
-        PreferencesHelper.tanimlarResultModel = tanimlarResultModel;
-    }
-
     public static Map<String, List<TanimlarResultModel>> getTanimMap() {
         return tanimMap;
     }
@@ -187,5 +179,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setIsRecordScreenClose(boolean isRecordScreenClose) {
         PreferencesHelper.isRecordScreenClose = isRecordScreenClose;
+    }
+
+    public static JSONArray getJsonArrayForLocalMatris() {
+        return jsonArrayForLocalMatris;
+    }
+
+    public static void setJsonArrayForLocalMatris(JSONArray jsonArrayForLocalMatris) {
+        PreferencesHelper.jsonArrayForLocalMatris = jsonArrayForLocalMatris;
     }
 }

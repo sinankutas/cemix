@@ -48,18 +48,16 @@ public class RBMatrisActivity extends BaseActivity {
     private boolean isStockActive;
     private final boolean USE_IMMERSIVE_MODE = true;
     public final boolean DISABLE_IMMERSIVE_MODE_ON_KEYBOARD_OPEN = false; // might be helpful to solve keyboard jumping issue when pop up
-
     public AndroidBug5497Workaround2 helper;
-
-
     private JSONArray jsonArray = new JSONArray();
     RBMatrisResponse rbMatrisResponse ;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.rbmatris_activity);
         PreferencesHelper.setJsonArrayForMatris(new JSONArray());
-         loadKeyboard();
+        loadKeyboard();
 
         Intent myIntent = getIntent(); // gets the previously created intent
         bedenId = myIntent.getStringExtra("bedenId");

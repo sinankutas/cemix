@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.NewSayimModel;
 import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
 import com.arneca.evyap.api.response.cmx.STHEkleRespone;
 import com.arneca.evyap.api.response.cmx.TanimlarResponse;
@@ -19,6 +20,7 @@ import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
 import com.arneca.evyap.databinding.RbmatrisActivityBinding;
 import com.arneca.evyap.helper.AndroidBug5497Workaround2;
 import com.arneca.evyap.helper.CustomEditTextBottomPopup;
+import com.arneca.evyap.helper.DBHelper;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.BaseActivity;
@@ -27,6 +29,7 @@ import com.arneca.evyap.ui.adapter.cmx.RBMatrisAdapter;
 import com.lxj.xpopup.XPopup;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,17 +53,20 @@ public class LocalRBMatrisActivity  extends BaseActivity {
     private boolean isStockActive;
     private final boolean USE_IMMERSIVE_MODE = true;
     public final boolean DISABLE_IMMERSIVE_MODE_ON_KEYBOARD_OPEN = false; // might be helpful to solve keyboard jumping issue when pop up
+    private DBHelper dbHelper ;
 
     public AndroidBug5497Workaround2 helper;
-
-
+    ArrayList<TanimlarResultModel> tabsResponse = new ArrayList<>();
+    ArrayList<TanimlarResultModel> colorDetails = new ArrayList<>();
     private JSONArray jsonArray = new JSONArray();
-    TanimlarResultModel tanimlarResponse  = PreferencesHelper.getTanimlarResultModel();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.rbmatris_activity);
-
+        binding.toolbar.txtViewTitle.setText(viewTitle);
+        dbHelper =  new DBHelper(this);
+        PreferencesHelper.setJsonArrayForLocalMatris(new JSONArray());
         loadKeyboard();
 
         Intent myIntent = getIntent(); // gets the previously created intent
@@ -68,6 +74,12 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
         viewTitle = myIntent.getStringExtra("viewTitle");
         isStockActive = myIntent.getBooleanExtra("isStockActive",false);
+
+        tabsResponse = dbHelper.getRecordWithGroupByBeden(bedenId);
+        if (tabsResponse.size()>0)
+           colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(0).getKod());
+
+
         binding.toolbar.txtViewTitle.setText(viewTitle);
         binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
         binding.toolbar2.leftContainer.setVisibility(View.INVISIBLE);
@@ -114,8 +126,10 @@ public class LocalRBMatrisActivity  extends BaseActivity {
             }
         });
 
+        if (tabsResponse.size()>0)
+            setTabLayouts();
         binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
-        loadTableData(0);
+        loadTableData();
         binding.txtTab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +138,8 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(0);
+                colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(0).getKod());
+                loadTableData();
             }
         });
 
@@ -136,7 +151,8 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(1);
+                colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(1).getKod());
+                loadTableData();
             }
         });
 
@@ -148,9 +164,46 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
-                loadTableData(2);
+                colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(2).getKod());
+                loadTableData();
             }
         });
+    }
+
+    private void setTabLayouts() {
+
+        binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(currentSelectedIndex).getSatis_fiyat()); // buraya aktif tab gelecek
+        binding.openDocList.setAdapter(adapter);
+
+        binding.txtTab1.setText(tabsResponse.get(0).getKod());
+        binding.txtProductTitle.setText(tabsResponse.get(0).getAd());
+        binding.txtProductTitle.setText(tabsResponse.get(0).getAd());
+        binding.txtPrice.setText(tabsResponse.get(0).getSatis_fiyat()+" $ ");
+
+        if (tabsResponse.size() == 1){
+            binding.txtTab1.setVisibility(View.VISIBLE);
+            binding.txtTab2.setVisibility(View.INVISIBLE);
+            binding.txtTab3.setVisibility(View.INVISIBLE);
+        }else if (tabsResponse.size() == 2){
+            binding.txtTab2.setText(tabsResponse.get(1).getKod());
+            binding.txtTab1.setVisibility(View.VISIBLE);
+            binding.txtTab2.setVisibility(View.VISIBLE);
+            binding.txtTab3.setVisibility(View.INVISIBLE);
+        }else if (tabsResponse.size() == 3){
+            binding.txtTab3.setText(tabsResponse.get(2).getKod());
+            binding.txtTab2.setText(tabsResponse.get(1).getKod());
+            binding.txtTab1.setVisibility(View.VISIBLE);
+            binding.txtTab2.setVisibility(View.VISIBLE);
+            binding.txtTab3.setVisibility(View.VISIBLE);
+        }else if (tabsResponse.size()>3){
+            binding.txtTab3.setText(tabsResponse.get(2).getKod());
+            binding.txtTab2.setText(tabsResponse.get(1).getKod());
+            binding.txtTab1.setText(tabsResponse.get(0).getKod());
+            binding.txtTab1.setVisibility(View.VISIBLE);
+            binding.txtTab2.setVisibility(View.VISIBLE);
+            binding.txtTab3.setVisibility(View.VISIBLE);
+        }
     }
 
     private void loadKeyboard() {
@@ -244,35 +297,48 @@ public class LocalRBMatrisActivity  extends BaseActivity {
     }
 
     private void saveDoc() {
+        ArrayList<NewSayimModel> sayimModels = dbHelper.getAllNewSayim();
+        for(int i=0; i<this.jsonArray.length(); i++){
+            String value = null;
+            try {
+                 String stok_kodu = jsonArray.getJSONObject(i).getString("StokKodu");
+                 String stok_idx = jsonArray.getJSONObject(i).getString("StokIdx");
+                 String renk_id = jsonArray.getJSONObject(i).getString("RenkId");
+                 String miktar = jsonArray.getJSONObject(i).getString("Miktar");
+                 String fiyat = jsonArray.getJSONObject(i).getString("Fiyat");
+                 String dvz = jsonArray.getJSONObject(i).getString("Dvz");
+                dbHelper.insertNewSayimDetay(""+sayimModels.get(sayimModels.size()-1),stok_kodu,renk_id,"arama metni"
+                        ,""+PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeID(),""+PreferencesHelper.getLoginResponse().getResult().getProfil().getId(),miktar,"cihaz","stok_adı");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-    }
-
-
-
-    private void loadTableData(int index) {
-        setViews(index);
-    }
-
-
-    private void setViews(int index) {
-        ArrayList<String> keys = new ArrayList<>();
-        for ( String key : PreferencesHelper.getTanimMap().keySet() ) {
-            System.out.println( key );
-            keys.add(key);
         }
-          ArrayList<TanimlarResultModel>   rbMatrisResponse = ( ArrayList<TanimlarResultModel>) PreferencesHelper.getTanimMap().get(keys.get(index));
+        // sayim_id text, stok_kodu text, renk_id text,arama_metni text,sube_id text,kullanici_id text,miktar text,cihaz text ,stok_adi text
+
+      //  dbHelper.insertNewSayimDetay(sayimModels.get(sayimModels.size()-1),);
+    }
+
+
+
+    private void loadTableData() {
+        setViews();
+    }
+
+
+    private void setViews() {
 
         try {
-            if (currentSelectedIndex == 0 && keys.get(0)!=null){
+            if (currentSelectedIndex == 0 && tabsResponse.get(0)!=null){
 
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new LocalRBMatrisAdapter(this, rbMatrisResponse,currentSelectedIndex,isStockActive); // buraya aktif tab gelecek
+                adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(0).getSatis_fiyat()); // buraya aktif tab gelecek
                 binding.openDocList.setAdapter(adapter);
 
-                binding.txtTab1.setText(keys.get(0));
-                binding.txtProductTitle.setText(rbMatrisResponse.get(0).getAd());
-                binding.txtProductTitle.setText(rbMatrisResponse.get(0).getAd());
-                binding.txtPrice.setText(rbMatrisResponse.get(0).getSatis_fiyat()+" $ ");
+                binding.txtTab1.setText(tabsResponse.get(0).getKod());
+                binding.txtProductTitle.setText(tabsResponse.get(0).getAd());
+                binding.txtProductTitle.setText(tabsResponse.get(0).getAd());
+                binding.txtPrice.setText(tabsResponse.get(0).getSatis_fiyat()+" $ ");
 
             }
         }catch (Exception e){
@@ -280,26 +346,30 @@ public class LocalRBMatrisActivity  extends BaseActivity {
     }
 
         try {
-            if (keys.get(1)!=null){
+            if (currentSelectedIndex == 1 && tabsResponse.get(1)!=null){
                 binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new LocalRBMatrisAdapter(this, rbMatrisResponse,currentSelectedIndex,isStockActive); // buraya aktif tab gelecek
+                adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(1).getSatis_fiyat()); // buraya aktif tab gelecek
                 binding.openDocList.setAdapter(adapter);
 
-                binding.txtTab2.setText(keys.get(1));
-                binding.txtProductTitle.setText(rbMatrisResponse.get(1).getAd());
-                binding.txtProductTitle.setText(rbMatrisResponse.get(1).getAd());
-                binding.txtPrice.setText(rbMatrisResponse.get(1).getSatis_fiyat()+" $ ");
+                binding.txtTab2.setText(tabsResponse.get(1).getKod());
+                binding.txtProductTitle.setText(tabsResponse.get(1).getAd());
+                binding.txtProductTitle.setText(tabsResponse.get(1).getAd());
+                binding.txtPrice.setText(tabsResponse.get(1).getSatis_fiyat()+" $ ");
             }
             }catch (Exception e){
 
             }
 
             try {
-                if (keys.get(2)!=null){
-                    binding.txtTab3.setText(keys.get(2));
-                    binding.txtProductTitle.setText(rbMatrisResponse.get(2).getAd());
-                    binding.txtProductTitle.setText(rbMatrisResponse.get(2).getAd());
-                    binding.txtPrice.setText(rbMatrisResponse.get(2).getSatis_fiyat()+" $ ");
+                if (currentSelectedIndex == 2 && tabsResponse.get(2)!=null){
+                    binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+                    adapter = new LocalRBMatrisAdapter(this, colorDetails,currentSelectedIndex,isStockActive,tabsResponse.get(2).getSatis_fiyat()); // buraya aktif tab gelecek
+                    binding.openDocList.setAdapter(adapter);
+                    
+                    binding.txtTab3.setText(tabsResponse.get(2).getKod());
+                    binding.txtProductTitle.setText(tabsResponse.get(2).getAd());
+                    binding.txtProductTitle.setText(tabsResponse.get(2).getAd());
+                    binding.txtPrice.setText(tabsResponse.get(2).getSatis_fiyat()+" $ ");
                 }
             }catch (Exception e){
 

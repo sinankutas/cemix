@@ -142,13 +142,10 @@ public class NewSayimActivity  extends BaseActivity {
     }
 
     public void gotoRBMatris(String bedenId) {
-        ArrayList<TanimlarResultModel> tabsResponse = dbHelper.getRecordWithGroupByBeden(bedenId);
-        ArrayList<TanimlarResultModel> colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(0).getKod());
-        colorDetails.size();
-     /*   Intent intent = new Intent(NewSayimActivity.this, LocalRBMatrisActivity.class);
+        Intent intent = new Intent(NewSayimActivity.this, LocalRBMatrisActivity.class);
         intent.putExtra("viewTitle","Yeni Sayım");
-        intent.putExtra("bedenId", PreferencesHelper.getTanimlarResultModel().getBeden_kodu());
+        intent.putExtra("bedenId",bedenId);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);*/
+        startActivity(intent);
     }
 }

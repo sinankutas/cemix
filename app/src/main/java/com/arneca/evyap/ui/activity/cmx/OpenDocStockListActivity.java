@@ -194,11 +194,12 @@ public class OpenDocStockListActivity extends BaseActivity {
             OpenDocumentStockListResponse openDocumentStockListResponse = ( OpenDocumentStockListResponse) response.body();
             response.headers();
             hideDialog();
+            binding.swipeRefreshLayout.setRefreshing(false);
+            binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new OpenDocStockListAdapter(this, openDocumentStockListResponse,guid);
+            binding.openDocList.setAdapter(adapter);
             if (openDocumentStockListResponse.getResult()!=null){
-                binding.swipeRefreshLayout.setRefreshing(false);
-                binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new OpenDocStockListAdapter(this, openDocumentStockListResponse,guid);
-                binding.openDocList.setAdapter(adapter);
+
 
             }else{
                 binding.swipeRefreshLayout.setRefreshing(false);

@@ -124,7 +124,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                     public void onClick(DialogInterface dialog1, int whichButton) {
                         String desc = txtDescription.getText().toString();
                         if (desc.length()>0){
-                            dbHelper.insertNewSayim(desc,PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu());
+                            dbHelper.insertNewSayim(desc,PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu(),"","");
 
                             int num = dbHelper.numberOfSayimRows();
                             String s = ""+ num;

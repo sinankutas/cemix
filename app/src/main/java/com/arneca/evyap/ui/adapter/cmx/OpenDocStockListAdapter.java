@@ -100,12 +100,13 @@ public class OpenDocStockListAdapter extends RecyclerView.Adapter<OpenDocStockLi
         Request.deleteDoc(requestBody, context, response -> {
             DocUpdateResponse docUpdateResponse = ( DocUpdateResponse) response.body();
             response.headers();
+            ((OpenDocStockListActivity)context).loadData();
             if (docUpdateResponse!=null){
                 Tool.showInfo(context,"Bilgi",
                         docUpdateResponse.getResult_message().getMessage(),
                         (dialog, which) -> cancelDialog(),
                        "Tamam");
-                ((OpenDocStockListActivity)context).loadData();
+
 
             }else{
                 Tool.hideDialog();
