@@ -160,7 +160,7 @@
                             android:textSize="18sp"
                             android:text="Şifremi Değiştir"
                             android:textColor="@color/white"
-                            tools:text="Şifremi Değiştir"  />
+                            tools:text="Şifremi Değiştir "  />
                             <TextView
                                 android:id="@+id/btnOffline"
                                 android:layout_width="match_parent"
