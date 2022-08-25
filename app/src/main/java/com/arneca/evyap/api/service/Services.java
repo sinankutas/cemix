@@ -118,6 +118,9 @@ public interface Services {
     @POST("Satis/BelgeDetaySil")
     Call<DocUpdateResponse> deleteDoc(@Body RequestBody body);
 
+    @POST("Satis/BelgeSil")
+    Call<DocUpdateResponse> deleteDocFromUplist(@Body RequestBody body);
+
     @POST("Satis/BelgeDetayMiktarGuncelle")
     Call<DocUpdateResponse> docUpdate(@Body RequestBody body);
 

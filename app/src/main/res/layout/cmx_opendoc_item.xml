@@ -10,8 +10,9 @@
       <LinearLayout
             android:id="@+id/lnrLyt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginTop="5dp"
+          android:layout_marginLeft="8dp"
           android:gravity="center"
             android:orientation="horizontal">
             <LinearLayout
@@ -26,6 +27,7 @@
                     android:layout_gravity="left"
                     android:gravity="left"
                     android:layout_marginLeft="2dp"
+                    android:visibility="gone"
                     android:imeOptions="actionDone"
                     android:minWidth="50dp"
                     android:textSize="14sp"
@@ -34,11 +36,10 @@
                     android:text="Belge Id"></TextView>
                 <TextView
                     android:id="@+id/txtDocId"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:layout_marginLeft="2dp"
 
                     android:imeOptions="actionDone"
@@ -49,7 +50,7 @@
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="40dp"
+                android:layout_width="100dp"
                 android:layout_marginLeft="5dp"
                 android:layout_height="match_parent">
 
@@ -59,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:gravity="left"
+                    android:visibility="gone"
                     android:layout_marginLeft="2dp"
                     android:imeOptions="actionDone"
                     android:textSize="14sp"
@@ -70,14 +72,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="2dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
+                    android:gravity="center"
                     android:imeOptions="actionDone"
-                    android:textSize="16sp"
+
+                    android:textSize="14sp"
                     android:textColor="@color/grayTextDark"
                     android:maxWidth="150dp"
                     android:minWidth="100dp"
-                    android:text="150">
+                    android:text="satis 1_d14544">
                 </TextView>
             </LinearLayout>
 
@@ -95,18 +97,18 @@
                     android:gravity="left"
                     android:layout_marginLeft="2dp"
                     android:imeOptions="actionDone"
+                    android:visibility="gone"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/grayTextDark"
                     android:text="K.Sayısı"></TextView>
                 <TextView
                     android:id="@+id/txtKNumberId"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="2dp"
-                    android:gravity="left"
+                    android:gravity="center"
                     android:imeOptions="actionDone"
-                    android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/grayTextDark"
                     android:text="100">
@@ -127,16 +129,16 @@
                     android:layout_marginLeft="2dp"
                     android:imeOptions="actionDone"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     android:textStyle="bold"
                     android:textColor="@color/grayTextDark"
                     android:text="Tarih"></TextView>
                 <TextView
                     android:id="@+id/txtDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="2dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
+                    android:gravity="center"
                     android:imeOptions="actionDone"
                     android:textSize="14sp"
                     android:textColor="@color/grayTextDark"
@@ -182,7 +184,7 @@
               android:orientation="vertical"
               android:layout_width="65dp"
               android:layout_marginLeft="5dp"
-              android:layout_height="wrap_content">
+              android:layout_height="match_parent">
 
               <TextView
                   android:id="@+id/txtStockTitle"
@@ -191,6 +193,7 @@
                   android:layout_gravity="left"
                   android:gravity="left"
                   android:layout_marginLeft="2dp"
+                  android:visibility="gone"
                   android:imeOptions="actionDone"
                   android:textSize="14sp"
                   android:textStyle="bold"
@@ -198,11 +201,10 @@
                   android:text="Miktar"></TextView>
               <TextView
                   android:id="@+id/txtStock"
-                  android:layout_width="wrap_content"
+                  android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:layout_marginLeft="2dp"
                   android:gravity="center"
-                  android:layout_marginTop="10dp"
                   android:imeOptions="actionDone"
                   android:textSize="16sp"
                   android:textColor="@color/grayTextDark"

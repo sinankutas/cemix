@@ -12,9 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.arneca.evyap.R;
+import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.DocUpdateResponse;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
 import com.arneca.evyap.helper.PreferencesHelper;
+import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
 import com.bumptech.glide.Glide;
@@ -23,8 +26,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
-public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.ViewHolder> {
+public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.ViewHolder>  {
 
     private OpenDocumentListResponse mData;
     private LayoutInflater mInflater;
@@ -66,6 +71,17 @@ public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.
             holder. txtDateTitle.setVisibility(View.GONE);
      //   }
 
+        holder.lnrLyt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Tool.showInfo2action(context,"Bilgi",
+                        mData.getResult().get(position).getBelge_id()+ " Belge Id' li satır silinsin mi?",
+                        (dialog, which) -> gotoDelete(position),
+                        (dialog, which) -> cancelDialog(),"Emin misiniz?","İptal");
+                return false;
+            }
+        });
+
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +101,38 @@ public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(intent);
+            }
+        });
+    }
+
+
+
+    private void cancelDialog() {
+    }
+
+    private void gotoDelete(int position) {
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("guid", mData.getResult().get(position).getGuid())
+                .build();
+
+        Request.deleteDocFromUplist(requestBody, context, response -> {
+            DocUpdateResponse docUpdateResponse = ( DocUpdateResponse) response.body();
+            response.headers();
+            ((OpenDocListActivity)context).loadData();
+            if (docUpdateResponse!=null){
+                Tool.showInfo(context,"Bilgi",
+                        docUpdateResponse.getResult_message().getMessage(),
+                        (dialog, which) -> cancelDialog(),
+                        "Tamam");
+
+
+            }else{
+                Tool.hideDialog();
+                Tool.showInfo(context, "Bilgi", docUpdateResponse.getResult_message().getMessage());
             }
         });
     }

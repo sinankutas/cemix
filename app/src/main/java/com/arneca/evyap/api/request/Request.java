@@ -116,6 +116,10 @@ public class Request {
         Client.Instance().deleteDoc(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void deleteDocFromUplist(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().deleteDocFromUplist(body).enqueue(CallBack.callback(context, completed));
+    }
+
     public static void docUpdate(@Body RequestBody body, Context context, Completed completed) {
         Client.Instance().docUpdate(body).enqueue(CallBack.callback(context, completed));
     }

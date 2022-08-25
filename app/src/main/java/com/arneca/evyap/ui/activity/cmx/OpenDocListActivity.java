@@ -59,7 +59,7 @@ public class OpenDocListActivity extends BaseActivity {
         loadData();
     }
 
-    private void loadData() {
+    public void loadData() {
 
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
