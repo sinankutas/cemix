@@ -307,16 +307,19 @@ public class LocalRBMatrisActivity  extends BaseActivity {
                  String miktar = jsonArray.getJSONObject(i).getString("Miktar");
                  String fiyat = jsonArray.getJSONObject(i).getString("Fiyat");
                  String dvz = jsonArray.getJSONObject(i).getString("Dvz");
-                dbHelper.insertNewSayimDetay(""+sayimModels.get(sayimModels.size()-1),stok_kodu,renk_id,"arama metni"
-                        ,""+PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeID(),""+PreferencesHelper.getLoginResponse().getResult().getProfil().getId(),miktar,"cihaz","stok_adı");
+                dbHelper.insertNewSayimDetay(""+sayimModels.get(sayimModels.size()-1).getId(),stok_kodu,renk_id,"arama metni"
+                        ,""+PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeID(),""+PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),miktar,"cihaz","stok_adı");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-        // sayim_id text, stok_kodu text, renk_id text,arama_metni text,sube_id text,kullanici_id text,miktar text,cihaz text ,stok_adi text
+        Tool.showInfo(LocalRBMatrisActivity.this,"Bilgi",
+               "İşlem Başarılı",
+                (dialog, which) ->  dismissToolDialogFinish(),"Tamam");
+    }
 
-      //  dbHelper.insertNewSayimDetay(sayimModels.get(sayimModels.size()-1),);
+    private void dismissToolDialogFinish() {
+        finish();
     }
 
 

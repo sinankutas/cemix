@@ -66,6 +66,12 @@ cihaz TEXT(150)
 * */
 
     @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS tanim");
+        onCreate(sqLiteDatabase);
+    }
+
+    @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         sqLiteDatabase.execSQL(
@@ -80,7 +86,7 @@ cihaz TEXT(150)
 
         sqLiteDatabase.execSQL(
                 "create table '"+Const.TANIM_TABLE_NAME_NEW_SAYIM+"' " +
-                        "( id INTEGER PRIMARY KEY AUTOINCREMENT, description text, idx text, sube_code text,cihaz text,date text)"
+                        "( id INTEGER PRIMARY KEY AUTOINCREMENT, description text, idx text, sube_code text,cihaz text,tarih text)"
         );
     }
 
@@ -419,9 +425,5 @@ cihaz TEXT(150)
         return res;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-    //    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS tanim");
-     //   onCreate(sqLiteDatabase);
-    }
+
 }

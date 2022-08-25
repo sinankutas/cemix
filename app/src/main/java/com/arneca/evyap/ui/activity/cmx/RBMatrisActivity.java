@@ -262,7 +262,7 @@ public class RBMatrisActivity extends BaseActivity {
                 Tool.showInfo(RBMatrisActivity.this,"Bilgi",
                         sTHEkleRespone.getResult_message().getMessage(),
                         (dialog, which) ->  dismissToolDialogFinish(),"Tamam");
-                Tool.showInfo(this,"Bilgi",sTHEkleRespone.getResult_message().getMessage());
+             //   Tool.showInfo(this,"Bilgi",sTHEkleRespone.getResult_message().getMessage());
                 binding.toolbar2.rightContainer.setVisibility(View.GONE);
                 PreferencesHelper.setJsonArrayForMatris(new JSONArray());
 

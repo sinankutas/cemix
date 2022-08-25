@@ -101,7 +101,15 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                 }else if (position==1){
                     if (isSayimActive[0]== true){
                         // get New Sayim
-                        loadDescription(viewTitle2);
+                        if (dbHelper.numberOfRows()>0) {
+                            loadDescription(viewTitle2);
+                        }  else{
+                            Tool.showInfo(context,"Tanım Bulunamadı. Tanımlar Yüklensin mi?",
+                                    "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
+                                    (dialog, which) -> loadTanim(),"Tamam");
+                        }
+
+
                     }else{
                         Intent intent = new Intent(context, OpenDocRecordsActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -125,19 +133,11 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                         String desc = txtDescription.getText().toString();
                         if (desc.length()>0){
                             dbHelper.insertNewSayim(desc,PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx(),PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu(),"","");
-
-                            int num = dbHelper.numberOfSayimRows();
-                            String s = ""+ num;
-                            dbHelper.getAllNewSayim();
-                            if (dbHelper.numberOfRows()>0) {
                                 Intent intent = new Intent(context, NewSayimActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                 intent.putExtra("viewTitle", viewTitle);
                                 context.startActivity(intent);
-                            }  else{
-                                Tool.showInfo(context,"Tanım Bulunamadı. Tanımlar Yüklensin mi?",
-                                        "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
-                                        (dialog, which) -> loadTanim(),"Tamam");}
+
                         }else{
                             Tool.showInfo(context, "Uyarı", "Açıklama girmelisiniz");
                         }

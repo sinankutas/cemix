@@ -5,6 +5,7 @@ package com.arneca.evyap.ui.activity;/*
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.view.WindowManager;import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetKVKK;
@@ -14,6 +15,7 @@ import com.arneca.evyap.databinding.LoginBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.cmx.HomeActivity;
+import com.arneca.evyap.ui.activity.cmx.TanimlarActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -46,6 +48,20 @@ public class LoginActivity extends BaseActivity{
             loginBinding.loginPasswordEd.setText(PreferencesHelper.getPassword(this));
             loginBinding.loginEmailEd.setText(PreferencesHelper.getUserName(this));
         }
+
+        loginBinding.btnOffline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PreferencesHelper.setActiveDocType("sayim");
+                Intent intent = new Intent(LoginActivity.this, TanimlarActivity.class);
+                intent.putExtra("guid","guid");
+                intent.putExtra("docId","docId");
+                intent.putExtra("viewTitle","Sayim");
+                intent.putExtra("isStockActive",true);
+                intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     private void onRestorePass() {
