@@ -50,7 +50,7 @@
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="100dp"
+                android:layout_width="60dp"
                 android:layout_marginLeft="5dp"
                 android:layout_height="match_parent">
 
@@ -75,10 +75,10 @@
                     android:gravity="center"
                     android:imeOptions="actionDone"
 
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/grayTextDark"
-                    android:maxWidth="150dp"
-                    android:minWidth="100dp"
+                    android:maxWidth="70dp"
+                    android:minWidth="50dp"
                     android:text="satis 1_d14544">
                 </TextView>
             </LinearLayout>

@@ -43,19 +43,18 @@
                     android:orientation="horizontal">
                     <LinearLayout
                         android:orientation="vertical"
-                        android:layout_width="60dp"
+                        android:layout_width="62dp"
                         android:layout_height="match_parent"
                         >
                         <TextView
                             android:id="@+id/txtDocIdTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:gravity="left"
-                            android:layout_marginLeft="8dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
                             android:imeOptions="actionDone"
                             android:minWidth="50dp"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
                             android:text="Belge Id"></TextView>
@@ -63,7 +62,7 @@
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="vertical"
-                        android:layout_width="100dp"
+                        android:layout_width="60dp"
                         android:layout_marginLeft="5dp"
                         android:layout_height="match_parent">
 
@@ -71,11 +70,11 @@
                             android:id="@+id/txtSeriIdTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:gravity="left"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:layout_marginLeft="2dp"
                             android:imeOptions="actionDone"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
                             android:text="Seri"></TextView>
@@ -96,7 +95,7 @@
                             android:gravity="left"
                             android:layout_marginLeft="2dp"
                             android:imeOptions="actionDone"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
                             android:text="K.Sayısı"></TextView>
@@ -116,7 +115,7 @@
                             android:gravity="left"
                             android:layout_marginLeft="2dp"
                             android:imeOptions="actionDone"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
                             android:text="Tarih"></TextView>
@@ -160,7 +159,7 @@
                             android:gravity="left"
                             android:layout_marginLeft="2dp"
                             android:imeOptions="actionDone"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
                             android:text="Miktar"></TextView>
