@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:id="@+id/containerL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/topLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Seçimler"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:gravity="center"></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Tamam"
+                ></TextView>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:background="#f1f1f1" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/lytPlsyr1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/login_password_ed"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnPlasier1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/checkedbox"
+                android:backgroundTint="@color/dropdownColor"
+                android:scaleType="fitStart" />
+
+            <TextView
+                android:id="@+id/txtPlasier1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"
+                android:text="Plasier 1"
+                android:textColor="@color/dropdownColor"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lytPlsyr2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/login_password_ed"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnPlasier2"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/uncheckedbox"
+            android:backgroundTint="@color/dropdownColor"
+            android:scaleType="fitStart" />
+
+        <TextView
+            android:id="@+id/txtPlasier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="10dp"
+            android:text="Plasier 1"
+            android:textColor="@color/dropdownColor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/lytExtra"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_marginBottom="00dp">
+
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_header"
+                android:layout_marginLeft="10dp"
+                android:text="İsim"
+                android:textColor="@color/grayTextDark"
+                android:textSize="14sp" />
+
+            <arneca.com.utility.view.input.EditTextWithFont
+                android:id="@+id/nameEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_mail_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/grayTextDark"
+                android:maxLines="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/grayTextDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/existingPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_header"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Ülke"
+                android:textColor="@color/grayTextDark"
+                android:textSize="14sp" />
+
+            <arneca.com.utility.view.input.EditTextWithFont
+                android:id="@+id/countryEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_mail_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/grayTextDark"
+                android:maxLines="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/grayTextDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/pass1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_header"
+                android:layout_marginLeft="10dp"
+                android:text="Kargo"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/grayTextDark"
+                android:textSize="14sp" />
+
+            <arneca.com.utility.view.input.EditTextWithFont
+                android:id="@+id/cargoEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_mail_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/grayTextDark"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/grayTextDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/pass2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_header"
+                android:layout_marginLeft="10dp"
+                android:text="Telefon"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/grayTextDark"
+                android:textSize="14sp" />
+
+            <arneca.com.utility.view.input.EditTextWithFont
+                android:id="@+id/phoneEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_mail_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/grayTextDark"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/grayTextDark"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rememberMe"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+            <arneca.com.utility.view.text.TextViewWithBoldFont
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="26dp"
+                android:background="@drawable/circle_register_btn_back"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+
+                android:textSize="18sp"
+                android:text="Tamam"
+                android:textColor="@color/white"
+                tools:text="Tamam" />
+
+            <arneca.com.utility.view.text.TextViewWithBoldFont
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="26dp"
+                android:background="@drawable/circle_register_btn_back"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+
+                android:textSize="18sp"
+                android:text="Vazgeç"
+                android:textColor="@color/white"
+                tools:text="Vazgeç" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

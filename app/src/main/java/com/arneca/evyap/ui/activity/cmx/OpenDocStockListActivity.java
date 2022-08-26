@@ -17,12 +17,15 @@ import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentStockListResponse;
 import com.arneca.evyap.databinding.CmxOpendocStockActivityBinding;
+import com.arneca.evyap.databinding.PlasierBottomBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.BaseActivity;
 import com.arneca.evyap.ui.adapter.cmx.OpenDocListAdapter;
 import com.arneca.evyap.ui.adapter.cmx.OpenDocStockListAdapter;
 import com.arneca.evyap.ui.fragment.CompanyBottomFragment;
+import com.arneca.evyap.ui.fragment.PlasierBottomFragment;
+import com.arneca.evyap.ui.fragment.TanimBottomSheetFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import androidx.databinding.DataBindingUtil;
@@ -39,11 +42,12 @@ public class OpenDocStockListActivity extends BaseActivity {
     private String orderNo = "";
     private String seriNo = "";
     private String cariKod = "";
-
+    private PlasierBottomFragment plasierBottomFragment;
     private String viewTitle ;
     MaterialDialog dialog;
     private OpenDocStockListAdapter adapter;
     private CompanyBottomFragment companyBottomFragment;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,18 +114,16 @@ public class OpenDocStockListActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 binding.btnCompleted.setVisibility(View.INVISIBLE);
-                if (PreferencesHelper.getSelectedCompany() != null){
-                    Tool.showInfo2action(OpenDocStockListActivity.this,"Uyarı",
-                            "Belge kapansın mı?",
-                            (dialog, which) ->  completedDoc(),
-                            (dialog, which) -> dismissToolDialog(),"Evet","Hayır");
+                // call plasier
+                if (PreferencesHelper.getActiveDocType().equals("siparis") || PreferencesHelper.getActiveDocType().equals("teklif")){
+                    plasierBottomFragment = new PlasierBottomFragment().newInstance();
+                    plasierBottomFragment.show(getSupportFragmentManager(), "");
+                    binding.btnCompleted.setVisibility(View.VISIBLE);
                 }else{
-                    Tool.showInfo(OpenDocStockListActivity.this,"Uyarı",
-                            "Cari Seçmelisiniz.",
-                            (dialog, which) ->  showCompanies(),"Tamam");
-
-
+                    gotoCompletedDoc("","","","","");
                 }
+
+
             }
         });
     }
@@ -137,7 +139,7 @@ public class OpenDocStockListActivity extends BaseActivity {
     }
 
 
-    private void completedDoc() {
+    private void completedDoc(String plasier, String name, String contry, String cargo, String tel) {
         binding.btnCompleted.setVisibility(View.VISIBLE);
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -147,6 +149,13 @@ public class OpenDocStockListActivity extends BaseActivity {
                 .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .addFormDataPart("guid", guid)
                 .addFormDataPart("cari_kod", PreferencesHelper.getSelectedCompany().getKod())
+                .addFormDataPart("plasiyer_kodu", plasier)
+                .addFormDataPart("a1", name)
+                .addFormDataPart("a2", contry)
+                .addFormDataPart("a3", cargo)
+                .addFormDataPart("a4", tel)
+
+
                 .build();
 
         Request.openDocCompleted(requestBody, this, response -> {
@@ -210,5 +219,20 @@ public class OpenDocStockListActivity extends BaseActivity {
                // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
             }
         });
+    }
+
+    public void gotoCompletedDoc(String selectedPlasier,String name,String country,String cargo,String tel) {
+        if (PreferencesHelper.getSelectedCompany() != null){
+            Tool.showInfo2action(OpenDocStockListActivity.this,"Uyarı",
+                    "Belge kapansın mı?",
+                    (dialog, which) ->  completedDoc(selectedPlasier, name,country,cargo,tel),
+                    (dialog, which) -> dismissToolDialog(),"Evet","Hayır");
+        }else{
+            Tool.showInfo(OpenDocStockListActivity.this,"Uyarı",
+                    "Cari Seçmelisiniz.",
+                    (dialog, which) ->  showCompanies(),"Tamam");
+
+
+        }
     }
 }
