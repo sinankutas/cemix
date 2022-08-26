@@ -109,6 +109,7 @@ public class OpenDocStockListActivity extends BaseActivity {
         binding.btnCompleted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.btnCompleted.setVisibility(View.INVISIBLE);
                 if (PreferencesHelper.getSelectedCompany() != null){
                     Tool.showInfo2action(OpenDocStockListActivity.this,"Uyarı",
                             "Belge kapansın mı?",
@@ -126,16 +127,18 @@ public class OpenDocStockListActivity extends BaseActivity {
     }
 
     private void showCompanies() {
+        binding.btnCompleted.setVisibility(View.VISIBLE);
         companyBottomFragment = new CompanyBottomFragment().newInstance(false);
         companyBottomFragment.show(getSupportFragmentManager(), "");
     }
 
     private void dismissToolDialog(){
-
+        binding.btnCompleted.setVisibility(View.VISIBLE);
     }
 
 
     private void completedDoc() {
+        binding.btnCompleted.setVisibility(View.VISIBLE);
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

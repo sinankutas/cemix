@@ -116,8 +116,12 @@ public class AddProductActivity  extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (binding.edtSearch.getText().toString().length()>0)
-           searchData();
+        if (PreferencesHelper.isIsBackButtonActive()==false){
+            if (binding.edtSearch.getText().toString().length()>0)
+                searchData();
+        }
+        PreferencesHelper.setIsBackButtonActive(false);
+
     }
 
     private void searchData() {
@@ -135,6 +139,11 @@ public class AddProductActivity  extends BaseActivity {
             hideDialog();
             if (productSearchResponse.getResult()!=null){
                 if (productSearchResponse.getResult().size()==1){
+                    binding.swipeRefreshLayout.setRefreshing(false);
+                    binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+                    adapter = new ProductSearchAdapter(this, productSearchResponse,guid,docId,viewTitle,isStockActive);
+                    binding.openDocList.setAdapter(adapter);
+                    binding.edtSearch.setText("");
                     gotoRBMatris(productSearchResponse);
                 }else{
                     binding.swipeRefreshLayout.setRefreshing(false);
@@ -157,6 +166,7 @@ public class AddProductActivity  extends BaseActivity {
         intent.putExtra("guid",guid);
         intent.putExtra("docId",docId);
         intent.putExtra("viewTitle",viewTitle);
+        intent.putExtra("selectedCode",productSearchResponse.getResult().get(0).getKod());
         intent.putExtra("isStockActive",isStockActive);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);

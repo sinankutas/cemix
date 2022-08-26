@@ -134,17 +134,18 @@ public class NewSayimActivity  extends BaseActivity {
             tanimMap.get(p.getKod()).add(p);
         }
         PreferencesHelper.setTanimMap(tanimMap);
-
-
-
      //   binding.edtSearch.setText("");
         adapter.setData(tanimlarResultModels);
+        if (tanimlarResultModels.size()==1){
+            gotoRBMatris(tanimlarResultModels.get(0).getBeden_id(),tanimlarResultModels.get(0).getKod());
+        }
     }
 
-    public void gotoRBMatris(String bedenId) {
+    public void gotoRBMatris(String bedenId,String selectedCode) {
         Intent intent = new Intent(NewSayimActivity.this, LocalRBMatrisActivity.class);
         intent.putExtra("viewTitle","Yeni Sayım");
         intent.putExtra("bedenId",bedenId);
+        intent.putExtra("selectedCode",selectedCode);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);
     }

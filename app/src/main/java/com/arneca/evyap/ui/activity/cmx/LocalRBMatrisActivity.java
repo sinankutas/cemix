@@ -50,6 +50,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
     private LocalRBMatrisAdapter adapter;
     private String bedenId = "";
     private String viewTitle = "";
+    private String selectedCode = "";
     private boolean isStockActive;
     private final boolean USE_IMMERSIVE_MODE = true;
     public final boolean DISABLE_IMMERSIVE_MODE_ON_KEYBOARD_OPEN = false; // might be helpful to solve keyboard jumping issue when pop up
@@ -71,7 +72,7 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
         Intent myIntent = getIntent(); // gets the previously created intent
         bedenId = myIntent.getStringExtra("bedenId");
-
+        selectedCode = myIntent.getStringExtra("selectedCode");
         viewTitle = myIntent.getStringExtra("viewTitle");
         isStockActive = myIntent.getBooleanExtra("isStockActive",false);
 
@@ -79,6 +80,13 @@ public class LocalRBMatrisActivity  extends BaseActivity {
         if (tabsResponse.size()>0)
            colorDetails = dbHelper.getRecordWithGroupRBMatris(bedenId,tabsResponse.get(0).getKod());
 
+        int i = 0;
+        for (TanimlarResultModel tanimlarResultModel : tabsResponse){
+            if (tanimlarResultModel.getKod().equals(selectedCode)){
+                currentSelectedIndex = i;
+            }
+            i=i+1;
+        }
 
         binding.toolbar.txtViewTitle.setText(viewTitle);
         binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
@@ -128,14 +136,13 @@ public class LocalRBMatrisActivity  extends BaseActivity {
 
         if (tabsResponse.size()>0)
             setTabLayouts();
-        binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
+   //     binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
         loadTableData();
         binding.txtTab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 currentSelectedIndex = 0;
                 binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
-
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
 
@@ -152,7 +159,6 @@ public class LocalRBMatrisActivity  extends BaseActivity {
             public void onClick(View view) {
                 currentSelectedIndex = 1;
                 binding.txtTab2.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
-
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
 
@@ -169,7 +175,6 @@ public class LocalRBMatrisActivity  extends BaseActivity {
             public void onClick(View view) {
                 currentSelectedIndex = 2;
                 binding.txtTab3.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
-
                 binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
 
@@ -357,6 +362,14 @@ public class LocalRBMatrisActivity  extends BaseActivity {
                 binding.txtProductTitle.setText(tabsResponse.get(0).getAd());
                 binding.txtPrice.setText(tabsResponse.get(0).getSatis_fiyat()+" $ ");
 
+                binding.txtTab1.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
+                binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
+                binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
+
             }
         }catch (Exception e){
 
@@ -372,6 +385,14 @@ public class LocalRBMatrisActivity  extends BaseActivity {
                 binding.txtProductTitle.setText(tabsResponse.get(1).getAd());
                 binding.txtProductTitle.setText(tabsResponse.get(1).getAd());
                 binding.txtPrice.setText(tabsResponse.get(1).getSatis_fiyat()+" $ ");
+
+                binding.txtTab2.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
+                binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
+                binding.txtTab3.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
+                binding.txtTab2.setTextColor(getResources().getColor(R.color.white));
+                binding.txtTab3.setTextColor(getResources().getColor(R.color.dropdownColor));
             }
             }catch (Exception e){
 
@@ -387,6 +408,14 @@ public class LocalRBMatrisActivity  extends BaseActivity {
                     binding.txtProductTitle.setText(tabsResponse.get(2).getAd());
                     binding.txtProductTitle.setText(tabsResponse.get(2).getAd());
                     binding.txtPrice.setText(tabsResponse.get(2).getSatis_fiyat()+" $ ");
+
+                    binding.txtTab3.setBackground(getResources().getDrawable(R.drawable.circle_blue_back));
+                    binding.txtTab2.setBackgroundColor(getResources().getColor(R.color.white));
+                    binding.txtTab1.setBackgroundColor(getResources().getColor(R.color.white));
+
+                    binding.txtTab2.setTextColor(getResources().getColor(R.color.dropdownColor));
+                    binding.txtTab3.setTextColor(getResources().getColor(R.color.white));
+                    binding.txtTab1.setTextColor(getResources().getColor(R.color.dropdownColor));
                 }
             }catch (Exception e){
 

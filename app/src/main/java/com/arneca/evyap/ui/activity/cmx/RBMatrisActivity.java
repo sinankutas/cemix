@@ -94,6 +94,7 @@ public class RBMatrisActivity extends BaseActivity {
         binding.toolbar2.txtRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PreferencesHelper.setIsBackButtonActive(true);
                 onBackPressed();
             }
         });
@@ -101,6 +102,7 @@ public class RBMatrisActivity extends BaseActivity {
         binding.toolbar2.leftContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PreferencesHelper.setIsBackButtonActive(true);
                 onBackPressed();
             }
         });
@@ -110,6 +112,7 @@ public class RBMatrisActivity extends BaseActivity {
         binding.toolbar.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PreferencesHelper.setIsBackButtonActive(true);
                 onBackPressed();
             }
         });
@@ -287,6 +290,7 @@ public class RBMatrisActivity extends BaseActivity {
     }
 
     private void dismissToolDialogFinish() {
+        PreferencesHelper.setIsBackButtonActive(true);
         finish();
     }
 
@@ -315,6 +319,7 @@ public class RBMatrisActivity extends BaseActivity {
     private void loadTableData(RBMatrisResponse rbMatrisResponse , boolean isAutoActive) {
         if (isAutoActive){
             int i = 0;
+
             for (RBMatrisResponse.ResultBean response : rbMatrisResponse.getResult()){
                 if (response.getKod().equals(selectedCode)){
                     currentSelectedIndex = i;

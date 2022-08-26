@@ -43,6 +43,7 @@ public class PreferencesHelper extends BaseObservable {
     private static JSONArray jsonArrayForMatris = new JSONArray();
     private static JSONArray jsonArrayForLocalMatris = new JSONArray();
     private static String activeDocType ;
+    private static boolean isBackButtonActive ;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -187,5 +188,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setJsonArrayForLocalMatris(JSONArray jsonArrayForLocalMatris) {
         PreferencesHelper.jsonArrayForLocalMatris = jsonArrayForLocalMatris;
+    }
+
+    public static boolean isIsBackButtonActive() {
+        return isBackButtonActive;
+    }
+
+    public static void setIsBackButtonActive(boolean isBackButtonActive) {
+        PreferencesHelper.isBackButtonActive = isBackButtonActive;
     }
 }
