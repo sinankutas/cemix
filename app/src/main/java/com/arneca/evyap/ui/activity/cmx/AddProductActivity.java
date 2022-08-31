@@ -39,13 +39,13 @@ public class AddProductActivity  extends BaseActivity {
     private String docId = "";
     private String viewTitle;
     private boolean isStockActive;
-    private boolean isFastSearchActive = PreferencesHelper.isIsFastSearchActive(AddProductActivity.this);
+    private boolean isFastSearchActive = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.cmxadd_product_activity);
-
+        isFastSearchActive =PreferencesHelper.isIsFastSearchActive(AddProductActivity.this);
         Intent myIntent = getIntent(); // gets the previously created intent
         guid = myIntent.getStringExtra("guid");
         docId = myIntent.getStringExtra("docId");
@@ -56,7 +56,7 @@ public class AddProductActivity  extends BaseActivity {
         binding.edtSearch.setSelected(true);
         binding.edtSearch.setFocusable(true);
 
-        if (isStockActive){
+        if (PreferencesHelper.isIsFastSearchActive(AddProductActivity.this)){
             binding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
             binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
         }else{
@@ -68,14 +68,16 @@ public class AddProductActivity  extends BaseActivity {
         binding.lytFastSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isFastSearchActive){
-                    binding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
-                    binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
-                    PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,true);
-                }else{
+                if (PreferencesHelper.isIsFastSearchActive(AddProductActivity.this)){
+                    PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,false);
                     binding.btnPlasier1.setBackgroundResource(R.drawable.uncheckedbox);
                     binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
-                    PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,false);
+                   // PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,true);
+                }else{
+                    PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,true);
+                    binding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
+                    binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+              //      PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,false);
                 }
 
 
