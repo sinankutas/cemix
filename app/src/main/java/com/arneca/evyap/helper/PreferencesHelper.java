@@ -44,6 +44,7 @@ public class PreferencesHelper extends BaseObservable {
     private static JSONArray jsonArrayForLocalMatris = new JSONArray();
     private static String activeDocType ;
     private static boolean isBackButtonActive ;
+    private static boolean isFastSearchActive;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -65,6 +66,15 @@ public class PreferencesHelper extends BaseObservable {
 
     public static String getPassword(Context context) {
         return  SharedPreferenceHelper.getSharedPreferenceString(context, "password", "");
+    }
+
+    public static boolean isIsFastSearchActive(Context context) {
+        return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isFastSearchActive", false);
+    }
+
+    public static void setIsFastSearchActive(Context context,boolean isFastSearchActive) {
+        PreferencesHelper.isFastSearchActive = isFastSearchActive;
+        SharedPreferenceHelper.setSharedPreferenceBoolean(context, "isFastSearchActive", isFastSearchActive);
     }
 
     public static void setPassword(Context context, String password) {

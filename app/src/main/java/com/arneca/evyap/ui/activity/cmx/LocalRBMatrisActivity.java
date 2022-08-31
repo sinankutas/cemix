@@ -111,12 +111,12 @@ public class LocalRBMatrisActivity  extends BaseActivity {
             }
         });
 
-        binding.toolbar2.txtRefresh.setOnClickListener(new View.OnClickListener() {
+/*        binding.toolbar2.txtRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
-        });
+        });*/
 
         binding.toolbar2.leftContainer.setOnClickListener(new View.OnClickListener() {
             @Override

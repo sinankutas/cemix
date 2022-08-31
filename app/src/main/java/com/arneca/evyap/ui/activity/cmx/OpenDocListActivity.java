@@ -40,7 +40,7 @@ public class OpenDocListActivity extends BaseActivity {
         cmxopenDocsActivityBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadData();
+                loadData(false);
             }
         });
         cmxopenDocsActivityBinding.toolbar.backButton.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +56,10 @@ public class OpenDocListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadData();
+        loadData(false);
     }
 
-    public void loadData() {
+    public void loadData(boolean isFromDeleted) {
 
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -73,16 +73,18 @@ public class OpenDocListActivity extends BaseActivity {
             OpenDocumentListResponse openDocumentListResponse = ( OpenDocumentListResponse) response.body();
             response.headers();
             hideDialog();
+            cmxopenDocsActivityBinding.swipeRefreshLayout.setRefreshing(false);
+            cmxopenDocsActivityBinding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new OpenDocListAdapter(this, openDocumentListResponse,viewTitle);
+            cmxopenDocsActivityBinding.openDocList.setAdapter(adapter);
+
             if (openDocumentListResponse.getResult()!=null){
-                cmxopenDocsActivityBinding.swipeRefreshLayout.setRefreshing(false);
-                cmxopenDocsActivityBinding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new OpenDocListAdapter(this, openDocumentListResponse,viewTitle);
-                cmxopenDocsActivityBinding.openDocList.setAdapter(adapter);
 
             }else{
                 cmxopenDocsActivityBinding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
-                Tool.showInfo(this, "Bilgi", openDocumentListResponse.getResult_message().getMessage());
+                if (!isFromDeleted)
+                      Tool.showInfo(this, "Bilgi", openDocumentListResponse.getResult_message().getMessage());
             }
         });
     }

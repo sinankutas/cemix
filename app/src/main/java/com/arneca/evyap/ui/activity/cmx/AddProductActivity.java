@@ -39,7 +39,7 @@ public class AddProductActivity  extends BaseActivity {
     private String docId = "";
     private String viewTitle;
     private boolean isStockActive;
-
+    private boolean isFastSearchActive = PreferencesHelper.isIsFastSearchActive(AddProductActivity.this);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +55,32 @@ public class AddProductActivity  extends BaseActivity {
       //  showSoftKeyboard( binding.edtSearch);
         binding.edtSearch.setSelected(true);
         binding.edtSearch.setFocusable(true);
+
+        if (isStockActive){
+            binding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
+            binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+        }else{
+            binding.btnPlasier1.setBackgroundResource(R.drawable.uncheckedbox);
+            binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+        }
+
+
+        binding.lytFastSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFastSearchActive){
+                    binding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
+                    binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+                    PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,true);
+                }else{
+                    binding.btnPlasier1.setBackgroundResource(R.drawable.uncheckedbox);
+                    binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+                    PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,false);
+                }
+
+
+            }
+        });
 
         binding.edtSearch.requestFocus();
     //    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);

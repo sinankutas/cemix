@@ -101,10 +101,14 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
 
     public void dissmisView(){
          dismiss();
-        if (isRecordActivity)
-            ((OpenDocRecordsActivity) getActivity()).gotoOpenDocStockList();
-        else
-            ((OpenDocStockListActivity) getActivity()).setCompanyName();
+         try {
+             if (isRecordActivity)
+                 ((OpenDocRecordsActivity) getActivity()).gotoOpenDocStockList();
+             else
+                 ((OpenDocStockListActivity) getActivity()).setCompanyName();
+         }catch (Exception e){
+
+         }
     }
 
     private void setViews() {

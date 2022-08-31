@@ -122,7 +122,7 @@ public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.
         Request.deleteDocFromUplist(requestBody, context, response -> {
             DocUpdateResponse docUpdateResponse = ( DocUpdateResponse) response.body();
             response.headers();
-            ((OpenDocListActivity)context).loadData();
+            ((OpenDocListActivity)context).loadData(true);
             if (docUpdateResponse!=null){
                 Tool.showInfo(context,"Bilgi",
                         docUpdateResponse.getResult_message().getMessage(),

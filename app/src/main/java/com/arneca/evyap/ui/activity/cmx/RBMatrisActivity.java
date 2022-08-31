@@ -8,9 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
@@ -60,6 +64,12 @@ public class RBMatrisActivity extends BaseActivity {
         PreferencesHelper.setJsonArrayForMatris(new JSONArray());
         loadKeyboard();
 
+        if (PreferencesHelper.isIsFastSearchActive(RBMatrisActivity.this)){
+            binding.toolbar2.leftContainer.setVisibility(View.VISIBLE);
+        }else{
+            binding.toolbar2.leftContainer.setVisibility(View.GONE);
+        }
+
         Intent myIntent = getIntent(); // gets the previously created intent
         bedenId = myIntent.getStringExtra("bedenId");
         guid = myIntent.getStringExtra("guid");
@@ -69,6 +79,50 @@ public class RBMatrisActivity extends BaseActivity {
         isStockActive = myIntent.getBooleanExtra("isStockActive",false);
         binding.toolbar.txtViewTitle.setText(viewTitle);
         binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
+
+        binding.toolbar2.edtSearch.setSelected(true);
+        binding.toolbar2.edtSearch.setFocusable(true);
+        binding.toolbar2.edtSearch.requestFocus();
+        binding.toolbar2.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchData();
+            }
+        });
+
+        binding.toolbar2.edtSearch.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    //  Toast.makeText(AddProductActivity.this, binding.edtSearch.getText(), Toast.LENGTH_SHORT).show();
+                    searchData();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        binding.toolbar2.edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    searchData();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+        binding.toolbar2.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchData();
+            }
+        });
+
         loadData();
 
       //  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -91,13 +145,13 @@ public class RBMatrisActivity extends BaseActivity {
             }
         });
 
-        binding.toolbar2.txtRefresh.setOnClickListener(new View.OnClickListener() {
+    /*   binding.toolbar2.txtRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PreferencesHelper.setIsBackButtonActive(true);
                 onBackPressed();
             }
-        });
+        });*/
 
         binding.toolbar2.leftContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,10 +243,11 @@ public class RBMatrisActivity extends BaseActivity {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new XPopup.Builder(RBMatrisActivity.this)
+                Log.d("XPopup","XPopup");
+            /*    new XPopup.Builder(RBMatrisActivity.this)
                         .autoOpenSoftInput(true)
                         .asCustom(new CustomEditTextBottomPopup(RBMatrisActivity.this))
-                        .show();
+                        .show();*/
             }
         });
     }
@@ -383,8 +438,35 @@ public class RBMatrisActivity extends BaseActivity {
                 binding.txtTab3.setTextColor(getResources().getColor(R.color.white));
 
             }
-
         }
+    }
 
+    // search new data
+
+    private void searchData() {
+        Tool.openDialog(this);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("src", binding.toolbar2.edtSearch.getText().toString())
+                .build();
+
+        Request.productSearch(requestBody, this, response -> {
+            ProductSearchResponse productSearchResponse = ( ProductSearchResponse) response.body();
+            response.headers();
+            hideDialog();
+            if (productSearchResponse.getResult()!=null){
+                if (productSearchResponse.getResult().size()>0){
+                    bedenId = productSearchResponse.getResult().get(0).getBeden_id();
+                    loadData();
+                }else{
+
+                }
+            }else{
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", productSearchResponse.getResult_message().getMessage());
+            }
+        });
     }
 }

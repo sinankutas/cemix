@@ -20,11 +20,49 @@
             android:layout_alignParentTop="true"/>
 
         <LinearLayout
+            android:id="@+id/topLyt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/toolbar"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/lytFastSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/login_password_ed"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnPlasier1"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/checkedbox"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="fitStart" />
+
+                <TextView
+                    android:id="@+id/txtPlasier1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:text="Hızlı Arama"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/topLyt">
 
             <LinearLayout
                 android:layout_width="match_parent"
