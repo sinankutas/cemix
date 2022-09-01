@@ -338,7 +338,8 @@ public class LocalRBMatrisActivity  extends BaseActivity {
     }
 
     private void dismissToolDialogFinish() {
-        finish();
+        if (!PreferencesHelper.isIsFastSearchActive(LocalRBMatrisActivity.this))
+            finish();
     }
 
 

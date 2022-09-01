@@ -39,7 +39,7 @@ public class NewSayimActivity  extends BaseActivity {
     private boolean isStockActive;
     private TanimBottomSheetFragment tanimBottomSheetFragment;
     private DBHelper dbHelper ;
-
+    private boolean isFastSearchActive = false;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,13 @@ public class NewSayimActivity  extends BaseActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.new_sayim);
 
+        try {
+            isFastSearchActive = PreferencesHelper.isIsFastSearchActive(NewSayimActivity.this);
+        }catch (Exception e){
+            isFastSearchActive = false;
+            PreferencesHelper.setIsFastSearchActive(NewSayimActivity.this,false);
+        }
+        isFastSearchActive = PreferencesHelper.isIsFastSearchActive(NewSayimActivity.this);
         Intent myIntent = getIntent(); // gets the previously created intent
         guid = myIntent.getStringExtra("guid");
         docId = myIntent.getStringExtra("docId");
@@ -59,6 +66,34 @@ public class NewSayimActivity  extends BaseActivity {
         adapter = new NewSayimAdapter(this, guid,docId,viewTitle,isStockActive);
         binding.openDocList.setAdapter(adapter);
 
+
+        if (PreferencesHelper.isIsFastSearchActive(NewSayimActivity.this)){
+            binding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
+            binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+        }else{
+            binding.btnPlasier1.setBackgroundResource(R.drawable.uncheckedbox);
+            binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+        }
+
+
+        binding.lytFastSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (PreferencesHelper.isIsFastSearchActive(NewSayimActivity.this)){
+                    PreferencesHelper.setIsFastSearchActive(NewSayimActivity.this,false);
+                    binding.btnPlasier1.setBackgroundResource(R.drawable.uncheckedbox);
+                    binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+                    // PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,true);
+                }else{
+                    PreferencesHelper.setIsFastSearchActive(NewSayimActivity.this,true);
+                    binding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
+                    binding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.white));
+                    //      PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,false);
+                }
+
+
+            }
+        });
 
       /*  binding.tanimSec.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -128,6 +128,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
 
                    if (!amountFromEditable.equals("0"))
                        jsonArray.put(obj);
+
                     ((RBMatrisActivity)context).setJsonArray(jsonArray);
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block

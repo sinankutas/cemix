@@ -134,7 +134,9 @@ public class LocalRBMatrisAdapter extends RecyclerView.Adapter<LocalRBMatrisAdap
                     obj.put("StokAdı", stokAd);
                     obj.put("Renk", mData.get(position).getRenk());
 
-                    jsonArray.put(obj);
+                    if (!amountFromEditable.equals("0"))
+                      jsonArray.put(obj);
+
                     ((LocalRBMatrisActivity)context).setJsonArray(jsonArray);
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block

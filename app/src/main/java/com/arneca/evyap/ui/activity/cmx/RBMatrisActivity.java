@@ -367,7 +367,8 @@ public class RBMatrisActivity extends BaseActivity {
 
     private void dismissToolDialogFinish() {
         PreferencesHelper.setIsBackButtonActive(true);
-        finish();
+        if (!PreferencesHelper.isIsFastSearchActive(RBMatrisActivity.this))
+               finish();
     }
 
     private void loadData() {

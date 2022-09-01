@@ -126,11 +126,20 @@ public class OpenDocRecordsActivity extends BaseActivity {
     public void gotoDocList(){
         Intent intent = new Intent(OpenDocRecordsActivity.this, OpenDocListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        intent.putExtra("viewTitle","Yeni Satış");
+        intent.putExtra("viewTitle",viewTitle);
         OpenDocRecordsActivity.this.startActivity(intent);
     }
 
     public void gotoOpenDocStockList() {
+        if (PreferencesHelper.getSelectedCompany() == null){
+            for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
+                if (carilerBean.getKod().equals("120.34.001")){
+                    PreferencesHelper.setSelectedCompany(carilerBean);
+                }
+            }
+        }
+
+
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
