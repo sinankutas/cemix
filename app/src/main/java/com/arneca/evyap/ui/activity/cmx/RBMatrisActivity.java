@@ -34,6 +34,8 @@ import com.google.gson.JsonArray;
 import com.lxj.xpopup.XPopup;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -314,6 +316,25 @@ public class RBMatrisActivity extends BaseActivity {
     }
 
     private void saveDoc() {
+  /*      String miktar = "";
+
+
+        for (int i = 0; i < this.jsonArray.length(); i++) {
+            JSONObject row = null;
+            try {
+                row = this.jsonArray.getJSONObject(i);
+                miktar = row.getString("Miktar");
+
+                if (miktar.equals("0")){
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+*/
+
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
