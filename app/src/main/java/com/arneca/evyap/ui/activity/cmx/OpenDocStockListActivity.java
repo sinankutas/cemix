@@ -240,8 +240,8 @@ public class OpenDocStockListActivity extends BaseActivity {
 
             if (footerInfoResponse.getResult()!=null){
                 binding.txtSayi.setText("Sayi: "+footerInfoResponse.getResult().getSayi());
-                binding.txtAmount.setText("Miktar: "+footerInfoResponse.getResult().getMiktar());
-                binding.txtPrice.setText("Fiyat: "+footerInfoResponse.getResult().getTutar()+" $");
+                binding.txtAmount.setText("Adet: "+footerInfoResponse.getResult().getMiktar());
+                binding.txtPrice.setText("Tutar: "+footerInfoResponse.getResult().getTutar()+" $");
             }else{
                 Tool.hideDialog();
                 // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
