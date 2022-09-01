@@ -79,16 +79,9 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             holder.txtamountTitle.setVisibility(View.INVISIBLE);
         }
 
-        holder.edtAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
 
-                }
-            }
-        });
 
-        ((RBMatrisActivity)context).showSoftKeyboard(holder.edtAmount);
+    //    ((RBMatrisActivity)context).showSoftKeyboard(holder.itemView);
         JSONObject obj = new JSONObject();
         holder.edtAmount.addTextChangedListener(new TextWatcher() {
             @Override

@@ -306,6 +306,12 @@ public class RBMatrisActivity extends BaseActivity {
         }
     }
 
+    public void focusSearch() {
+        binding.toolbar2.edtSearch.setSelected(true);
+        binding.toolbar2.edtSearch.setFocusable(true);
+        binding.toolbar2.edtSearch.requestFocus();
+    }
+
     public void setJsonArray(JSONArray jsonArray){
         this.jsonArray = jsonArray;
         if (jsonArray.length()>0){
@@ -350,6 +356,9 @@ public class RBMatrisActivity extends BaseActivity {
             STHEkleRespone sTHEkleRespone = ( STHEkleRespone) response.body();
             response.headers();
             hideDialog();
+            if (PreferencesHelper.isIsFastSearchActive(RBMatrisActivity.this)){
+                focusSearch();
+            }
             if (sTHEkleRespone!=null){
                // iF SUCCESS  show alert
                 Tool.showInfo(RBMatrisActivity.this,"Bilgi",
@@ -384,6 +393,9 @@ public class RBMatrisActivity extends BaseActivity {
             rbMatrisResponse = ( RBMatrisResponse) response.body();
             response.headers();
             hideDialog();
+            if (PreferencesHelper.isIsFastSearchActive(RBMatrisActivity.this)){
+                focusSearch();
+            }
             if (rbMatrisResponse.getResult()!=null){
                 loadTableData(rbMatrisResponse, true);
             }else{
@@ -478,10 +490,12 @@ public class RBMatrisActivity extends BaseActivity {
             ProductSearchResponse productSearchResponse = ( ProductSearchResponse) response.body();
             response.headers();
             hideDialog();
+            binding.toolbar2.edtSearch.setText("");
             if (productSearchResponse.getResult()!=null){
                 if (productSearchResponse.getResult().size()>0){
                     bedenId = productSearchResponse.getResult().get(0).getBeden_id();
                     selectedCode = productSearchResponse.getResult().get(0).getKod();
+
                     loadData();
                 }else{
 

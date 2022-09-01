@@ -80,6 +80,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:imeOptions="actionDone"
+
                     android:singleLine="true"
                     android:drawableLeft="@drawable/searchgray"
                     android:hint="  Ara...">
