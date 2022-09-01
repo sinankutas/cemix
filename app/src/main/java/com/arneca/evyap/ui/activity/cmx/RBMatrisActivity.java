@@ -459,6 +459,7 @@ public class RBMatrisActivity extends BaseActivity {
             if (productSearchResponse.getResult()!=null){
                 if (productSearchResponse.getResult().size()>0){
                     bedenId = productSearchResponse.getResult().get(0).getBeden_id();
+                    selectedCode = productSearchResponse.getResult().get(0).getKod();
                     loadData();
                 }else{
 

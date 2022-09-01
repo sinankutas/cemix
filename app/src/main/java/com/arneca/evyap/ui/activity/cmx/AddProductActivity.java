@@ -45,7 +45,13 @@ public class AddProductActivity  extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.cmxadd_product_activity);
-        isFastSearchActive =PreferencesHelper.isIsFastSearchActive(AddProductActivity.this);
+        try {
+            isFastSearchActive = PreferencesHelper.isIsFastSearchActive(AddProductActivity.this);
+        }catch (Exception e){
+            isFastSearchActive = false;
+            PreferencesHelper.setIsFastSearchActive(AddProductActivity.this,false);
+        }
+        isFastSearchActive = PreferencesHelper.isIsFastSearchActive(AddProductActivity.this);
         Intent myIntent = getIntent(); // gets the previously created intent
         guid = myIntent.getStringExtra("guid");
         docId = myIntent.getStringExtra("docId");
