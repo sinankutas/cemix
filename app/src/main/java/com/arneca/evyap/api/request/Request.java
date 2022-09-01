@@ -128,6 +128,10 @@ public class Request {
         Client.Instance().getTanim(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void getFooterInfo(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().getFooterInfo(body).enqueue(CallBack.callback(context, completed));
+    }
+
 
 
 

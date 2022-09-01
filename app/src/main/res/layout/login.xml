@@ -28,6 +28,15 @@
                 android:layout_height="155dp"
                 android:layout_gravity="top|center"
                 android:background="@drawable/cemixlogo" />
+            <TextView
+                android:id="@+id/versionName"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="v1.1"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></TextView>
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
-import android.view.WindowManager;import com.arneca.evyap.R;
+import android.view.WindowManager;
+
+import com.arneca.evyap.BuildConfig;
+import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.GetKVKK;
 import com.arneca.evyap.api.response.GetLogin;
@@ -42,6 +45,7 @@ public class LoginActivity extends BaseActivity{
         loginBinding = DataBindingUtil.setContentView(this, R.layout.login);
         loginBinding.login.setOnClickListener(v -> onLoginClick());
         loginBinding.rememberMe.setOnClickListener(v -> onRememberClick());
+        loginBinding.versionName.setText("V_"+BuildConfig.VERSION_NAME);
         loginBinding.restorePass.setOnClickListener(v -> onRestorePass());
         if (PreferencesHelper.isIsRememberMe(this)){
             loginBinding.rememberMeButton.setBackgroundResource(R.drawable.checkedwhite);

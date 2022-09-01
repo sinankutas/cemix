@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentStockListResponse;
@@ -210,6 +211,7 @@ public class OpenDocStockListActivity extends BaseActivity {
             binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
             adapter = new OpenDocStockListAdapter(this, openDocumentStockListResponse,guid);
             binding.openDocList.setAdapter(adapter);
+            loadFooterData();
             if (openDocumentStockListResponse.getResult()!=null){
 
 
@@ -217,6 +219,32 @@ public class OpenDocStockListActivity extends BaseActivity {
                 binding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
                // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
+            }
+        });
+    }
+
+    private void loadFooterData() {
+        Tool.openDialog(this);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("guid", guid)
+                .build();
+
+        Request.getFooterInfo(requestBody, this, response -> {
+            FooterInfoResponse footerInfoResponse = ( FooterInfoResponse) response.body();
+            response.headers();
+            hideDialog();
+
+            if (footerInfoResponse.getResult()!=null){
+                binding.txtSayi.setText("Sayi: "+footerInfoResponse.getResult().getSayi());
+                binding.txtAmount.setText("Miktar: "+footerInfoResponse.getResult().getMiktar());
+                binding.txtPrice.setText("Fiyat: "+footerInfoResponse.getResult().getTutar()+" $");
+            }else{
+                Tool.hideDialog();
+                // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
             }
         });
     }

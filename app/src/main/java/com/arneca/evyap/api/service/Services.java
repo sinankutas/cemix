@@ -13,6 +13,7 @@ import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
 import com.arneca.evyap.api.response.GetSendSecurtyCode;
 import com.arneca.evyap.api.response.cmx.DocUpdateResponse;
+import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.NewDocResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
@@ -127,7 +128,8 @@ public interface Services {
     @POST("Sayim/TanimlariCek")
     Call<TanimlarResponse> getTanim(@Body RequestBody body);
 
-
+    @POST("Satis/AcikBelgeAltToplam")
+    Call<FooterInfoResponse> getFooterInfo(@Body RequestBody body);
 
 
 }

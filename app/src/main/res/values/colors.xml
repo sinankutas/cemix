@@ -18,7 +18,7 @@
     <color name="greenText">#A0AD69</color>
     <color name="greenText2">#A9C630</color>
     <color name="redText">#FA4C4C</color>
-
+    <color name="footerBg">#EDEDED</color>
     <color name="grayText">#555B6E</color>
     <color name="grayTextDark">#575D70</color>
     <color name="darkTitle">#2C2F39</color>
