@@ -20,6 +20,7 @@ import com.arneca.evyap.R;
 import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
 import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
 import com.arneca.evyap.helper.PreferencesHelper;
+import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
 import com.arneca.evyap.ui.activity.cmx.RBMatrisActivity;
 import com.google.gson.JsonObject;
@@ -27,6 +28,9 @@ import com.google.gson.JsonObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +42,8 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
     private OpenDocListAdapter.ItemClickListener mClickListener;
     private Context context;
     private int currentIndex;
+    private ArrayList<Integer> maxLimits= new ArrayList();
+    private HashMap<String,Integer> mapSubeMiktar = new HashMap();
     JSONArray jsonArray = PreferencesHelper.getJsonArrayForMatris();
     private boolean isStockActive;
     // data is passed into the constructor
@@ -47,6 +53,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         this.mData = data;
         this.currentIndex = currentIndex;
         this.isStockActive = isStockActive;
+        maxLimits = new ArrayList<>();
     }
 
     // inflates the cell layout from xml when needed
@@ -54,6 +61,15 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
     @NonNull
     public RBMatrisAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.rbmatris_item, parent, false);
+
+        mapSubeMiktar = new HashMap<>();
+        for (RBMatrisResponse.ResultBean.RenkDetayBean renkDetayBean : mData.getResult().get(currentIndex).getRenkDetay()){
+            mapSubeMiktar.put("d1",renkDetayBean.getD1());
+            mapSubeMiktar.put("d14",renkDetayBean.getD14());
+            mapSubeMiktar.put("d89",renkDetayBean.getD89());
+        }
+
+        mapSubeMiktar.get(PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase());
         return new RBMatrisAdapter.ViewHolder(view);
     }
 
@@ -80,6 +96,13 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         }
 
 
+        if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d1")){
+            maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD1());
+        }else if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d14")){
+            maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD14());
+        }else if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d89")){
+            maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD89());
+        }
 
     //    ((RBMatrisActivity)context).showSoftKeyboard(holder.itemView);
         JSONObject obj = new JSONObject();
@@ -96,7 +119,6 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                         amountFromEditable = "0";
                     }
                     mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amountFromEditable));
-
 
                     boolean isfounded = false;
                     int existingIndex = 0;
@@ -118,6 +140,12 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                     obj.put("Miktar", ""+amountFromEditable);
                     obj.put("Fiyat", ""+String.valueOf(mData.getResult().get(currentIndex).getFiyat()));
                     obj.put("Dvz", "1");
+
+                    if (Integer.parseInt(amountFromEditable) > maxLimits.get(position)){
+                        Tool.showInfo(context,"Uyarı","En fazla "+maxLimits.get(position)+" miktar girilebilir");
+                        holder.edtAmount.setText("");
+                        return;
+                    }
 
                    if (!amountFromEditable.equals("0"))
                        jsonArray.put(obj);

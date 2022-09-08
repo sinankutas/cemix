@@ -81,6 +81,18 @@ public class OpenDocStockListActivity extends BaseActivity {
         binding.txtOrderId.setText("Sıra "+orderNo);
 
 
+        binding.toolbar2.rightContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OpenDocStockListActivity.this, PDFViewerActivity.class);
+                intent.putExtra("pdfUrl","");
+                intent.putExtra("viewTitle","PDF Görüntüleme");
+                intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(intent);
+            }
+        });
+
+
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

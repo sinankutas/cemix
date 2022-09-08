@@ -9,6 +9,7 @@ import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
+import com.arneca.evyap.ui.activity.cmx.PDFViewerActivity;
 import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONArray;
@@ -45,6 +46,7 @@ public class PreferencesHelper extends BaseObservable {
     private static String activeDocType ;
     private static boolean isBackButtonActive ;
     private static boolean isFastSearchActive;
+    private static PDFViewerActivity currentPDFActivity;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -206,5 +208,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setIsBackButtonActive(boolean isBackButtonActive) {
         PreferencesHelper.isBackButtonActive = isBackButtonActive;
+    }
+
+    public static PDFViewerActivity getCurrentPDFActivity() {
+        return currentPDFActivity;
+    }
+
+    public static void setCurrentPDFActivity(PDFViewerActivity currentPDFActivity) {
+        PreferencesHelper.currentPDFActivity = currentPDFActivity;
     }
 }
