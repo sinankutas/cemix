@@ -87,6 +87,7 @@ public class PDFViewerActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 // mahmutun servisi
+                printPDF();
             }
         });
 
@@ -111,6 +112,24 @@ public class PDFViewerActivity extends BaseActivity {
         });
         loadData();
 
+    }
+
+    private void printPDF() {
+        Tool.openDialog(this);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("guid", guid)
+                .build();
+
+        Request.getPrint(requestBody, this, response -> {
+            PDFResponse pdfResponse = ( PDFResponse) response.body();
+            response.headers();
+            hideDialog();
+            Tool.showInfo(this, "Bilgi", pdfResponse.getResult_message().getMessage());
+        });
     }
 
     private void loadData() {

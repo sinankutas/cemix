@@ -138,4 +138,9 @@ public class Request {
     }
 
 
+    public static void getPrint(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().getPrint(body).enqueue(CallBack.callback(context, completed));
+    }
+
+
 }

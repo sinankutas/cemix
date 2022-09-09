@@ -135,4 +135,8 @@ public interface Services {
     @POST("Satis/PDFRapor")
     Call<PDFResponse> getPDF(@Body RequestBody body);
 
+    @POST("Satis/RaporYazdir")
+    Call<PDFResponse> getPrint(@Body RequestBody body);
+
+
 }
