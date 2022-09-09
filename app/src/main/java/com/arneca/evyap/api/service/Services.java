@@ -20,6 +20,7 @@ import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocRecordsResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentStockListResponse;
+import com.arneca.evyap.api.response.cmx.PDFResponse;
 import com.arneca.evyap.api.response.cmx.ProductSearchResponse;
 import com.arneca.evyap.api.response.cmx.RBMatrisResponse;
 import com.arneca.evyap.api.response.cmx.STHEkleRespone;
@@ -131,5 +132,7 @@ public interface Services {
     @POST("Satis/AcikBelgeAltToplam")
     Call<FooterInfoResponse> getFooterInfo(@Body RequestBody body);
 
+    @POST("Satis/PDFRapor")
+    Call<PDFResponse> getPDF(@Body RequestBody body);
 
 }

@@ -133,7 +133,9 @@ public class Request {
     }
 
 
-
+    public static void getPDF(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().getPDF(body).enqueue(CallBack.callback(context, completed));
+    }
 
 
 }

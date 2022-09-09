@@ -171,6 +171,8 @@ public class PreferencesHelper extends BaseObservable {
     }
 
     public static String getActiveDocType() {
+        if (activeDocType == null)
+            activeDocType = "";
         return activeDocType;
     }
 

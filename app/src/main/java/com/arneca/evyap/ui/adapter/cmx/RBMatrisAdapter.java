@@ -63,13 +63,16 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         View view = mInflater.inflate(R.layout.rbmatris_item, parent, false);
 
         mapSubeMiktar = new HashMap<>();
-        for (RBMatrisResponse.ResultBean.RenkDetayBean renkDetayBean : mData.getResult().get(currentIndex).getRenkDetay()){
-            mapSubeMiktar.put("d1",renkDetayBean.getD1());
-            mapSubeMiktar.put("d14",renkDetayBean.getD14());
-            mapSubeMiktar.put("d89",renkDetayBean.getD89());
+        if (PreferencesHelper.getActiveDocType().equals("satis")) {
+            for (RBMatrisResponse.ResultBean.RenkDetayBean renkDetayBean : mData.getResult().get(currentIndex).getRenkDetay()){
+                mapSubeMiktar.put("d1",renkDetayBean.getD1());
+                mapSubeMiktar.put("d14",renkDetayBean.getD14());
+                mapSubeMiktar.put("d89",renkDetayBean.getD89());
+            }
+
+            mapSubeMiktar.get(PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase());
         }
 
-        mapSubeMiktar.get(PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase());
         return new RBMatrisAdapter.ViewHolder(view);
     }
 
@@ -96,12 +99,14 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         }
 
 
-        if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d1")){
-            maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD1());
-        }else if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d14")){
-            maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD14());
-        }else if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d89")){
-            maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD89());
+        if (PreferencesHelper.getActiveDocType().equals("satis")) {
+            if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d1")) {
+                maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD1());
+            } else if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d14")) {
+                maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD14());
+            } else if (PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeKodu().toLowerCase().equals("d89")) {
+                maxLimits.add(mData.getResult().get(currentIndex).getRenkDetay().get(position).getD89());
+            }
         }
 
     //    ((RBMatrisActivity)context).showSoftKeyboard(holder.itemView);
@@ -141,10 +146,12 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                     obj.put("Fiyat", ""+String.valueOf(mData.getResult().get(currentIndex).getFiyat()));
                     obj.put("Dvz", "1");
 
-                    if (Integer.parseInt(amountFromEditable) > maxLimits.get(position)){
-                        Tool.showInfo(context,"Uyarı","En fazla "+maxLimits.get(position)+" miktar girilebilir");
-                        holder.edtAmount.setText("");
-                        return;
+                    if (PreferencesHelper.getActiveDocType().equals("satis")) {
+                        if (Integer.parseInt(amountFromEditable) > maxLimits.get(position)) {
+                            Tool.showInfo(context, "Uyarı", "En fazla " + maxLimits.get(position) + " miktar girilebilir");
+                            holder.edtAmount.setText("");
+                            return;
+                        }
                     }
 
                    if (!amountFromEditable.equals("0"))

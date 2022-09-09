@@ -17,6 +17,9 @@ import android.view.WindowManager;
 
 import com.arneca.evyap.BuildConfig;
 import com.arneca.evyap.R;
+import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
+import com.arneca.evyap.api.response.cmx.PDFResponse;
 import com.arneca.evyap.databinding.PdfViewerBinding;
 import com.arneca.evyap.helper.FileDownloader;
 import com.arneca.evyap.helper.PreferencesHelper;
@@ -35,10 +38,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class PDFViewerActivity extends BaseActivity {
 
     private String pdfUrl = "";
+    private String guid = "";
     private String viewTitle = "";
     private PdfViewerBinding binding;
     DownloadManager manager;
@@ -55,6 +61,7 @@ public class PDFViewerActivity extends BaseActivity {
             pdfUrl = "https://www.orimi.com/pdf-test.pdf";
         }
         viewTitle = myIntent.getStringExtra("viewTitle");
+        guid = myIntent.getStringExtra("guid");
         binding.toolbar.txtViewTitle.setText(viewTitle);
         PreferencesHelper.setCurrentPDFActivity(this);
         binding.toolbar.backButton.setOnClickListener(new View.OnClickListener() {
@@ -102,9 +109,35 @@ public class PDFViewerActivity extends BaseActivity {
 
             }
         });
+        loadData();
+
+    }
+
+    private void loadData() {
 
         Tool.openDialog(this);
-        new RetrivePDFfromUrl().execute(pdfUrl);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("guid", guid)
+                .build();
+
+        Request.getPDF(requestBody, this, response -> {
+            PDFResponse pdfResponse = ( PDFResponse) response.body();
+            response.headers();
+            hideDialog();
+
+            if (pdfResponse.getResult()!=null){
+                Tool.openDialog(this);
+                pdfUrl = pdfResponse.getResult().getUrl();
+                new RetrivePDFfromUrl().execute(pdfUrl);
+            }else{
+                Tool.hideDialog();
+                // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
+            }
+        });
     }
 
 
