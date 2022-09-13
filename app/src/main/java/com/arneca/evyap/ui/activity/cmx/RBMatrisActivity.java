@@ -43,7 +43,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class RBMatrisActivity extends BaseActivity {
-
     private int currentSelectedIndex = 0;
     public RbmatrisActivityBinding binding;
     private RBMatrisAdapter adapter;
