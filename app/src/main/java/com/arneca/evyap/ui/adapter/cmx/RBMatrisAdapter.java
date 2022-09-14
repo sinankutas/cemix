@@ -304,7 +304,6 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         alertDialog2.show();
     }
 
-
     private boolean validateInputForSiparis(int position, String amountFromEditable, EditText edtAmount ){
         boolean isValid = true;
 
