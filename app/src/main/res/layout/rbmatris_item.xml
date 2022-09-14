@@ -207,6 +207,7 @@
                   android:textColor="@color/grayTextDark"
                   android:text="Miktar"></TextView>
               <EditText
+                  android:visibility="gone"
                   android:id="@+id/edtAmount"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -218,6 +219,18 @@
                   android:textColor="@color/grayTextDark"
                   android:hint="0">
               </EditText>
+              <TextView
+                  android:id="@+id/txtAmount"
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:layout_marginLeft="8dp"
+                  android:gravity="left"
+                  android:layout_marginTop="10dp"
+                  android:imeOptions="actionDone"
+                  android:textSize="14sp"
+                  android:textColor="@color/grayTextDark"
+                  android:text="8">
+              </TextView>
           </LinearLayout>
 
         </LinearLayout>

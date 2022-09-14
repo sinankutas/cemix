@@ -17,6 +17,7 @@ import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentStockListResponse;
+import com.arneca.evyap.api.response.cmx.PDFResponse;
 import com.arneca.evyap.databinding.CmxOpendocStockActivityBinding;
 import com.arneca.evyap.databinding.PlasierBottomBinding;
 import com.arneca.evyap.helper.PreferencesHelper;
@@ -81,7 +82,7 @@ public class OpenDocStockListActivity extends BaseActivity {
         binding.txtOrderId.setText("Sıra "+orderNo);
 
 
-        binding.toolbar2.rightContainer.setOnClickListener(new View.OnClickListener() {
+        binding.toolbar2.openPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OpenDocStockListActivity.this, PDFViewerActivity.class);
@@ -90,6 +91,13 @@ public class OpenDocStockListActivity extends BaseActivity {
                 intent.putExtra("viewTitle","PDF Görüntüleme");
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 startActivity(intent);
+            }
+        });
+
+        binding.toolbar2.print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                printPDF();
             }
         });
 
@@ -152,6 +160,24 @@ public class OpenDocStockListActivity extends BaseActivity {
         binding.btnCompleted.setVisibility(View.VISIBLE);
     }
 
+
+    private void printPDF() {
+        Tool.openDialog(this);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("guid", guid)
+                .build();
+
+        Request.getPrint(requestBody, this, response -> {
+            PDFResponse pdfResponse = ( PDFResponse) response.body();
+            response.headers();
+            hideDialog();
+            Tool.showInfo(this, "Bilgi", pdfResponse.getResult_message().getMessage());
+        });
+    }
 
     private void completedDoc(String plasier, String name, String contry, String cargo, String tel) {
         binding.btnCompleted.setVisibility(View.VISIBLE);
@@ -231,7 +257,7 @@ public class OpenDocStockListActivity extends BaseActivity {
             }else{
                 binding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
-               // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
+                // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
             }
         });
     }

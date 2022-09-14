@@ -88,6 +88,8 @@ public class RBMatrisResponse {
             private int d14;
             private int d89;
             private int stock;
+
+            private int toplam;
             private String renk;
 
             public String getId() {
@@ -152,6 +154,14 @@ public class RBMatrisResponse {
 
             public void setRenk(String renk) {
                 this.renk = renk;
+            }
+
+            public int getToplam() {
+                return toplam;
+            }
+
+            public void setToplam(int toplam) {
+                this.toplam = toplam;
             }
         }
 

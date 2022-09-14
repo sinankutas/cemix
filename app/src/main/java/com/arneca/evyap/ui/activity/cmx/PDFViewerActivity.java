@@ -82,7 +82,7 @@ public class PDFViewerActivity extends BaseActivity {
                 startActivity(sendIntent);
             }
         });
-
+        binding.toolbar2.print.setVisibility(View.INVISIBLE);
         binding.toolbar2.print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

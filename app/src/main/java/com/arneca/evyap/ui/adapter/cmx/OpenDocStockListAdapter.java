@@ -75,7 +75,7 @@ public class OpenDocStockListAdapter extends RecyclerView.Adapter<OpenDocStockLi
                 Tool.showInfo2action(context,"Bilgi",
                          "Yapmak istediğiniz işlemi seçin",
                         (dialog, which) -> gotoUpdate(position),
-                        (dialog, which) -> gotoDeleteDialog(position),"Mitar Güncelle","Satır Sil");
+                        (dialog, which) -> gotoDeleteDialog(position),"Miktar Güncelle","Satır Sil");
             }
         });
     }
