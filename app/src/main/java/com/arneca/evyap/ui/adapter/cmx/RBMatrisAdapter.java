@@ -207,6 +207,9 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                     // Perform action on key press
                     //  Toast.makeText(AddProductActivity.this, binding.edtSearch.getText(), Toast.LENGTH_SHORT).show();
                     String amount = txtAmount.getText().toString();
+                    if (amount.equals("")){
+                        amount = "0";
+                    }
                     if (PreferencesHelper.getActiveDocType().equals("satis")) {
 
                         if (validateInput(position, amount, txtAmount)){
@@ -237,6 +240,9 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // burası
                     String amount = txtAmount.getText().toString();
+                    if (amount.equals("")){
+                        amount = "0";
+                    }
                     if (PreferencesHelper.getActiveDocType().equals("satis")) {
                         if (validateInput(position, amount, txtAmount)){
                             mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amount));
@@ -272,6 +278,9 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String amount = txtAmount.getText().toString();
+                if (amount.equals("")){
+                    amount = "0";
+                }
                 if (PreferencesHelper.getActiveDocType().equals("satis")) {
                     if (validateInput(position, amount, txtAmount)){
                         mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amount));
