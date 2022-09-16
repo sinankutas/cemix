@@ -192,7 +192,7 @@
           <LinearLayout
               android:orientation="vertical"
               android:layout_width="60dp"
-              android:layout_height="match_parent"
+              android:layout_height="50dp"
               android:layout_marginLeft="8dp">
 
               <TextView
@@ -207,18 +207,10 @@
                   android:textColor="@color/grayTextDark"
                   android:text="Miktar"></TextView>
               <EditText
-                  android:visibility="gone"
                   android:id="@+id/edtAmount"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="2dp"
-                  android:gravity="center"
-                  android:imeOptions="actionDone"
-                  android:inputType="number"
-                  android:textSize="14sp"
-                  android:textColor="@color/grayTextDark"
-                  android:hint="0">
-              </EditText>
+                  android:visibility="gone"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"></EditText>
               <TextView
                   android:id="@+id/txtAmount"
                   android:layout_width="wrap_content"

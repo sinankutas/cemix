@@ -12,6 +12,7 @@ import com.arneca.evyap.api.response.GetLineInfo;
 import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
 import com.arneca.evyap.api.response.GetSendSecurtyCode;
+import com.arneca.evyap.api.response.cmx.AddNoteResponse;
 import com.arneca.evyap.api.response.cmx.DocUpdateResponse;
 import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
@@ -137,6 +138,9 @@ public interface Services {
 
     @POST("Satis/RaporYazdir")
     Call<PDFResponse> getPrint(@Body RequestBody body);
+
+    @POST("Satis/BelgeNotuGuncelle")
+    Call<AddNoteResponse> docNote(@Body RequestBody body);
 
 
 }

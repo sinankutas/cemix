@@ -2,17 +2,20 @@ package com.arneca.evyap.ui.activity.cmx;/*
  * Created by Sinan KUTAS on 8/15/22.
  */
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.AddNoteResponse;
 import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
@@ -44,6 +47,7 @@ public class OpenDocStockListActivity extends BaseActivity {
     private String orderNo = "";
     private String seriNo = "";
     private String cariKod = "";
+    private String belgeNotu = "";
     private PlasierBottomFragment plasierBottomFragment;
     private String viewTitle ;
     MaterialDialog dialog;
@@ -70,6 +74,7 @@ public class OpenDocStockListActivity extends BaseActivity {
         Intent myIntent = getIntent(); // gets the previously created intent
         guid = myIntent.getStringExtra("guid");
         docId = myIntent.getStringExtra("docId");
+        belgeNotu = myIntent.getStringExtra("belgeNotu");
 
         cariKod = myIntent.getStringExtra("cariKod");
 
@@ -93,6 +98,14 @@ public class OpenDocStockListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        binding.toolbar2.addNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNotePopup();
+            }
+        });
+
 
         binding.toolbar2.print.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +160,54 @@ public class OpenDocStockListActivity extends BaseActivity {
 
 
             }
+        });
+    }
+
+
+    private void showNotePopup() {
+        final EditText txtDescription = new EditText(this);
+        if (belgeNotu.length()>0)
+         txtDescription.setHint(belgeNotu);
+        else
+         txtDescription.setHint("Açıklama");
+        new AlertDialog.Builder(this)
+                .setTitle("Açıklama")
+                .setMessage("")
+                .setView(txtDescription)
+                .setPositiveButton("Kaydet", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog1, int whichButton) {
+                        String desc = txtDescription.getText().toString();
+                        if (desc.length()>0){
+                            saveNote(desc);
+                        }else{
+                            Tool.showInfo(OpenDocStockListActivity.this, "Uyarı", "Açıklama girmelisiniz");
+                        }
+                    }
+                })
+                .setNegativeButton("İptal", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                })
+                .show();
+
+    }
+
+    private void saveNote(String note) {
+        Tool.openDialog(this);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("guid", guid)
+                .addFormDataPart("BelgeNotu", note)
+                .build();
+
+        Request.docNote(requestBody, this, response -> {
+            AddNoteResponse pdfResponse = ( AddNoteResponse) response.body();
+            response.headers();
+            hideDialog();
+            Tool.showInfo(this, "Bilgi", pdfResponse.getResult_message().getMessage());
         });
     }
 

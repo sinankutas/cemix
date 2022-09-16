@@ -142,5 +142,9 @@ public class Request {
         Client.Instance().getPrint(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void docNote(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().docNote(body).enqueue(CallBack.callback(context, completed));
+    }
+
 
 }

@@ -105,6 +105,7 @@ public class HomeActivity extends BaseActivity implements MenuGridAdapter.ItemCl
             intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             startActivity(intent);
         }else if ((PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Stokgor"))){
+            PreferencesHelper.setActiveDocType("stokgor");
             Intent intent = new Intent(HomeActivity.this, AddProductActivity.class);
             intent.putExtra("guid","guid");
             intent.putExtra("docId","docId");

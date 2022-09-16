@@ -72,6 +72,7 @@ public class OpenDocumentListResponse {
         private int detay_kayit_sayisi;
         private String detay_stok_miktari;
         private String cari_kod;
+        private String belge_notu;
 
         public int getBelge_id() {
             return belge_id;
@@ -135,6 +136,14 @@ public class OpenDocumentListResponse {
 
         public void setCari_kod(String cari_kod) {
             this.cari_kod = cari_kod;
+        }
+
+        public String getBelge_notu() {
+            return belge_notu;
+        }
+
+        public void setBelge_notu(String belge_notu) {
+            this.belge_notu = belge_notu;
         }
     }
 

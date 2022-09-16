@@ -104,8 +104,8 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         int decodedColor = Color.parseColor(color);
         holder.img.setBackgroundColor(decodedColor);
         if (isStockActive){
-            holder.edtAmount.setVisibility(View.INVISIBLE);
-            holder.txtamountTitle.setVisibility(View.INVISIBLE);
+            holder.edtAmount.setVisibility(View.GONE);
+//            holder.txtamountTitle.setVisibility(View.GONE);
         }
 
 
@@ -186,7 +186,8 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openInputDialog(position);
+                if (PreferencesHelper.getActiveDocType().equals("satis") || PreferencesHelper.getActiveDocType().equals("siparis"))
+                        openInputDialog(position);
             }
         });
     }

@@ -56,7 +56,17 @@ public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.
     @Override
     public void onBindViewHolder(@NonNull OpenDocListAdapter.ViewHolder holder, int position) {
         holder.txtDoc.setText(String.valueOf(mData.getResult().get(position).getBelge_id()));
-        holder.txtSeri.setText(String.valueOf(mData.getResult().get(position).getSeri()));
+        if (String.valueOf(mData.getResult().get(position).getBelge_notu()).length()>0){
+            if (String.valueOf(mData.getResult().get(position).getBelge_notu()).length()>15){
+                holder.txtSeri.setText(String.valueOf(mData.getResult().get(position).getBelge_notu()).substring(0,14));
+            }else{
+                holder.txtSeri.setText(String.valueOf(mData.getResult().get(position).getBelge_notu()));
+            }
+
+        } else{
+            holder.txtSeri.setText("-");
+        }
+
         holder.txtKNumber.setText(String.valueOf(mData.getResult().get(position).getDetay_kayit_sayisi()));
         holder.txtDate.setText(String.valueOf(mData.getResult().get(position).getTarih()).substring(0,11));
         holder.txtOrderNo.setText(String.valueOf(mData.getResult().get(position).getSira()));
@@ -91,6 +101,7 @@ public class OpenDocListAdapter extends RecyclerView.Adapter<OpenDocListAdapter.
                 intent.putExtra("orderNo",String.valueOf(mData.getResult().get(position).getSira()));
                 intent.putExtra("seriNo",String.valueOf(mData.getResult().get(position).getSeri()));
                 intent.putExtra("cariKod",String.valueOf(mData.getResult().get(position).getCari_kod()));
+                intent.putExtra("belgeNotu",String.valueOf(mData.getResult().get(position).getBelge_notu()));
                 intent.putExtra("viewTitle",viewTitle);
 
                 for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
