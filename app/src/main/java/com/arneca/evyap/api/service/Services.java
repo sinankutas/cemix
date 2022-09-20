@@ -15,6 +15,8 @@ import com.arneca.evyap.api.response.GetSendSecurtyCode;
 import com.arneca.evyap.api.response.cmx.AddNoteResponse;
 import com.arneca.evyap.api.response.cmx.DocUpdateResponse;
 import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
+import com.arneca.evyap.api.response.cmx.KarsilamaDetailResponse;
+import com.arneca.evyap.api.response.cmx.KarsilamaResponse;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.NewDocResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
@@ -141,6 +143,12 @@ public interface Services {
 
     @POST("Satis/BelgeNotuGuncelle")
     Call<AddNoteResponse> docNote(@Body RequestBody body);
+
+    @POST("Satis/KarsilamaListesi")
+    Call<KarsilamaResponse> karsilamaList(@Body RequestBody body);
+
+    @POST("Satis/KarsilamaListesiDetay")
+    Call<KarsilamaDetailResponse> karsilamaListDetail(@Body RequestBody body);
 
 
 }

@@ -76,6 +76,9 @@ public class OpenDocStockListActivity extends BaseActivity {
         docId = myIntent.getStringExtra("docId");
         belgeNotu = myIntent.getStringExtra("belgeNotu");
 
+        if (belgeNotu == null)
+            belgeNotu = "";
+
         cariKod = myIntent.getStringExtra("cariKod");
 
         orderNo = myIntent.getStringExtra("orderNo");
@@ -166,6 +169,7 @@ public class OpenDocStockListActivity extends BaseActivity {
 
     private void showNotePopup() {
         final EditText txtDescription = new EditText(this);
+
         if (belgeNotu.length()>0)
          txtDescription.setHint(belgeNotu);
         else

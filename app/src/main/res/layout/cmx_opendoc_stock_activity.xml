@@ -247,12 +247,16 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+
+                    android:layout_marginBottom="55dp"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/openDocList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
+                        android:layout_marginBottom="55dp"
                         android:scrollbars="vertical" />
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

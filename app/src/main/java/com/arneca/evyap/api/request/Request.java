@@ -146,5 +146,13 @@ public class Request {
         Client.Instance().docNote(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void karsilamaList(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().karsilamaList(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void karsilamaListDetail(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().karsilamaListDetail(body).enqueue(CallBack.callback(context, completed));
+    }
+
 
 }
