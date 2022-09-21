@@ -3,13 +3,16 @@ package com.arneca.evyap.ui.activity.cmx;/*
  */
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 
 import com.arneca.evyap.R;
 import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.cmx.KarsilamaDetailResponse;
+import com.arneca.evyap.api.response.cmx.KarsilamaModel;
 import com.arneca.evyap.api.response.cmx.KarsilamaResponse;
 import com.arneca.evyap.databinding.KarsilamaListBinding;
 import com.arneca.evyap.databinding.KarsilamaListDetailBinding;
@@ -18,6 +21,12 @@ import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.BaseActivity;
 import com.arneca.evyap.ui.adapter.cmx.KarsilamaListAdapter;
 import com.arneca.evyap.ui.adapter.cmx.KarsilamaListDetailAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +41,9 @@ public class KarsilamaDetayActivity extends BaseActivity {
     private String viewTitle = "";
     private String seri = "";
     private String sira = "";
+    private String adet = "";
+    private String sayi = "";
+    KarsilamaDetailResponse karsilamaResponseFromAdapter = new KarsilamaDetailResponse() ;
     protected void onCreate(Bundle savedInstanceState) {
         PreferencesHelper.setActiveDocType("Karsilama");
 
@@ -44,13 +56,30 @@ public class KarsilamaDetayActivity extends BaseActivity {
         viewTitle = myIntent.getStringExtra("viewTitle");
         seri = myIntent.getStringExtra("seri");
         sira = myIntent.getStringExtra("sira");
+        adet = myIntent.getStringExtra("adet");
+        sayi = myIntent.getStringExtra("sayi");
         binding.toolbar.txtViewTitle.setText(viewTitle);
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.toolbar2.addNote.setVisibility(View.GONE);
+        binding.txtSube.setText("Şube: "+PreferencesHelper.getLoginResponse().getResult().getProfil().getSubeAdi());
+        binding.txtSeriId.setText("Seri: "+seri);
+        binding.txtOrderId.setText("Sıra: "+sira);
+        binding.txtCompleted.setPaintFlags(binding.txtCompleted.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+        binding.txtAmount.setText("Adet: "+adet);
+        binding.txtSayi.setText("Sayı: "+sayi);
+        binding.txtCompleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                completedDoc();
+            }
+        });
+
+        showCompletedButton(false,karsilamaResponseFromAdapter);
+/*        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 loadData(false);
             }
-        });
+        });*/
         binding.toolbar.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +87,65 @@ public class KarsilamaDetayActivity extends BaseActivity {
             }
         });
         // set up the RecyclerView
+
+    }
+
+    private void completedDoc() {
+        JSONArray jsArray =  prepareDetailObjects();
+        Tool.openDialog(this);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("Seri",seri)
+                .addFormDataPart("Sira", sira)
+                .addFormDataPart("Detay", jsArray.toString())
+                .build();
+
+        Request.karsilamaTamamla(requestBody, this, response -> {
+            KarsilamaDetailResponse  karsilamaResponse = ( KarsilamaDetailResponse) response.body();
+            response.headers();
+            hideDialog();
+
+
+            if (karsilamaResponse.getResult()!=null){
+                //    binding.swipeRefreshLayout.setRefreshing(false);
+                binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+                adapter = new KarsilamaListDetailAdapter(this, karsilamaResponse,viewTitle,seri,sira);
+                binding.openDocList.setAdapter(adapter);
+            }else{
+                //      binding.swipeRefreshLayout.setRefreshing(false);
+                Tool.hideDialog();
+                Tool.showInfo(this, "Bilgi", karsilamaResponse.getResult_message().getMessage());
+            }
+        });
+    }
+
+    private  JSONArray prepareDetailObjects() {
+        JSONArray jsArray = new JSONArray();
+
+        for (KarsilamaDetailResponse.ResultBean resultBean : karsilamaResponseFromAdapter.getResult()){
+            JSONObject obj = new JSONObject();
+            try {
+                obj.put("verilen_miktar",""+resultBean.getStock());
+                obj.put("sth_uuid",resultBean.getSth_uuid());
+                obj.put("har_uuid",resultBean.getHar_uuid());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsArray.put(obj);
+        }
+        return jsArray;
+    }
+
+    public void showCompletedButton(boolean isShow, KarsilamaDetailResponse karsilamaDetailResponse){
+        if (isShow){
+            binding.txtCompleted.setVisibility(View.VISIBLE);
+        } else{
+            binding.txtCompleted.setVisibility(View.INVISIBLE);
+        }
+        karsilamaResponseFromAdapter = karsilamaDetailResponse;
 
     }
 
@@ -76,22 +164,22 @@ public class KarsilamaDetayActivity extends BaseActivity {
                 .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
                 .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
                 .addFormDataPart("Seri",seri)
-                .addFormDataPart("Sıra", sira)
+                .addFormDataPart("Sira", sira)
                 .build();
 
         Request.karsilamaListDetail(requestBody, this, response -> {
             KarsilamaDetailResponse karsilamaResponse = ( KarsilamaDetailResponse) response.body();
             response.headers();
             hideDialog();
-            binding.swipeRefreshLayout.setRefreshing(false);
-            binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new KarsilamaListDetailAdapter(this, karsilamaResponse,viewTitle);
-            binding.openDocList.setAdapter(adapter);
+
 
             if (karsilamaResponse.getResult()!=null){
-
+            //    binding.swipeRefreshLayout.setRefreshing(false);
+                binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
+                adapter = new KarsilamaListDetailAdapter(this, karsilamaResponse,viewTitle,seri,sira);
+                binding.openDocList.setAdapter(adapter);
             }else{
-                binding.swipeRefreshLayout.setRefreshing(false);
+                //      binding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();
                 if (!isFromDeleted)
                     Tool.showInfo(this, "Bilgi", karsilamaResponse.getResult_message().getMessage());

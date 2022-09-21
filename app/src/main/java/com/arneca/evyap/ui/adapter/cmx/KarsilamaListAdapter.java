@@ -18,6 +18,7 @@ import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.OpenDocumentListResponse;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
+import com.arneca.evyap.ui.activity.cmx.KarsilamaDetayActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
 
@@ -73,23 +74,16 @@ public class KarsilamaListAdapter extends RecyclerView.Adapter<KarsilamaListAdap
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             /*   Intent intent = new Intent(context, OpenDocStockListActivity.class);
-                intent.putExtra("guid",String.valueOf(mData.getResult().get(position).getGuid()));
-                intent.putExtra("docId",String.valueOf(mData.getResult().get(position).getBelge_id()));
-                intent.putExtra("orderNo",String.valueOf(mData.getResult().get(position).getSira()));
-                intent.putExtra("seriNo",String.valueOf(mData.getResult().get(position).getSeri()));
-                intent.putExtra("cariKod",String.valueOf(mData.getResult().get(position).getCari_kod()));
-                intent.putExtra("belgeNotu",String.valueOf(mData.getResult().get(position).getBelge_notu()));
+                Intent intent = new Intent(context, KarsilamaDetayActivity.class);
+                intent.putExtra("seri",String.valueOf(mData.getResult().get(position).getSeri()));
+                intent.putExtra("sira",String.valueOf(mData.getResult().get(position).getSira()));
+                intent.putExtra("adet",String.valueOf(mData.getResult().get(position).getAdet()));
+                intent.putExtra("sayi",String.valueOf(mData.getResult().get(position).getSayi()));
+                viewTitle = "Karşılama Detay";
                 intent.putExtra("viewTitle",viewTitle);
 
-                for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
-                    if (carilerBean.getKod().equals(String.valueOf(mData.getResult().get(position).getCari_kod()))){
-                        PreferencesHelper.setSelectedCompany(carilerBean);
-                    }
-                }
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                context.startActivity(intent);*/
+                context.startActivity(intent);
             }
         });
     }

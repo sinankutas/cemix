@@ -55,12 +55,15 @@ public class KarsilamaListActivity extends BaseActivity {
         });
         // set up the RecyclerView
 
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        viewTitle = "Karşılama";
         loadData(false);
+
     }
 
     public void loadData(boolean isFromDeleted) {

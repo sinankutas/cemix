@@ -167,7 +167,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                    if (!amountFromEditable.equals("0"))
                        jsonArray.put(obj);
 
-                    ((RBMatrisActivity)context).setJsonArray(jsonArray);
+
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -209,7 +209,10 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                     //  Toast.makeText(AddProductActivity.this, binding.edtSearch.getText(), Toast.LENGTH_SHORT).show();
                     String amount = txtAmount.getText().toString();
                     if (amount.equals("")){
-                        amount = "0";
+                        if (Integer.parseInt(txtAmount.getHint().toString())>0)
+                            amount = txtAmount.getHint().toString();
+                        else
+                            amount = "0";
                     }
                     if (PreferencesHelper.getActiveDocType().equals("satis")) {
 
@@ -242,7 +245,10 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                     // burası
                     String amount = txtAmount.getText().toString();
                     if (amount.equals("")){
-                        amount = "0";
+                        if (Integer.parseInt(txtAmount.getHint().toString())>0)
+                            amount = txtAmount.getHint().toString();
+                        else
+                            amount = "0";
                     }
                     if (PreferencesHelper.getActiveDocType().equals("satis")) {
                         if (validateInput(position, amount, txtAmount)){
@@ -280,7 +286,10 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             public void onClick(DialogInterface dialog, int which) {
                 String amount = txtAmount.getText().toString();
                 if (amount.equals("")){
-                    amount = "0";
+                    if (Integer.parseInt(txtAmount.getHint().toString())>0)
+                        amount = txtAmount.getHint().toString();
+                    else
+                        amount = "0";
                 }
                 if (PreferencesHelper.getActiveDocType().equals("satis")) {
                     if (validateInput(position, amount, txtAmount)){

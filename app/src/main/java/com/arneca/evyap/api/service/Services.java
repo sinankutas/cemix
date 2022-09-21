@@ -150,5 +150,10 @@ public interface Services {
     @POST("Satis/KarsilamaListesiDetay")
     Call<KarsilamaDetailResponse> karsilamaListDetail(@Body RequestBody body);
 
+    @POST("Satis/KarsilamaTamamla")
+    Call<OpenDocCompletedResponse> karsilamaTamamla(@Body RequestBody body);
+
+
+
 
 }

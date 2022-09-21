@@ -13,24 +13,83 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/tool_top"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_alignParentTop="true"/>
+
+        <include
+            android:id="@+id/toolbar2"
+            layout="@layout/tool_pdf"
+            android:layout_marginTop="95dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_below="@id/toolbar"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/toolbar2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left"
+                android:layout_gravity="left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtSube"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="left"
+                    android:layout_marginLeft="2dp"
+                    android:padding="10dp"
+                    android:text="Şube: Zeytinburnu Depo"></TextView>
+                <View
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="1dp"
+                    android:layout_height="33dp"
+                    android:background="@color/grayTextDark"></View>
+
+                <TextView
+                    android:id="@+id/txtSeriId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="left"
+                    android:layout_gravity="left"
+                    android:padding="10dp"
+                    android:text="Seri: zet-3"></TextView>
+
+                <View
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="1dp"
+                    android:layout_height="33dp"
+                    android:background="@color/grayTextDark"></View>
+
+                <TextView
+                    android:id="@+id/txtOrderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:text="S.No 141dsds"></TextView>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/sub_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_marginBottom="50dp"
                 android:orientation="vertical">
                 <LinearLayout
@@ -38,12 +97,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:gravity="center"
-
+                    android:gravity="right"
                     android:orientation="horizontal">
                     <LinearLayout
                         android:orientation="vertical"
-                        android:layout_width="62dp"
+                        android:layout_width="70dp"
                         android:layout_height="match_parent"
                         >
                         <TextView
@@ -51,18 +109,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:gravity="left"
+                            android:gravity="right"
                             android:imeOptions="actionDone"
                             android:minWidth="50dp"
+                            android:layout_marginLeft="18dp"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
-                            android:text="Seri"></TextView>
+                            android:text="Kod"></TextView>
 
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="vertical"
-                        android:layout_width="60dp"
+                        android:layout_width="80dp"
                         android:layout_marginLeft="5dp"
                         android:layout_height="match_parent">
 
@@ -70,14 +129,15 @@
                             android:id="@+id/txtSeriIdTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
+                            android:layout_gravity="center"
                             android:gravity="center"
-                            android:layout_marginLeft="2dp"
+                            android:layout_marginLeft="20dp"
                             android:imeOptions="actionDone"
                             android:textSize="13sp"
+
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
-                            android:text="Sıra"></TextView>
+                            android:text="Ad"></TextView>
 
                     </LinearLayout>
 
@@ -105,29 +165,29 @@
 
                     <LinearLayout
                         android:orientation="vertical"
-                        android:layout_width="85dp"
+                        android:layout_width="70dp"
                         android:layout_marginLeft="5dp"
                         android:layout_height="match_parent">
                         <TextView
                             android:id="@+id/txtDateTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:gravity="left"
-                            android:layout_marginLeft="2dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
                             android:imeOptions="actionDone"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
-                            android:text="Tarih"></TextView>
+                            android:text="Renk"></TextView>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="vertical"
-                        android:layout_width="45dp"
+                        android:layout_width="65dp"
                         android:layout_marginLeft="5dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -135,14 +195,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
-                            android:gravity="left"
+                            android:gravity="right"
                             android:layout_marginLeft="8dp"
                             android:imeOptions="actionDone"
                             android:minWidth="50dp"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
-                            android:text="Sıra"></TextView>
+                            android:text="İst. Mik"></TextView>
 
                     </LinearLayout>
 
@@ -163,33 +223,66 @@
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/grayTextDark"
-                            android:text="Depo"></TextView>
+                            android:text="Ver. Mik"></TextView>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
 
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/swipeRefreshLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/openDocList"
                         android:layout_width="match_parent"
                         android:layout_marginTop="16dp"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="55dp"
                         android:scrollbars="vertical"
                         />
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </LinearLayout>
 
         </LinearLayout>
+        <FrameLayout
+            android:background="@drawable/circle_register_btn_back"
+            android:elevation="3dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="50dp"
+            android:layout_height="wrap_content" >
+            <TextView
 
+                android:id="@+id/txtSayi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sayı"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_gravity="bottom|left"
+                android:layout_margin="15dp" />
+
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adet"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="15dp" />
+            <TextView
+                android:id="@+id/txtCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Karşıla"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/teal_200"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="15dp" />
+        </FrameLayout>
     </com.arneca.evyap.helper.RelativeLayoutWithBackground>
 
 </layout>

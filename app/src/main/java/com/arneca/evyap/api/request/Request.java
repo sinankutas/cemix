@@ -154,5 +154,10 @@ public class Request {
         Client.Instance().karsilamaListDetail(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void karsilamaTamamla(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().karsilamaTamamla(body).enqueue(CallBack.callback(context, completed));
+    }
+
+
 
 }

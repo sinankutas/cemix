@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/md_transparent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/lnrLyt"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="left"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/txtStockKod"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:gravity="left|center"
+
+                android:imeOptions="actionDone"
+                android:text="ANT-"
+                android:textColor="@color/black"
+                android:textSize="16sp"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="80dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtStockAdi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:imeOptions="actionDone"
+                android:gravity="left|center"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:maxWidth="70dp"
+                android:minWidth="50dp"
+                android:text="7-11 ÜÇ İP GARNİLİ KIZ MONT">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="70dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:gravity="left|center"
+                android:imeOptions="actionDone"
+
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:maxWidth="70dp"
+                android:minWidth="50dp"
+                android:text="KIRMIZI">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtKNumberIdTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:layout_marginLeft="2dp"
+                android:imeOptions="actionDone"
+                android:visibility="gone"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/grayTextDark"
+                android:text="K.Sayısı"></TextView>
+            <TextView
+                android:id="@+id/txtIstMik"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:gravity="left|center"
+                android:imeOptions="actionDone"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="10">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="55dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/txtVerMiktitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:layout_marginLeft="2dp"
+                android:imeOptions="actionDone"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:textStyle="bold"
+                android:textColor="@color/grayTextDark"
+                android:text="Tarih"></TextView>
+            <TextView
+                android:id="@+id/txtVerMik"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="0">
+            </TextView>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/textextGray"/>
+
+</LinearLayout>

@@ -63,6 +63,8 @@ public class KarsilamaResponse {
         private int sira;
         private String tarih;
         private String kaynak_depo;
+        private int adet;
+        private int sayi;
 
         public String getSeri() {
             return seri;
@@ -94,6 +96,22 @@ public class KarsilamaResponse {
 
         public void setKaynak_depo(String kaynak_depo) {
             this.kaynak_depo = kaynak_depo;
+        }
+
+        public int getAdet() {
+            return adet;
+        }
+
+        public void setAdet(int adet) {
+            this.adet = adet;
+        }
+
+        public int getSayi() {
+            return sayi;
+        }
+
+        public void setSayi(int sayi) {
+            this.sayi = sayi;
         }
     }
 
