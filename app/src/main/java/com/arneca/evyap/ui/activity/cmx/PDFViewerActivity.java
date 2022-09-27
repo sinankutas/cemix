@@ -45,7 +45,10 @@ public class PDFViewerActivity extends BaseActivity {
 
     private String pdfUrl = "";
     private String guid = "";
+    private boolean isKarsilamaAcvite = false;
     private String viewTitle = "";
+    private String seri = "";
+    private String sira = "";
     private PdfViewerBinding binding;
     DownloadManager manager;
 
@@ -57,6 +60,9 @@ public class PDFViewerActivity extends BaseActivity {
         binding.toolbar2.rightContainer.setVisibility(View.INVISIBLE);
         Intent myIntent = getIntent(); // gets the previously created intent
         pdfUrl = myIntent.getStringExtra("pdfUrl");
+        sira = myIntent.getStringExtra("sira");
+        seri = myIntent.getStringExtra("seri");
+        isKarsilamaAcvite = myIntent.getBooleanExtra("isKarsilamaAcvite",false);
         if (pdfUrl.equals("")){
             pdfUrl = "https://www.orimi.com/pdf-test.pdf";
         }
@@ -110,7 +116,13 @@ public class PDFViewerActivity extends BaseActivity {
 
             }
         });
-        loadData();
+
+        if (isKarsilamaAcvite){
+            loadDataFromKarsilama();
+        }else{
+            loadData();
+        }
+
 
     }
 
@@ -131,6 +143,37 @@ public class PDFViewerActivity extends BaseActivity {
             Tool.showInfo(this, "Bilgi", pdfResponse.getResult_message().getMessage());
         });
     }
+
+
+
+    private void loadDataFromKarsilama() {
+
+        Tool.openDialog(this);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                .addFormDataPart("BelgeTuru", PreferencesHelper.getActiveDocType())
+                .addFormDataPart("Seri", seri)
+                .addFormDataPart("Sira", sira)
+                .build();
+
+        Request.getKarsilamaPDF(requestBody, this, response -> {
+            PDFResponse pdfResponse = ( PDFResponse) response.body();
+            response.headers();
+            hideDialog();
+
+            if (pdfResponse.getResult()!=null){
+                Tool.openDialog(this);
+                pdfUrl = pdfResponse.getResult().getUrl();
+                new RetrivePDFfromUrl().execute(pdfUrl);
+            }else{
+                Tool.hideDialog();
+                // Tool.showInfo(this, "Bilgi", openDocumentStockListResponse.getResult_message().getMessage());
+            }
+        });
+    }
+
 
     private void loadData() {
 

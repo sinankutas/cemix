@@ -158,6 +158,14 @@ public class Request {
         Client.Instance().karsilamaTamamla(body).enqueue(CallBack.callback(context, completed));
     }
 
+    public static void getKarsilamaPrint(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().getKarsilamaPrint(body).enqueue(CallBack.callback(context, completed));
+    }
+
+    public static void getKarsilamaPDF(@Body RequestBody body, Context context, Completed completed) {
+        Client.Instance().getKarsilamaPDF(body).enqueue(CallBack.callback(context, completed));
+    }
+
 
 
 }

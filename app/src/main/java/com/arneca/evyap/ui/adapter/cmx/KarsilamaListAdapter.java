@@ -53,7 +53,7 @@ public class KarsilamaListAdapter extends RecyclerView.Adapter<KarsilamaListAdap
     // binds the data to the TextView in each cell
     @Override
     public void onBindViewHolder(@NonNull KarsilamaListAdapter.ViewHolder holder, int position) {
-        holder.txtDepo.setText(String.valueOf(mData.getResult().get(position).getKaynak_depo()));
+        holder.txtDepo.setText(String.valueOf(mData.getResult().get(position).getHedef_depo()));
         holder.txtSeri.setText(String.valueOf(mData.getResult().get(position).getSeri()));
         holder.txtDate.setText(String.valueOf(mData.getResult().get(position).getTarih()));
         holder.txtSira.setText(String.valueOf(mData.getResult().get(position).getSira()));
@@ -79,9 +79,9 @@ public class KarsilamaListAdapter extends RecyclerView.Adapter<KarsilamaListAdap
                 intent.putExtra("sira",String.valueOf(mData.getResult().get(position).getSira()));
                 intent.putExtra("adet",String.valueOf(mData.getResult().get(position).getAdet()));
                 intent.putExtra("sayi",String.valueOf(mData.getResult().get(position).getSayi()));
+                intent.putExtra("subeName",String.valueOf(mData.getResult().get(position).getHedef_depo()));
                 viewTitle = "Karşılama Detay";
                 intent.putExtra("viewTitle",viewTitle);
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(intent);
             }
@@ -154,7 +154,7 @@ public class KarsilamaListAdapter extends RecyclerView.Adapter<KarsilamaListAdap
 
     // convenience method for getting data at click position
     public String getItem(int id) {
-        return mData.getResult().get(id).getKaynak_depo();
+        return mData.getResult().get(id).getHedef_depo();
     }
 
     // allows clicks events to be caught

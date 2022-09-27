@@ -181,6 +181,7 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
         Request.getTanim(requestBody, context, response -> {
             TanimlarResponse tanimlarResponse = ( TanimlarResponse) response.body();
             response.headers();
+            Tool.hideDialog();
             //  ( (TanimlarActivity)context).hideDialog();
             if (tanimlarResponse.getResult()!=null){
                 Tool.showInfo(context,"Bilgi",

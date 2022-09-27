@@ -97,6 +97,7 @@ public class OpenDocStockListActivity extends BaseActivity {
                 intent.putExtra("pdfUrl","");
                 intent.putExtra("guid",guid);
                 intent.putExtra("viewTitle","PDF Görüntüleme");
+                intent.putExtra("isKarsilamaAcvite",false);
                 intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 startActivity(intent);
             }

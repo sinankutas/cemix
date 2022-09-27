@@ -186,7 +186,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
         holder.lnrLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (PreferencesHelper.getActiveDocType().equals("satis") || PreferencesHelper.getActiveDocType().equals("siparis"))
+                if (PreferencesHelper.getActiveDocType().equals("satis") || PreferencesHelper.getActiveDocType().equals("siparis")|| PreferencesHelper.getActiveDocType().equals("teklif"))
                         openInputDialog(position);
             }
         });
@@ -232,6 +232,15 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                             imm.hideSoftInputFromWindow(txtAmount.getWindowToken(), 0);
                         }
                     }
+
+                    if (PreferencesHelper.getActiveDocType().equals("teklif")) {
+                        if (validateInputForTeklif(position, amount, txtAmount)) {
+                            mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amount));
+                            notifyItemChanged(position);
+                            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(txtAmount.getWindowToken(), 0);
+                        }
+                    }
                     return true;
                 }
                 return false;
@@ -265,6 +274,16 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                             mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amount));
                             notifyItemChanged(position);
                             InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(txtAmount.getWindowToken(), 0);
+                            alertDialog2.dismiss();
+                        }
+                    }
+
+                    if (PreferencesHelper.getActiveDocType().equals("teklif")) {
+                        if (validateInputForTeklif(position, amount, txtAmount)) {
+                            mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amount));
+                            notifyItemChanged(position);
+                            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(txtAmount.getWindowToken(), 0);
                             alertDialog2.dismiss();
                         }
@@ -310,6 +329,16 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
                         alertDialog2.dismiss();
                     }
                 }
+
+                if (PreferencesHelper.getActiveDocType().equals("teklif")) {
+                    if (validateInputForTeklif(position, amount, txtAmount)) {
+                        mData.getResult().get(currentIndex).getRenkDetay().get(position).setStock(Integer.parseInt(amount));
+                        notifyItemChanged(position);
+                        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(txtAmount.getWindowToken(), 0);
+                        alertDialog2.dismiss();
+                    }
+                }
                 alertDialog2.dismiss();
             }
         });
@@ -321,6 +350,50 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             }
         });
         alertDialog2.show();
+    }
+
+    private boolean validateInputForTeklif(int position, String amountFromEditable, EditText edtAmount ){
+        boolean isValid = true;
+
+
+        if (PreferencesHelper.getActiveDocType().equals("teklif")) {
+
+                JSONObject obj = new JSONObject();
+                try {
+                    boolean isfounded = false;
+                    int existingIndex = 0;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject row = null;
+
+                        row = jsonArray.getJSONObject(i);
+
+                        if( String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getId()).equals(row.get("StokIdx"))){
+                            isfounded = true;
+                            existingIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (isfounded){
+                        jsonArray.remove(existingIndex);
+                    }
+                    obj.put("StokKodu", String.valueOf(mData.getResult().get(currentIndex).getKod()));
+                    obj.put("StokIdx", String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getId()));
+                    obj.put("RenkId", String.valueOf(mData.getResult().get(currentIndex).getRenkDetay().get(position).getRnk_kirilim_id()));
+                    obj.put("Miktar", ""+amountFromEditable);
+                    obj.put("Fiyat", ""+String.valueOf(mData.getResult().get(currentIndex).getFiyat()));
+                    obj.put("Dvz", "1");
+
+                    if (!amountFromEditable.equals("0"))
+                        jsonArray.put(obj);
+
+                    ((RBMatrisActivity)context).setJsonArray(jsonArray);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+        }
+        return isValid;
     }
 
     private boolean validateInputForSiparis(int position, String amountFromEditable, EditText edtAmount ){
