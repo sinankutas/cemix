@@ -14,6 +14,7 @@ import com.arneca.evyap.api.request.Request;
 import com.arneca.evyap.api.response.cmx.KarsilamaDetailResponse;
 import com.arneca.evyap.api.response.cmx.KarsilamaModel;
 import com.arneca.evyap.api.response.cmx.KarsilamaResponse;
+import com.arneca.evyap.api.response.cmx.OpenDocCompletedResponse;
 import com.arneca.evyap.api.response.cmx.PDFResponse;
 import com.arneca.evyap.databinding.KarsilamaListBinding;
 import com.arneca.evyap.databinding.KarsilamaListDetailBinding;
@@ -153,17 +154,14 @@ public class KarsilamaDetayActivity extends BaseActivity {
                 .build();
 
         Request.karsilamaTamamla(requestBody, this, response -> {
-            KarsilamaDetailResponse  karsilamaResponse = ( KarsilamaDetailResponse) response.body();
+            OpenDocCompletedResponse karsilamaResponse = ( OpenDocCompletedResponse) response.body();
             response.headers();
             hideDialog();
 
 
-            if (karsilamaResponse.getResult()!=null){
-                //    binding.swipeRefreshLayout.setRefreshing(false);
-                binding.openDocList.setLayoutManager(new LinearLayoutManager(this));
-                adapter = new KarsilamaListDetailAdapter(this, karsilamaResponse,viewTitle,seri,sira);
-                binding.openDocList.setAdapter(adapter);
-                binding.txtSayi.setText("Sayı: "+""+karsilamaResponse.getResult().size());
+            if (karsilamaResponse.getResult_message()!=null){
+                Tool.showInfo(this, "Bilgi", karsilamaResponse.getResult_message().getMessage());
+                finish();
             }else{
                 //      binding.swipeRefreshLayout.setRefreshing(false);
                 Tool.hideDialog();

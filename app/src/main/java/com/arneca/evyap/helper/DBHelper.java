@@ -395,5 +395,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-
+    private String validateInput(String input){
+        if (input == null){
+            input =" ";
+        }
+        return input;
+    }
 }

@@ -181,10 +181,10 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
         Request.getTanim(requestBody, context, response -> {
             TanimlarResponse tanimlarResponse = ( TanimlarResponse) response.body();
             response.headers();
-            Tool.hideDialog();
+        //    Tool.hideDialog();
             //  ( (TanimlarActivity)context).hideDialog();
             if (tanimlarResponse.getResult()!=null){
-                Tool.showInfo(context,"Bilgi",
+           /**/    Tool.showInfo(context,"Bilgi",
                         tanimlarResponse.getResult_message().getMessage(),
                         (dialog, which) ->  Tool.hideDialog(),"Tamam");
                 writeToDb(tanimlarResponse);
@@ -208,20 +208,10 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
           if (i==50)
               break;*/
         }
+
+        Toast.makeText(context,"Veriler Kaydedildi",Toast.LENGTH_SHORT).show();
      //   Tool.hideDialog();
 
-        Log.d("*** src ",""+ dbHelper.numberOfRows());
-       ;
-     /*   ArrayList<TanimlarResponse.ResultBean> records = new ArrayList<>();
-        Cursor arr = dbHelper.getAllRecordsCursor();
-        if (arr != null) {
-            if (arr.moveToFirst()) {
-                do {
-                   Log.d("*** src ",""+arr.getString(arr.getColumnIndex("src")));
-                  //  records.add(r);
-                } while (arr.moveToNext());
-            }
-        }*/
     }
 
 

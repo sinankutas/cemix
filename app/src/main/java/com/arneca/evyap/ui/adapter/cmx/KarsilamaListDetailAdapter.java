@@ -130,15 +130,34 @@ public class KarsilamaListDetailAdapter extends RecyclerView.Adapter<KarsilamaLi
         // ok ise D0D700 yeşil
         // eksik ise EE3316 kırmızı
         // beyaz FFFFFF
-        if (amount == mData.getResult().get(position).getIstenen_miktar()){
+
+    /**/    if (amount == mData.getResult().get(position).getIstenen_miktar()){
+            if (selectedItems.contains(position)){
+                for (int i = 0; i<selectedItems.size();i++){
+                    if (selectedItems.get(i)==position){
+                        selectedItems.remove(i);
+                        //        holder.lnrLyt.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                      //  notifyItemChanged(position);
+                    }
+                }
+            }
             selectedItems.add(position);
             //    lyt.setBackgroundColor(Color.parseColor("#D0D700"));
             notifyItemChanged(position);
         } else{
+            for (int i = 0; i<selectedItems.size();i++){
+                if (selectedItems.get(i)==position){
+                    selectedItems.remove(i);
+                    //        holder.lnrLyt.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    //  notifyItemChanged(position);
+                }
+            }
             selectedItems.add(position);
             //   lyt.setBackgroundColor(Color.parseColor("#EE3316"));
             notifyItemChanged(position);
         }
+       // notifyItemChanged(position);
+     
 
         if (selectedItems.size() == mData.getResult().size()){
             ((KarsilamaDetayActivity)context).showCompletedButton(true,mData);
