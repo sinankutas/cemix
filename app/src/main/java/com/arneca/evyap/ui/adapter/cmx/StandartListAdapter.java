@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.arneca.evyap.ui.activity.cmx.NewSayimActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocListActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocRecordsActivity;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
+import com.arneca.evyap.ui.activity.cmx.RBMatrisActivity;
 import com.arneca.evyap.ui.activity.cmx.SayimUrunEkleActivity;
 import com.arneca.evyap.ui.activity.cmx.TanimlarActivity;
 import com.arneca.evyap.ui.fragment.CompanyBottomFragment;
@@ -93,9 +95,11 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
 
                 if (position==0){
                     if (isSayimActive[0]== true){
+                      /*  Tool.hideDialog();
                         Tool.showInfo(context,"Uyarı",
                                 "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
-                                (dialog, which) -> loadTanim(),"Tamam");
+                                (dialog, which) -> loadTanim(),"Tamam");*/
+                        loadTanim();
                     }else{
                         Intent intent = new Intent(context, OpenDocListActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -108,12 +112,12 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                         if (dbHelper.numberOfRows()>0) {
                             loadDescription(viewTitle2);
                         }  else{
+                      /*      Tool.hideDialog();
                             Tool.showInfo(context,"Tanım Bulunamadı. Tanımlar Yüklensin mi?",
                                     "Bu işlem 1 kaç dakika sürebilir. Bu süre bağlantı hzınıza ve cihaz kapasitenize göre değişebilir. Lütfen bağlantınızı kapatmayın ve işlemi yarıda kesmeyin.",
-                                    (dialog, which) -> loadTanim(),"Tamam");
+                                    (dialog, which) -> loadTanim(),"Tamam");*/
+                            loadTanim();
                         }
-
-
                     }else{
                         Intent intent = new Intent(context, OpenDocRecordsActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -184,9 +188,9 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
         //    Tool.hideDialog();
             //  ( (TanimlarActivity)context).hideDialog();
             if (tanimlarResponse.getResult()!=null){
-           /**/    Tool.showInfo(context,"Bilgi",
+           /*    Tool.showInfo(context,"Bilgi",
                         tanimlarResponse.getResult_message().getMessage(),
-                        (dialog, which) ->  Tool.hideDialog(),"Tamam");
+                        (dialog, which) ->  Tool.hideDialog(),"Tamam");*/
                 writeToDb(tanimlarResponse);
             }else{
                 Tool.hideDialog();
@@ -196,22 +200,9 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
     }
 
     private void writeToDb(TanimlarResponse tanimlarResponse) {
-    //    Tool.openDialog((TanimlarActivity)context);
-
-        Toast.makeText(context,"Veriler Kaydediliyor",Toast.LENGTH_SHORT).show();
-        int i = 0;
-        for (TanimlarResponse.ResultBean trBean : tanimlarResponse.getResult()){
-          //  id text, kod text, ad text, anagrup_kod text, beden text, beden_kodu text, renk text, renk_id text, pkadet text, dvz text, satis_fiyat text, d1 text, d14 text, d89 text, src text
-          dbHelper.insertRecord(""+trBean.getD1(),trBean.getKod(),trBean.getAd(),trBean.getAnagrup_kod(),trBean.getBeden(),trBean.getBeden_kodu(),trBean.getRenk(),""+trBean.getRenk_id()
-                  ,trBean.getPkadet(),trBean.getDvz(),trBean.getSatis_fiyat(),trBean.getD1(),trBean.getD14(),trBean.getD89(),trBean.getSrc(),trBean.getRenk_kodu_x());
-       /*  i = i+1;
-          if (i==50)
-              break;*/
-        }
-
-        Toast.makeText(context,"Veriler Kaydedildi",Toast.LENGTH_SHORT).show();
-     //   Tool.hideDialog();
-
+     //   Toast.makeText(context,"Veriler Kaydediliyor",Toast.LENGTH_SHORT).show();
+        PreferencesHelper.setTanimlarResponse(tanimlarResponse);
+        new DBWrite().execute("");
     }
 
 
@@ -230,4 +221,44 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
             this.lytLinear = (LinearLayout) itemView.findViewById(R.id.lytLinear);
         }
     }
+
+    private class DBWrite extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            int i = 0;
+            for (TanimlarResponse.ResultBean trBean : PreferencesHelper.getTanimlarResponse().getResult()){
+                try {
+                    i = i+1;
+//                    Toast.makeText(context,""+i,Toast.LENGTH_SHORT).show();
+                    dbHelper.insertRecord(""+trBean.getD1(),trBean.getKod(),trBean.getAd(),trBean.getAnagrup_kod(),trBean.getBeden(),trBean.getBeden_kodu(),trBean.getRenk(),""+trBean.getRenk_id()
+                            ,trBean.getPkadet(),trBean.getDvz(),trBean.getSatis_fiyat(),trBean.getD1(),trBean.getD14(),trBean.getD89(),trBean.getSrc(),trBean.getRenk_kodu_x());
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+
+            Log.d("***** asasda","***** dasda");
+            ((TanimlarActivity)context).hideDialog();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
 }
+

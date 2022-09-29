@@ -8,6 +8,7 @@ import com.arneca.evyap.api.ReportMap;
 import com.arneca.evyap.api.ReportModel;
 import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
+import com.arneca.evyap.api.response.cmx.TanimlarResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
 import com.arneca.evyap.ui.activity.cmx.PDFViewerActivity;
 import com.orhanobut.hawk.Hawk;
@@ -47,6 +48,7 @@ public class PreferencesHelper extends BaseObservable {
     private static boolean isBackButtonActive ;
     private static boolean isFastSearchActive;
     private static PDFViewerActivity currentPDFActivity;
+    private static TanimlarResponse tanimlarResponse;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -218,5 +220,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setCurrentPDFActivity(PDFViewerActivity currentPDFActivity) {
         PreferencesHelper.currentPDFActivity = currentPDFActivity;
+    }
+
+    public static TanimlarResponse getTanimlarResponse() {
+        return tanimlarResponse;
+    }
+
+    public static void setTanimlarResponse(TanimlarResponse tanimlarResponse) {
+        PreferencesHelper.tanimlarResponse = tanimlarResponse;
     }
 }
