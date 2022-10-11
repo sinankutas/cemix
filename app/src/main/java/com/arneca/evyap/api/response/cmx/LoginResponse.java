@@ -30,6 +30,7 @@ public class LoginResponse {
         private List<DepoYetkileriBean> DepoYetkileri;
         private List<CarilerBean> Cariler;
         private List<PlasiyerKodlariBean> PlasiyerKodlari;
+        private List<UlkelerBean> Ulkeler;
 
 
         public static class ProfilBean {
@@ -214,6 +215,20 @@ public class LoginResponse {
             }
         }
 
+        public static class UlkelerBean {
+
+            private String ulke;
+
+            public String getUlke() {
+                return ulke;
+            }
+
+            public void setUlke(String ulke) {
+                this.ulke = ulke;
+            }
+        }
+
+
         public String getOturumKodu() {
             if (OturumKodu == null)
                 OturumKodu = "";
@@ -262,6 +277,14 @@ public class LoginResponse {
 
         public void setPlasiyerKodlari(List<PlasiyerKodlariBean> plasiyerKodlari) {
             PlasiyerKodlari = plasiyerKodlari;
+        }
+
+        public List<UlkelerBean> getUlkeler() {
+            return Ulkeler;
+        }
+
+        public void setUlkeler(List<UlkelerBean> ulkeler) {
+            Ulkeler = ulkeler;
         }
     }
 

@@ -527,7 +527,7 @@ public class RBMatrisAdapter  extends RecyclerView.Adapter<RBMatrisAdapter.ViewH
             txtColor = itemView.findViewById(R.id.txtColor);
             txtDP1 = itemView.findViewById(R.id.txtDP1);
             txtDP2 = itemView.findViewById(R.id.txtDP2);
-            txtAmount = itemView.findViewById(R.id.txtAmount);
+            txtAmount = itemView.findViewById(R.id.txtAmountText);
             txtDP3 = itemView.findViewById(R.id.txtDP3);
             edtAmount = itemView.findViewById(R.id.edtAmount);
             txtColorTitle = itemView.findViewById(R.id.txtColorTitle);

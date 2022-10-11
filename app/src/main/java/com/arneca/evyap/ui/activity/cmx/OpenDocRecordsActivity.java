@@ -55,7 +55,7 @@ public class OpenDocRecordsActivity extends BaseActivity {
         default code120.34.001
         * */
         for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
-            if (carilerBean.getKod().equals("120.34.001")){
+            if (carilerBean.getKod().equals("120.99.01")){//"120.34.001")){
                 PreferencesHelper.setSelectedCompany(carilerBean);
             }
         }
@@ -133,7 +133,7 @@ public class OpenDocRecordsActivity extends BaseActivity {
     public void gotoOpenDocStockList() {
         if (PreferencesHelper.getSelectedCompany() == null){
             for (LoginResponse.ResultBean.CarilerBean carilerBean : PreferencesHelper.getLoginResponse().getResult().getCariler()){
-                if (carilerBean.getKod().equals("120.34.001")){
+                if (carilerBean.getKod().equals("120.99.01")){//"120.34.001")){
                     PreferencesHelper.setSelectedCompany(carilerBean);
                 }
             }

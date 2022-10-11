@@ -31,8 +31,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class PlasierBottomFragment extends BottomSheetDialogFragment {
     private PlasierBottomBinding mBinding;
-
+    private CountryBottomFragment countryBottomFragment;
     private String selectedPlasier;
+    private String selectedCountry;
 
     public static PlasierBottomFragment newInstance() {
         PlasierBottomFragment fragment = new PlasierBottomFragment();
@@ -56,11 +57,15 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
 
     }
 
+    public void selectedCountryName(String selectedCountry){
+        this.selectedCountry = selectedCountry;
+        mBinding.countryEdt.setText(selectedCountry);
+    }
 
     public void dissmisView(){
         dismiss();
             ((OpenDocStockListActivity) getActivity()).gotoCompletedDoc(selectedPlasier,mBinding.nameEdt.getText().toString(),
-                    mBinding.countryEdt.getText().toString(),mBinding.cargoEdt.getText().toString(),mBinding.phoneEdt.getText().toString());
+                    selectedCountry.toString(),mBinding.cargoEdt.getText().toString(),mBinding.phoneEdt.getText().toString());
 
     }
 
@@ -83,6 +88,13 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
             public void onClick(View view) {
 
                 dismiss();
+            }
+        });
+
+        mBinding.btnCountry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCountryList();
             }
         });
 
@@ -125,16 +137,16 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
                 if (PreferencesHelper.getSelectedCompany().getKod().equals("120.99.01")){
                     String name = mBinding.nameEdt.getText().toString();
                     String phone = mBinding.phoneEdt.getText().toString();
-                    String country = mBinding.countryEdt.getText().toString();
+               //     String country = mBinding.countryEdt.getText().toString();
 
                     if (name == null)
                         name = "";
                     if (phone == null)
                         phone = "";
-                    if (country == null)
-                        country = "";
+                    if (selectedCountry == null)
+                        selectedCountry = "";
 
-                    if (!name.equals("") && !phone.equals("") && !country.equals("")){
+                    if (!name.equals("") && !phone.equals("") && !selectedCountry.equals("")){
                         dissmisView();
                     }else{
                         Tool.showInfo(getContext(),"Hata","İsim, Telefon ve Ülke boş geçilemez");
@@ -155,6 +167,10 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
         });
     }
 
+    private void openCountryList() {
+        countryBottomFragment = new CountryBottomFragment().newInstance(this);
+        countryBottomFragment.show(getParentFragmentManager(), "");
+    }
 
 
     @Override

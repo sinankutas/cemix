@@ -150,6 +150,16 @@
                 android:textColor="@color/grayTextDark"
                 android:textSize="14sp" />
 
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btnCountry"
+        android:layout_width="match_parent"
+        android:background="@drawable/md_transparent"
+        android:layout_height="match_parent">
+
+    </Button>
             <arneca.com.utility.view.input.EditTextWithFont
                 android:id="@+id/countryEdt"
                 android:layout_width="match_parent"
@@ -162,8 +172,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/grayTextDark"
-                android:textSize="15sp" />
-
+                android:textSize="15sp"/>
+</FrameLayout>
             <TextView
                 android:id="@+id/pass1"
                 android:layout_width="match_parent"
