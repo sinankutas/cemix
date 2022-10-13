@@ -64,6 +64,9 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
 
     public void dissmisView(){
         dismiss();
+        if (selectedCountry == null)
+            selectedCountry = "";
+
             ((OpenDocStockListActivity) getActivity()).gotoCompletedDoc(selectedPlasier,mBinding.nameEdt.getText().toString(),
                     selectedCountry.toString(),mBinding.cargoEdt.getText().toString(),mBinding.phoneEdt.getText().toString());
 
