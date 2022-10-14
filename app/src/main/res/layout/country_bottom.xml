@@ -52,6 +52,8 @@
                 android:id="@+id/edtSearchCountry"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:drawableLeft="@drawable/searchgray"
                 android:hint="  Ülke Ara..."></EditText>
         </LinearLayout>

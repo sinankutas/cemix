@@ -92,6 +92,7 @@ public class CompanyBottomFragment extends BottomSheetDialogFragment {
         });
         return  dialog;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
