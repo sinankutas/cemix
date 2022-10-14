@@ -161,7 +161,7 @@ public class CountryBottomFragment  extends BottomSheetDialogFragment {
 
         });
 
-        adapter= new CountryBottomSheetAdapter(getContext(),PreferencesHelper.getLoginResponse().getResult().getUlkeler(),this);
+        adapter= new CountryBottomSheetAdapter(getContext(),ulkelerNewSheet,this);
         // mAdapter = new PlanAdapter(result -> mListener.onClicked(result));
         mBinding.listCountry.setLayoutManager(new LinearLayoutManager(requireContext()));
         //       mBinding.listCountry.setLayoutManager(new LinearLayoutManager(requireContext()));
