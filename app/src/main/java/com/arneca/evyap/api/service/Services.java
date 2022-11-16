@@ -13,6 +13,7 @@ import com.arneca.evyap.api.response.GetLines;
 import com.arneca.evyap.api.response.GetLogin;
 import com.arneca.evyap.api.response.GetSendSecurtyCode;
 import com.arneca.evyap.api.response.cmx.AddNoteResponse;
+import com.arneca.evyap.api.response.cmx.CurrencyResponse;
 import com.arneca.evyap.api.response.cmx.DocUpdateResponse;
 import com.arneca.evyap.api.response.cmx.FooterInfoResponse;
 import com.arneca.evyap.api.response.cmx.KarsilamaDetailResponse;
@@ -159,7 +160,8 @@ public interface Services {
     @POST("Satis/KarsilamaTamamla")
     Call<OpenDocCompletedResponse> karsilamaTamamla(@Body RequestBody body);
 
-
+    @POST("Satis/GetCariDovizler")
+    Call<CurrencyResponse> getCariDovizler(@Body RequestBody body);
 
 
 }

@@ -44,6 +44,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/lytPlsyr1"
             android:layout_width="wrap_content"
@@ -103,6 +104,8 @@
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+
 </LinearLayout>
         <LinearLayout
             android:visibility="gone"
@@ -229,20 +232,68 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/grayTextDark"
                 android:textSize="15sp" />
+
+            <arneca.com.utility.view.text.TextViewWithBoldFont
+                android:id="@+id/btnTakePhoto"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="26dp"
+                android:background="@drawable/circle_register_btn_back"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:textSize="18sp"
+                android:text="Fotoğraf Ekle"
+                android:textColor="@color/white"
+                tools:text="Fotoğraf Ekle" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rememberMe"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp"
+    android:id="@+id/btnSelectedCurreny">
+    <TextView
+        android:id="@+id/btnSelectedCurrenyKey"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="26dp"
+        android:gravity="left|center"
+        android:imeOptions="actionDone"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Tamam"
+        android:textColor="@color/black"
+        tools:text="Döviz Cinsi Seç" />
+    <TextView
+        android:id="@+id/btnSelectedCurrenyValue"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginRight="26dp"
+        android:gravity="left|center"
+        android:imeOptions="actionDone"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        tools:text="" />
+</LinearLayout>
             <arneca.com.utility.view.text.TextViewWithBoldFont
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="26dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="26dp"
                 android:background="@drawable/circle_register_btn_back"
                 android:gravity="center"

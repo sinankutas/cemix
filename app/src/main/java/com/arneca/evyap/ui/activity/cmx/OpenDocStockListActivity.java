@@ -260,6 +260,8 @@ public class OpenDocStockListActivity extends BaseActivity {
                 .addFormDataPart("a2", contry)
                 .addFormDataPart("a3", cargo)
                 .addFormDataPart("a4", tel)
+                .addFormDataPart("gorsel", PreferencesHelper.getCurrentBase64())
+                .addFormDataPart("doviz_kuru", PreferencesHelper.getSelectedCurrency())
 
 
                 .build();

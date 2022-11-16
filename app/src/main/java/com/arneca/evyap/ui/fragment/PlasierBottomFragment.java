@@ -5,10 +5,14 @@ package com.arneca.evyap.ui.fragment;/*
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.arneca.evyap.R;
+import com.arneca.evyap.api.request.Request;
+import com.arneca.evyap.api.response.cmx.AddNoteResponse;
+import com.arneca.evyap.api.response.cmx.CurrencyResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
 import com.arneca.evyap.databinding.PlasierBottomBinding;
@@ -24,21 +31,30 @@ import com.arneca.evyap.helper.DBHelper;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
+import com.arneca.evyap.ui.activity.cmx.TakePhotoActivity;
 import com.arneca.evyap.ui.adapter.cmx.TanimlarBottomSheetAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class PlasierBottomFragment extends BottomSheetDialogFragment {
     private PlasierBottomBinding mBinding;
     private CountryBottomFragment countryBottomFragment;
     private String selectedPlasier;
     private String selectedCountry;
+    private CurrencyResponse currencyResponse;
+    private  ArrayList<String> currencyIds = new ArrayList<>();
+    private  ArrayList<String> currencyValues = new ArrayList<>();
 
     public static PlasierBottomFragment newInstance() {
         PlasierBottomFragment fragment = new PlasierBottomFragment();
@@ -51,10 +67,47 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.plasier_bottom, container, false);
         setViews();
+        PreferencesHelper.setCurrentBase64("");
+        PreferencesHelper.setSelectedCurrency("");
         return mBinding.getRoot();
     }
 
 
+    private void showCurrency(){
+      //  String[] urls = {"1","2","3"};
+      //  String[] urlsAlias = {"TL","USD","EURO"};
+        AlertDialog.Builder  builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Döviz Birimi Seç");
+        builder.setCancelable(false);
+
+        String[] currencyValuesArray = new String[currencyValues.size()];
+        currencyValuesArray = currencyValues.toArray(currencyValuesArray);
+
+
+        String[] finalCurrencyValuesArray = currencyValuesArray;
+        builder.setSingleChoiceItems(currencyValuesArray, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //selectedBase = urls[i];
+               // PreferencesHelper.setBaseUrl(selectedBase);
+                String selectedCurrency = finalCurrencyValuesArray[i]+"_"+currencyIds.get(i);
+                mBinding.btnSelectedCurrenyValue.setText(finalCurrencyValuesArray[i]);
+                mBinding.btnSelectedCurrenyKey.setText(Html.fromHtml("<u>Seçilen Döviz Cinsi:</u> "));
+                PreferencesHelper.setSelectedCurrency(selectedCurrency);
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setPositiveButton("Seç", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (PreferencesHelper.getSelectedCurrency().length()>0)
+                  dialogInterface.dismiss();
+            }
+        });
+
+        Log.d("selectedBase","selectedBase");
+        builder.show();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -145,6 +198,11 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
 
         if (PreferencesHelper.getSelectedCompany().getKod().equals("120.99.01")){
             mBinding.lytExtra.setVisibility(View.VISIBLE);
+            mBinding.btnSelectedCurreny.setVisibility(View.GONE);
+        }else{
+            mBinding.lytExtra.setVisibility(View.GONE);
+            mBinding.btnSelectedCurreny.setVisibility(View.VISIBLE);
+            loadCurrency();
         }
         mBinding.lytPlsyr1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +262,57 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
+
+
+        mBinding.btnTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TakePhotoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        if (mBinding.btnSelectedCurrenyValue.getText().length()>0){
+            mBinding.btnSelectedCurrenyKey.setText("Seçilen Döviz Cinsi: ");
+        }else{
+            mBinding.btnSelectedCurrenyKey.setText(Html.fromHtml(" <u> Döviz Cinsi Seç</u>"));
+
+        }
+
+        if (mBinding.btnSelectedCurrenyValue.getText().length()>0){
+            mBinding.btnSelectedCurrenyValue.setText("TL");
+        }
+
+        mBinding.btnSelectedCurreny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCurrency();
+            }
+        });
+    }
+
+    private void loadCurrency() {
+            Tool.openDialog(getActivity());
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("OturumKodu", PreferencesHelper.getLoginResponse().getResult().getOturumKodu())
+                    .addFormDataPart("idx", PreferencesHelper.getLoginResponse().getResult().getProfil().getIdx())
+                    .addFormDataPart("CariKod", PreferencesHelper.getSelectedCompany().getKod())
+                    .build();
+
+            Request.getCariDovizler(requestBody, getActivity(), response -> {
+                 currencyResponse = ( CurrencyResponse) response.body();
+                 if (currencyResponse!= null)
+                     if (currencyResponse.getResult().size()>0){
+                         for (CurrencyResponse.ResultBean resultBean : currencyResponse.getResult()){
+                             currencyIds.add(resultBean.getDvz_id()+"");
+                             currencyValues.add(resultBean.getDvz());
+                         }
+                     }
+                Tool.hideDialog();
+           //     Tool.showInfo(getActivity(), "Bilgi", currencyResponse.getResult_message().getMessage());
+            });
+
     }
 
     private void openCountryList() {

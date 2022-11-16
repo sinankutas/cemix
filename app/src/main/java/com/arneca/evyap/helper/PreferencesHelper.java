@@ -49,6 +49,8 @@ public class PreferencesHelper extends BaseObservable {
     private static boolean isFastSearchActive;
     private static PDFViewerActivity currentPDFActivity;
     private static TanimlarResponse tanimlarResponse;
+    private static String currentBase64;
+    private static String selectedCurrency;
 
     public static boolean isIsRememberMe(Context context) {
         return SharedPreferenceHelper.getSharedPreferenceBoolean(context, "isRememberMe", false);
@@ -228,5 +230,23 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setTanimlarResponse(TanimlarResponse tanimlarResponse) {
         PreferencesHelper.tanimlarResponse = tanimlarResponse;
+    }
+
+    public static String getCurrentBase64() {
+        if (currentBase64 == null)
+            currentBase64 = "";
+        return currentBase64;
+    }
+
+    public static void setCurrentBase64(String currentBase64) {
+        PreferencesHelper.currentBase64 = currentBase64;
+    }
+
+    public static String getSelectedCurrency() {
+        return selectedCurrency;
+    }
+
+    public static void setSelectedCurrency(String selectedCurrency) {
+        PreferencesHelper.selectedCurrency = selectedCurrency;
     }
 }
