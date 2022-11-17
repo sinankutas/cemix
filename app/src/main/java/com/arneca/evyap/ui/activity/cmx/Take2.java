@@ -1,35 +1,27 @@
 package com.arneca.evyap.ui.activity.cmx;/*
- * Created by sinan KUTAS on 11/16/22.
+ * Created by  on 11/16/22.
  */
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.arneca.evyap.R;
-import com.arneca.evyap.databinding.ActivityCameraBinding;
 import com.arneca.evyap.helper.AppExecutor;
 import com.arneca.evyap.helper.BitmapUtils;
-import com.arneca.evyap.helper.PreferencesHelper;
-import com.arneca.evyap.helper.Tool;
-import com.arneca.evyap.ui.activity.BaseActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
@@ -37,15 +29,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
-import androidx.databinding.DataBindingUtil;
 
+public class Take2 extends AppCompatActivity {
 
-public class TakePhotoActivity extends BaseActivity {
-
-    private ActivityCameraBinding binding;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_STORAGE_PERMISSION = 1;
     private static final String FILE_PROVIDER_AUTHORITY = "com.dkm.cemix.fileprovider";
@@ -55,32 +47,7 @@ public class TakePhotoActivity extends BaseActivity {
     private String mTempPhotoPath;
     private Bitmap mResultsBitmap;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_camera);
-        binding.toolbar.txtViewTitle.setText("Fotoğraf Çek");
-
-        binding.closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        binding.capturePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkAndRequestPermissions(TakePhotoActivity.this)){
-                    launchCamera();
-                }
-            }
-        });
-
-    }
-
+    private FloatingActionButton mClear,mSave,mShare;
 
     // function to check permission
     public static boolean checkAndRequestPermissions(final Activity context) {
@@ -103,6 +70,98 @@ public class TakePhotoActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.take2);
+
+        mAppExcutor = new AppExecutor();
+
+        mImageView = findViewById(R.id.imageView);
+        mClear = findViewById(R.id.clear);
+        mSave = findViewById(R.id.Save);
+        mShare = findViewById(R.id.Share);
+        mStartCamera = findViewById(R.id.startCamera);
+
+        mImageView.setVisibility(View.GONE);
+        mShare.setVisibility(View.GONE);
+        mSave.setVisibility(View.GONE);
+        mClear.setVisibility(View.GONE);
+
+
+        mStartCamera.setOnClickListener(v -> {
+            // Check for the external storage permission
+         /*   if (androidx.core.content.ContextCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // If you do not have permission, request it
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_STORAGE_PERMISSION);
+            } else {
+                // Launch the camera if the permission exists
+                launchCamera();
+            }*/
+
+            if(checkAndRequestPermissions(Take2.this)){
+            //    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+              //  startActivityForResult(takePicture, 0);
+                launchCamera();
+            }
+
+        });
+
+        mSave.setOnClickListener((View v) -> {
+            mAppExcutor.diskIO().execute(() -> {
+
+
+                // Delete the temporary image file
+                BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+
+                // Save the image
+                BitmapUtils.saveImage(this, mResultsBitmap);
+
+            });
+
+            Toast.makeText(this,"Image Save",Toast.LENGTH_LONG).show();
+
+        });
+
+        mClear.setOnClickListener(v -> {
+            // Clear the image and toggle the view visibility
+            mImageView.setImageResource(0);
+            mStartCamera.setVisibility(View.VISIBLE);
+            mSave.setVisibility(View.GONE);
+            mShare.setVisibility(View.GONE);
+            mClear.setVisibility(View.GONE);
+
+            mAppExcutor.diskIO().execute(() -> {
+                // Delete the temporary image file
+                BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+            });
+
+        });
+
+        mShare.setOnClickListener((View v) -> {
+
+            mAppExcutor.diskIO().execute(() ->{
+                // Delete the temporary image file
+                BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+
+                // Save the image
+                BitmapUtils.saveImage(this, mResultsBitmap);
+
+            });
+
+            // Share the image
+            BitmapUtils.shareImage(this, mTempPhotoPath);
+
+        });
+
     }
 
     @Override
@@ -182,9 +241,13 @@ public class TakePhotoActivity extends BaseActivity {
      * Method for processing the captured image and setting it to the TextView.
      */
     private void processAndSetImage() {
-        Tool.openDialog(TakePhotoActivity.this);
 
-        binding.imgCapture.setVisibility(View.VISIBLE);
+        // Toggle Visibility of the views
+        mStartCamera.setVisibility(View.GONE);
+        mSave.setVisibility(View.VISIBLE);
+        mShare.setVisibility(View.VISIBLE);
+        mClear.setVisibility(View.VISIBLE);
+        mImageView.setVisibility(View.VISIBLE);
 
         // Resample the saved image to fit the ImageView
         mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
@@ -192,18 +255,16 @@ public class TakePhotoActivity extends BaseActivity {
         if (imgFile.exists() && imgFile.length() > 0) {
             Bitmap bm = BitmapFactory.decodeFile(mTempPhotoPath);
             ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 50, bOut);
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, bOut);
             String base64Image = Base64.encodeToString(bOut.toByteArray(), Base64.DEFAULT);
-            PreferencesHelper.setCurrentBase64(base64Image);
+            Log.d("",""+base64Image);
         }
 
-
         // Set the new bitmap to the ImageView
-        binding.imgCapture.setImageBitmap(mResultsBitmap);
-
-        Tool.hideDialog();
-
+        mImageView.setImageBitmap(mResultsBitmap);
     }
+
+
 
 
 }

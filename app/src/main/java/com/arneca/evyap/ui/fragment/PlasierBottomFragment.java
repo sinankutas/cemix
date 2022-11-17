@@ -31,6 +31,7 @@ import com.arneca.evyap.helper.DBHelper;
 import com.arneca.evyap.helper.PreferencesHelper;
 import com.arneca.evyap.helper.Tool;
 import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
+import com.arneca.evyap.ui.activity.cmx.Take2;
 import com.arneca.evyap.ui.activity.cmx.TakePhotoActivity;
 import com.arneca.evyap.ui.adapter.cmx.TanimlarBottomSheetAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
