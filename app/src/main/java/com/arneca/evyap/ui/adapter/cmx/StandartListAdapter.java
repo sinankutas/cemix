@@ -91,6 +91,9 @@ public class StandartListAdapter extends RecyclerView.Adapter<StandartListAdapte
                     viewTitle1 = "Sayımları Çek";
                     viewTitle2 = "Yeni Sayım";
                     viewTitle3 = "Eski Sayım";
+                }else if(PreferencesHelper.getActiveDocType().equals("fuar")){
+                    viewTitle1 = "Fuar Siparişine Devam";
+                    viewTitle2 = "Yeni Fuar Siparişi";
                 }
 
                 if (position==0){

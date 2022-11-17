@@ -182,7 +182,6 @@ public class TakePhotoActivity extends BaseActivity {
      * Method for processing the captured image and setting it to the TextView.
      */
     private void processAndSetImage() {
-        Tool.openDialog(TakePhotoActivity.this);
 
         binding.imgCapture.setVisibility(View.VISIBLE);
 
@@ -201,7 +200,6 @@ public class TakePhotoActivity extends BaseActivity {
         // Set the new bitmap to the ImageView
         binding.imgCapture.setImageBitmap(mResultsBitmap);
 
-        Tool.hideDialog();
 
     }
 

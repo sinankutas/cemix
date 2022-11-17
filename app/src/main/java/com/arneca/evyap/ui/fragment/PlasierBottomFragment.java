@@ -56,6 +56,7 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
     private CurrencyResponse currencyResponse;
     private  ArrayList<String> currencyIds = new ArrayList<>();
     private  ArrayList<String> currencyValues = new ArrayList<>();
+    private String selectedPriceUnit = "4";
 
     public static PlasierBottomFragment newInstance() {
         PlasierBottomFragment fragment = new PlasierBottomFragment();
@@ -156,13 +157,22 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
         dismiss();
         if (selectedCountry == null)
             selectedCountry = "";
+        String total = "";
+        String desc = "";
+        if (mBinding.edtDesc.getText()!=null)
+            total = mBinding.edtDesc.getText().toString();
+
+        if (mBinding.edtDesc.getText()!=null)
+            desc = mBinding.edtDesc.getText().toString();
 
             ((OpenDocStockListActivity) getActivity()).gotoCompletedDoc(selectedPlasier,mBinding.nameEdt.getText().toString(),
-                    selectedCountry.toString(),mBinding.cargoEdt.getText().toString(),mBinding.phoneEdt.getText().toString());
+                    selectedCountry.toString(),mBinding.cargoEdt.getText().toString(),mBinding.phoneEdt.getText().toString(),total,selectedPriceUnit,desc);
 
     }
 
     private void setViews() {
+
+        loadPriceUnitListeners();
 
         mBinding.getRoot().post(() -> {
             Display mDisplay = getActivity().getWindowManager().getDefaultDisplay();
@@ -196,6 +206,12 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
         selectedPlasier = PreferencesHelper.getLoginResponse().getResult().getPlasiyerKodlari().get(0).getPlasiyer_kodu_isyeri();
         mBinding.btnPlasier1.setBackgroundResource(R.drawable.checkedbox);
         mBinding.btnPlasier1.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+
+        if (PreferencesHelper.getActiveDocType().equals("fuar")){
+            mBinding.lytTahsilat.setVisibility(View.VISIBLE);
+        }else{
+            mBinding.lytTahsilat.setVisibility(View.GONE);
+        }
 
         if (PreferencesHelper.getSelectedCompany().getKod().equals("120.99.01")){
             mBinding.lytExtra.setVisibility(View.VISIBLE);
@@ -292,6 +308,8 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
         });
     }
 
+
+
     private void loadCurrency() {
             Tool.openDialog(getActivity());
             RequestBody requestBody = new MultipartBody.Builder()
@@ -325,6 +343,70 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
     @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
+    }
+
+
+    private void loadPriceUnitListeners() {
+        mBinding.lytTL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPriceUnit = "0";
+                mBinding.btnTL.setBackgroundResource(R.drawable.checkedbox);
+                mBinding.btnTL.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+
+                mBinding.btnUSD.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnUSD.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnEUR.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnEUR.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnOther.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnOther.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+            }
+        });
+
+        mBinding.lytUSD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPriceUnit = "1";
+                mBinding.btnUSD.setBackgroundResource(R.drawable.checkedbox);
+                mBinding.btnUSD.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnTL.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnTL.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnEUR.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnEUR.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnOther.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnOther.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+            }
+        });
+
+        mBinding.lytEUR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPriceUnit = "2";
+                mBinding.btnEUR.setBackgroundResource(R.drawable.checkedbox);
+                mBinding.btnEUR.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnTL.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnTL.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnUSD.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnUSD.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnOther.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnOther.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+            }
+        });
+
+        mBinding.lytOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPriceUnit = "3";
+                mBinding.btnOther.setBackgroundResource(R.drawable.checkedbox);
+                mBinding.btnOther.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnTL.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnTL.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnUSD.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnUSD.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+                mBinding.btnEUR.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnEUR.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+            }
+        });
     }
 
 }

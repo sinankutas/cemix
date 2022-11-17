@@ -154,12 +154,12 @@ public class OpenDocStockListActivity extends BaseActivity {
             public void onClick(View view) {
                 binding.btnCompleted.setVisibility(View.INVISIBLE);
                 // call plasier
-                if (PreferencesHelper.getActiveDocType().equals("siparis") || PreferencesHelper.getActiveDocType().equals("teklif")){
+                if (PreferencesHelper.getActiveDocType().equals("siparis") || PreferencesHelper.getActiveDocType().equals("teklif")|| PreferencesHelper.getActiveDocType().equals("fuar")){
                     plasierBottomFragment = new PlasierBottomFragment().newInstance();
                     plasierBottomFragment.show(getSupportFragmentManager(), "");
                     binding.btnCompleted.setVisibility(View.VISIBLE);
                 }else{
-                    gotoCompletedDoc("","","","","");
+                    gotoCompletedDoc("","","","","","","","");
                 }
 
 
@@ -245,7 +245,7 @@ public class OpenDocStockListActivity extends BaseActivity {
         });
     }
 
-    private void completedDoc(String plasier, String name, String contry, String cargo, String tel) {
+    private void completedDoc(String plasier, String name, String contry, String cargo, String tel, String tahsilat_tutar, String tahsilat_para_birimi, String tahsilat_aciklama) {
         binding.btnCompleted.setVisibility(View.VISIBLE);
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -262,6 +262,9 @@ public class OpenDocStockListActivity extends BaseActivity {
                 .addFormDataPart("a4", tel)
                 .addFormDataPart("gorsel", PreferencesHelper.getCurrentBase64())
                 .addFormDataPart("doviz_kuru", PreferencesHelper.getSelectedCurrency())
+                .addFormDataPart("tahsilat_tutar", tahsilat_tutar)
+                .addFormDataPart("tahsilat_para_birimi", tahsilat_para_birimi)
+                .addFormDataPart("tahsilat_aciklama", tahsilat_aciklama)
 
 
                 .build();
@@ -356,11 +359,11 @@ public class OpenDocStockListActivity extends BaseActivity {
         });
     }
 
-    public void gotoCompletedDoc(String selectedPlasier,String name,String country,String cargo,String tel) {
+    public void gotoCompletedDoc(String selectedPlasier,String name,String country,String cargo,String tel,String tahsilat_tutar,String tahsilat_para_birimi,String tahsilat_aciklama) {
         if (PreferencesHelper.getSelectedCompany() != null){
             Tool.showInfo2action(OpenDocStockListActivity.this,"Uyarı",
                     "Belge kapansın mı?",
-                    (dialog, which) ->  completedDoc(selectedPlasier, name,country,cargo,tel),
+                    (dialog, which) ->  completedDoc(selectedPlasier, name,country,cargo,tel,tahsilat_tutar,tahsilat_para_birimi,tahsilat_aciklama),
                     (dialog, which) -> dismissToolDialog(),"Evet","Hayır");
         }else{
             Tool.showInfo(OpenDocStockListActivity.this,"Uyarı",

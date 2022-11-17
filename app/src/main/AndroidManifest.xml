@@ -58,6 +58,13 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.cmx.FuarActivity"
+            android:theme="@style/AppTheme.TransparentStatus"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <activity
             android:name=".ui.activity.cmx.TakePhotoActivity"
             android:theme="@style/AppTheme.TransparentStatus"
             android:screenOrientation="portrait">

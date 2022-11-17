@@ -113,13 +113,9 @@ public class HomeActivity extends BaseActivity implements MenuGridAdapter.ItemCl
             intent.putExtra("isStockActive",true);
             intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             startActivity(intent);
-        }else if ((PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Karsilama"))){
-            PreferencesHelper.setActiveDocType("karsilama");
-            Intent intent = new Intent(HomeActivity.this, KarsilamaListActivity.class);
-            intent.putExtra("guid","guid");
-            intent.putExtra("docId","docId");
-            intent.putExtra("viewTitle",PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getModul_adi());
-            intent.putExtra("isStockActive",true);
+        }else if ((PreferencesHelper.getLoginResponse().getResult().getModulYetkileri().get(position).getTip().equals("Fuar"))){
+            PreferencesHelper.setActiveDocType("fuar");
+            Intent intent = new Intent(this, FuarActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             startActivity(intent);
         }

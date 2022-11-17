@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/ticket_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true">
     <LinearLayout
         android:id="@+id/containerL"
         android:layout_width="match_parent"
@@ -104,9 +111,197 @@
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
-
-
 </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/lytTahsilat"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_bg"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="Tahsilat Bilgileri"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"
+                android:text="Tahsilat Tutar:"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edtTotalPrice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"></EditText>
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:text="Para Birimi:"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+                  <LinearLayout
+                      android:id="@+id/lytTL"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="10dp"
+                      android:layout_below="@+id/login_password_ed"
+                      android:orientation="horizontal">
+
+                      <ImageButton
+                          android:id="@+id/btnTL"
+                          android:layout_width="14dp"
+                          android:layout_height="14dp"
+                          android:layout_marginTop="3dp"
+                          android:background="@drawable/checkedbox"
+                          android:backgroundTint="@color/dropdownColor"
+                          android:scaleType="fitStart" />
+
+                      <TextView
+                          android:id="@+id/txtTL"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:gravity="left"
+                          android:layout_marginLeft="10dp"
+                          android:text="TL"
+                          android:textColor="@color/dropdownColor"
+                          android:textSize="16sp"
+                          android:textStyle="bold" />
+                  </LinearLayout>
+                  <LinearLayout
+                      android:id="@+id/lytUSD"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="10dp"
+                      android:layout_below="@+id/login_password_ed"
+                      android:orientation="horizontal">
+
+                      <ImageButton
+                          android:id="@+id/btnUSD"
+                          android:layout_width="14dp"
+                          android:layout_height="14dp"
+                          android:layout_marginTop="3dp"
+                          android:background="@drawable/uncheckedbox"
+                          android:backgroundTint="@color/dropdownColor"
+                          android:scaleType="fitStart" />
+
+                      <TextView
+                          android:id="@+id/txtUSD"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:gravity="left"
+                          android:layout_marginLeft="10dp"
+                          android:text="USD"
+                          android:textColor="@color/dropdownColor"
+                          android:textSize="16sp"
+                          android:textStyle="bold" />
+                  </LinearLayout>
+                  <LinearLayout
+                      android:id="@+id/lytEUR"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="10dp"
+                      android:layout_below="@+id/login_password_ed"
+                      android:orientation="horizontal">
+
+                      <ImageButton
+                          android:id="@+id/btnEUR"
+                          android:layout_width="14dp"
+                          android:layout_height="14dp"
+                          android:layout_marginTop="3dp"
+                          android:background="@drawable/uncheckedbox"
+                          android:backgroundTint="@color/dropdownColor"
+                          android:scaleType="fitStart" />
+
+                      <TextView
+                          android:id="@+id/txtEUR"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:gravity="left"
+                          android:layout_marginLeft="10dp"
+                          android:text="EUR"
+                          android:textColor="@color/dropdownColor"
+                          android:textSize="16sp"
+                          android:textStyle="bold" />
+                  </LinearLayout>
+                  <LinearLayout
+                      android:id="@+id/lytOther"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="10dp"
+                      android:layout_below="@+id/login_password_ed"
+                      android:orientation="horizontal">
+
+                      <ImageButton
+                          android:id="@+id/btnOther"
+                          android:layout_width="14dp"
+                          android:layout_height="14dp"
+                          android:layout_marginTop="3dp"
+                          android:background="@drawable/uncheckedbox"
+                          android:backgroundTint="@color/dropdownColor"
+                          android:scaleType="fitStart" />
+
+                      <TextView
+                          android:id="@+id/txtOther"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:gravity="left"
+                          android:layout_marginLeft="10dp"
+                          android:text="Diğer"
+                          android:textColor="@color/dropdownColor"
+                          android:textSize="16sp"
+                          android:textStyle="bold" />
+                  </LinearLayout>
+              </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:text="Açıklama:"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_marginRight="8dp"
+                    android:id="@+id/edtDesc"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></EditText>
+            </LinearLayout>
+        </LinearLayout>
+
+
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/lytExtra"
@@ -288,9 +483,14 @@
         android:textColor="@color/black"
         tools:text="" />
 </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
             <arneca.com.utility.view.text.TextViewWithBoldFont
                 android:id="@+id/btnSave"
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="26dp"
@@ -306,11 +506,10 @@
 
             <arneca.com.utility.view.text.TextViewWithBoldFont
                 android:id="@+id/btnCancel"
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="26dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="26dp"
                 android:background="@drawable/circle_register_btn_back"
                 android:gravity="center"
@@ -320,9 +519,10 @@
                 android:text="Vazgeç"
                 android:textColor="@color/white"
                 tools:text="Vazgeç" />
-
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+    </ScrollView>
 </layout>
