@@ -10,6 +10,7 @@ import com.arneca.evyap.api.response.GetFactories;
 import com.arneca.evyap.api.response.cmx.LoginResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
+import com.arneca.evyap.ui.activity.cmx.OpenDocStockListActivity;
 import com.arneca.evyap.ui.activity.cmx.PDFViewerActivity;
 import com.orhanobut.hawk.Hawk;
 
@@ -34,6 +35,7 @@ public class PreferencesHelper extends BaseObservable {
     private static ArrayList<ReportModel> reportModels;
     private static int totalSelection;
     private static Map<String,List<TanimlarResultModel>> tanimMap;
+    private static OpenDocStockListActivity openDocStockListActivity;
 
     /*
      Cemix
@@ -248,5 +250,13 @@ public class PreferencesHelper extends BaseObservable {
 
     public static void setSelectedCurrency(String selectedCurrency) {
         PreferencesHelper.selectedCurrency = selectedCurrency;
+    }
+
+    public static OpenDocStockListActivity getOpenDocStockListActivity() {
+        return openDocStockListActivity;
+    }
+
+    public static void setOpenDocStockListActivity(OpenDocStockListActivity openDocStockListActivity) {
+        PreferencesHelper.openDocStockListActivity = openDocStockListActivity;
     }
 }

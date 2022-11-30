@@ -29,6 +29,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import arneca.com.utility.dialog.blurDialog.BlurPopupWindow;
 import arneca.com.utility.dialog.blurDialog.OnClick;
 import okhttp3.RequestBody;
@@ -55,6 +56,12 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openAnotherFragment(Fragment baseFragment, int container) {
+        getSupportFragmentManager().beginTransaction()
+                .add(container, baseFragment)
+                .addToBackStack(baseFragment.getClass().getSimpleName())
+                .commitAllowingStateLoss();
+    }
     /*  public void openAnotherFragment(BaseFragment baseFragment, int container) {
           getSupportFragmentManager().beginTransaction()
                   .add(container, baseFragment)

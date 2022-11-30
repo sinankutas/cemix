@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Client {
-    public static String BASE_URL =  "https://mys.cemixtextile.com/";
+    public static String BASE_URL = "https://mys.cemixtextile.com/"; //"http://192.168.8.25/"
 
 
 

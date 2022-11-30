@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/root"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginBottom="15dp"
+                android:elevation="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/topLL"
+                    android:layout_marginTop="32dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Seçimler"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:gravity="center"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text=""
+                        ></TextView>
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="#f1f1f1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/lytPlsyr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/login_password_ed"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnPlasier1"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="3dp"
+                            android:background="@drawable/checkedbox"
+                            android:backgroundTint="@color/dropdownColor"
+                            android:scaleType="fitStart" />
+
+                        <TextView
+                            android:id="@+id/txtPlasier1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:maxWidth="130dp"
+                            android:layout_marginLeft="10dp"
+                            android:text="Mahmut 1"
+                            android:textColor="@color/dropdownColor"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lytPlsyr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/login_password_ed"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnPlasier2"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="3dp"
+                            android:background="@drawable/uncheckedbox"
+                            android:backgroundTint="@color/dropdownColor"
+                            android:scaleType="fitStart" />
+
+                        <TextView
+                            android:id="@+id/txtPlasier2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:maxWidth="130dp"
+                            android:layout_marginLeft="10dp"
+                            android:text="Mahmut1"
+                            android:textColor="@color/dropdownColor"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/lytTahsilat"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border_bg"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:text="Tahsilat Bilgileri"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginLeft="1dp"
+                            android:text="Tahsilat Tutar:"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <EditText
+                            android:id="@+id/edtTotalPrice"
+                            android:layout_width="100dp"
+                            android:inputType="numberDecimal"
+                            android:layout_height="wrap_content"></EditText>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginLeft="1dp"
+                            android:text="Para Birimi:"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:id="@+id/lytTL"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_below="@+id/login_password_ed"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btnTL"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/uncheckedbox"
+                                    android:backgroundTint="@color/dropdownColor"
+                                    android:scaleType="fitStart" />
+
+                                <TextView
+                                    android:id="@+id/txtTL"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="1dp"
+                                    android:text="TL"
+                                    android:textColor="@color/dropdownColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/lytUSD"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_below="@+id/login_password_ed"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btnUSD"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/checkedbox"
+                                    android:backgroundTint="@color/dropdownColor"
+                                    android:scaleType="fitStart" />
+
+                                <TextView
+                                    android:id="@+id/txtUSD"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="1dp"
+                                    android:text="USD"
+                                    android:textColor="@color/dropdownColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/lytEUR"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_below="@+id/login_password_ed"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btnEUR"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/uncheckedbox"
+                                    android:backgroundTint="@color/dropdownColor"
+                                    android:scaleType="fitStart" />
+
+                                <TextView
+                                    android:id="@+id/txtEUR"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="1dp"
+                                    android:text="EUR"
+                                    android:textColor="@color/dropdownColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/lytOther"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_below="@+id/login_password_ed"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btnOther"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/uncheckedbox"
+                                    android:backgroundTint="@color/dropdownColor"
+                                    android:scaleType="fitStart" />
+
+                                <TextView
+                                    android:id="@+id/txtOther"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="1dp"
+                                    android:text="Diğer"
+                                    android:textColor="@color/dropdownColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginLeft="1dp"
+                            android:text="Açıklama:"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <EditText
+                            android:layout_marginRight="8dp"
+                            android:id="@+id/edtDesc"
+                            android:textSize="12sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></EditText>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginLeft="1dp"
+                            android:text="Tahsilat:"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:id="@+id/lytNakitTahsilat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_below="@+id/login_password_ed"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btnNakitTahsilat"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/checkedbox"
+                                    android:backgroundTint="@color/dropdownColor"
+                                    android:scaleType="fitStart" />
+
+                                <TextView
+                                    android:id="@+id/txtNakitTahsilat"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="1dp"
+                                    android:text="Nakit"
+                                    android:textColor="@color/dropdownColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/lytKargoCeki"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_below="@+id/login_password_ed"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btnKargoCeki"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/uncheckedbox"
+                                    android:backgroundTint="@color/dropdownColor"
+                                    android:scaleType="fitStart" />
+
+                                <TextView
+                                    android:id="@+id/txtKargoCeki"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="1dp"
+                                    android:text="Kargo Çeki"
+                                    android:textColor="@color/dropdownColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/lytExtra"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="00dp">
+
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_header"
+                        android:layout_marginLeft="10dp"
+                        android:text="İsim"
+                        android:textColor="@color/grayTextDark"
+                        android:textSize="14sp" />
+
+                    <arneca.com.utility.view.input.EditTextWithFont
+                        android:id="@+id/nameEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_mail_text"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:backgroundTint="@color/grayTextDark"
+                        android:maxLines="1"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/grayTextDark"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/existingPass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_header"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Ülke"
+                        android:textColor="@color/grayTextDark"
+                        android:textSize="14sp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <Button
+                            android:id="@+id/btnCountry"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/md_transparent"
+                            android:layout_height="match_parent">
+
+                        </Button>
+                        <arneca.com.utility.view.input.EditTextWithFont
+                            android:id="@+id/countryEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/login_mail_text"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:backgroundTint="@color/grayTextDark"
+                            android:maxLines="1"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:textColor="@color/grayTextDark"
+                            android:textSize="15sp"/>
+                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/pass1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_header"
+                        android:layout_marginLeft="10dp"
+                        android:text="Kargo"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/grayTextDark"
+                        android:textSize="14sp" />
+
+                    <arneca.com.utility.view.input.EditTextWithFont
+                        android:id="@+id/cargoEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_mail_text"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:backgroundTint="@color/grayTextDark"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/grayTextDark"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/pass2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_header"
+                        android:layout_marginLeft="10dp"
+                        android:text="Telefon"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/grayTextDark"
+                        android:textSize="14sp" />
+
+                    <arneca.com.utility.view.input.EditTextWithFont
+                        android:id="@+id/phoneEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/login_mail_text"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:backgroundTint="@color/grayTextDark"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/grayTextDark"
+                        android:textSize="15sp" />
+
+                    <arneca.com.utility.view.text.TextViewWithBoldFont
+                        android:id="@+id/btnTakePhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="26dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="26dp"
+                        android:background="@drawable/circle_register_btn_back"
+                        android:gravity="center"
+                        android:imeOptions="actionDone"
+                        android:textSize="18sp"
+                        android:text="Fotoğraf Ekle"
+                        android:textColor="@color/white"
+                        tools:text="Fotoğraf Ekle" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rememberMe"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp"
+                        android:id="@+id/btnSelectedCurreny">
+                        <TextView
+                            android:id="@+id/btnSelectedCurrenyKey"
+                            android:layout_width="wrap_content"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="26dp"
+                            android:gravity="left|center"
+                            android:imeOptions="actionDone"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:text="Tamam"
+                            android:textColor="@color/black"
+                            tools:text="Döviz Cinsi Seç" />
+                        <TextView
+                            android:id="@+id/btnSelectedCurrenyValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="26dp"
+                            android:gravity="left|center"
+                            android:imeOptions="actionDone"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            tools:text="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <arneca.com.utility.view.text.TextViewWithBoldFont
+                            android:id="@+id/btnSave"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginRight="26dp"
+                            android:background="@drawable/circle_register_btn_back"
+                            android:gravity="center"
+                            android:imeOptions="actionDone"
+
+                            android:textSize="18sp"
+                            android:text="Tamam"
+                            android:textColor="@color/white"
+                            tools:text="Tamam" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="700dp"
+                    android:background="@color/white">
+
+                </View>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+</layout>

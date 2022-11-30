@@ -34,6 +34,9 @@ import com.arneca.evyap.ui.fragment.TanimBottomSheetFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import okhttp3.MultipartBody;
@@ -59,7 +62,7 @@ public class OpenDocStockListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding = DataBindingUtil.setContentView(this, R.layout.cmx_opendoc_stock_activity);
-
+        PreferencesHelper.setOpenDocStockListActivity(this);
 
         binding.toolbar.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,17 +159,58 @@ public class OpenDocStockListActivity extends BaseActivity {
                 // call plasier
                 if (PreferencesHelper.getActiveDocType().equals("siparis") || PreferencesHelper.getActiveDocType().equals("teklif")|| PreferencesHelper.getActiveDocType().equals("fuar")){
                     plasierBottomFragment = new PlasierBottomFragment().newInstance();
-                    plasierBottomFragment.show(getSupportFragmentManager(), "");
+                   // plasierBottomFragment.show(getSupportFragmentManager(), "");
                     binding.btnCompleted.setVisibility(View.VISIBLE);
+                    openAnotherFragment(plasierBottomFragment, R.id.mainContainer);
+                    binding.frameBottom.setVisibility(View.GONE);
                 }else{
-                    gotoCompletedDoc("","","","","","","","");
+                    gotoCompletedDoc("","","","","","","","","");
                 }
-
-
             }
         });
     }
 
+    public void callOnBack(){
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
+            binding.frameBottom.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    public void replaceFragment(Fragment fragment, Bundle bundle) {
+
+        if (bundle != null)
+            fragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment oldFragment = fragmentManager.findFragmentByTag(fragment.getClass().getName());
+
+        //if oldFragment already exits in fragmentManager use it
+        if (oldFragment != null) {
+            fragment = oldFragment;
+        }
+
+        fragmentTransaction.replace(R.id.mainContainer, fragment, fragment.getClass().getName());
+
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        fragmentTransaction.commit();
+    }
+
+    public void closePlasierFragment(){
+        binding.mainContainer.setVisibility(View.GONE);
+    }
 
     private void showNotePopup() {
         final EditText txtDescription = new EditText(this);
@@ -245,7 +289,7 @@ public class OpenDocStockListActivity extends BaseActivity {
         });
     }
 
-    private void completedDoc(String plasier, String name, String contry, String cargo, String tel, String tahsilat_tutar, String tahsilat_para_birimi, String tahsilat_aciklama) {
+    private void completedDoc(String plasier, String name, String contry, String cargo, String tel, String tahsilat_tutar, String tahsilat_para_birimi, String tahsilat_aciklama, String tahsilatType) {
         binding.btnCompleted.setVisibility(View.VISIBLE);
         Tool.openDialog(this);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -265,6 +309,7 @@ public class OpenDocStockListActivity extends BaseActivity {
                 .addFormDataPart("tahsilat_tutar", tahsilat_tutar)
                 .addFormDataPart("tahsilat_para_birimi", tahsilat_para_birimi)
                 .addFormDataPart("tahsilat_aciklama", tahsilat_aciklama)
+                .addFormDataPart("tahsilat_turu", tahsilatType)
 
 
                 .build();
@@ -359,11 +404,11 @@ public class OpenDocStockListActivity extends BaseActivity {
         });
     }
 
-    public void gotoCompletedDoc(String selectedPlasier,String name,String country,String cargo,String tel,String tahsilat_tutar,String tahsilat_para_birimi,String tahsilat_aciklama) {
+    public void gotoCompletedDoc(String selectedPlasier,String name,String country,String cargo,String tel,String tahsilat_tutar,String tahsilat_para_birimi,String tahsilat_aciklama, String tahsilatType) {
         if (PreferencesHelper.getSelectedCompany() != null){
             Tool.showInfo2action(OpenDocStockListActivity.this,"Uyarı",
                     "Belge kapansın mı?",
-                    (dialog, which) ->  completedDoc(selectedPlasier, name,country,cargo,tel,tahsilat_tutar,tahsilat_para_birimi,tahsilat_aciklama),
+                    (dialog, which) ->  completedDoc(selectedPlasier, name,country,cargo,tel,tahsilat_tutar,tahsilat_para_birimi,tahsilat_aciklama, tahsilatType),
                     (dialog, which) -> dismissToolDialog(),"Evet","Hayır");
         }else{
             Tool.showInfo(OpenDocStockListActivity.this,"Uyarı",

@@ -26,6 +26,7 @@ import com.arneca.evyap.api.response.cmx.CurrencyResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResponse;
 import com.arneca.evyap.api.response.cmx.TanimlarResultModel;
 import com.arneca.evyap.databinding.PlasierBottomBinding;
+import com.arneca.evyap.databinding.PlasierBottomNewBinding;
 import com.arneca.evyap.databinding.TanimBottomSheetBinding;
 import com.arneca.evyap.helper.DBHelper;
 import com.arneca.evyap.helper.PreferencesHelper;
@@ -44,19 +45,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class PlasierBottomFragment extends BottomSheetDialogFragment {
-    private PlasierBottomBinding mBinding;
+public class PlasierBottomFragment extends Fragment {
+    private PlasierBottomNewBinding mBinding;
     private CountryBottomFragment countryBottomFragment;
     private String selectedPlasier;
     private String selectedCountry;
     private CurrencyResponse currencyResponse;
     private  ArrayList<String> currencyIds = new ArrayList<>();
     private  ArrayList<String> currencyValues = new ArrayList<>();
-    private String selectedPriceUnit = "4";
+    private String selectedPriceUnit = "1";
+    private String tahsilatType = "Nakit";
 
     public static PlasierBottomFragment newInstance() {
         PlasierBottomFragment fragment = new PlasierBottomFragment();
@@ -67,7 +71,7 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.plasier_bottom, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.plasier_bottom_new, container, false);
         setViews();
         PreferencesHelper.setCurrentBase64("");
         PreferencesHelper.setSelectedCurrency("");
@@ -122,7 +126,7 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
         mBinding.countryEdt.setText(selectedCountry);
     }
 
-    @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
+  /*  @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override public void onShow(DialogInterface dialogInterface) {
@@ -131,7 +135,7 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
             }
         });
         return  dialog;
-    }
+    }*/
 
     private void setupFullHeight(BottomSheetDialog bottomSheetDialog) {
         FrameLayout bottomSheet = (FrameLayout) bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
@@ -154,19 +158,21 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
     }
 
     public void dissmisView(){
-        dismiss();
+        //dismiss();
+//        getActivity().getFragmentManager().popBackStack();
+        PreferencesHelper.getOpenDocStockListActivity().callOnBack();
         if (selectedCountry == null)
             selectedCountry = "";
         String total = "";
         String desc = "";
-        if (mBinding.edtDesc.getText()!=null)
-            total = mBinding.edtDesc.getText().toString();
+        if (mBinding.edtTotalPrice.getText()!=null)
+            total = mBinding.edtTotalPrice.getText().toString();
 
         if (mBinding.edtDesc.getText()!=null)
             desc = mBinding.edtDesc.getText().toString();
 
             ((OpenDocStockListActivity) getActivity()).gotoCompletedDoc(selectedPlasier,mBinding.nameEdt.getText().toString(),
-                    selectedCountry.toString(),mBinding.cargoEdt.getText().toString(),mBinding.phoneEdt.getText().toString(),total,selectedPriceUnit,desc);
+                    selectedCountry.toString(),mBinding.cargoEdt.getText().toString(),mBinding.phoneEdt.getText().toString(),total,selectedPriceUnit,desc, tahsilatType);
 
     }
 
@@ -190,7 +196,8 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
 
-                dismiss();
+            //    dismiss();
+                getActivity().getFragmentManager().popBackStack();
             }
         });
 
@@ -200,6 +207,31 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
                 openCountryList();
             }
         });
+
+        mBinding.lytNakitTahsilat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tahsilatType = "Nakit";
+                mBinding.btnNakitTahsilat.setBackgroundResource(R.drawable.checkedbox);
+                mBinding.btnNakitTahsilat.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+
+                mBinding.btnKargoCeki.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnKargoCeki.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+            }
+        });
+
+          mBinding.lytKargoCeki.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tahsilatType = "KargoCek";
+                mBinding.btnKargoCeki.setBackgroundResource(R.drawable.checkedbox);
+                mBinding.btnKargoCeki.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+
+                mBinding.btnNakitTahsilat.setBackgroundResource(R.drawable.uncheckedbox);
+                mBinding.btnNakitTahsilat.setBackgroundTintList(getResources().getColorStateList(R.color.dropdownColor));
+            }
+        });
+
 
         mBinding.txtPlasier1.setText(PreferencesHelper.getLoginResponse().getResult().getPlasiyerKodlari().get(0).getPlasiyer_kodu_isyeri());
         mBinding.txtPlasier2.setText(PreferencesHelper.getLoginResponse().getResult().getPlasiyerKodlari().get(1).getPlasiyer_kodu_isyeri());
@@ -273,12 +305,7 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
             }
         });
 
-        mBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+
 
 
         mBinding.btnTakePhoto.setOnClickListener(new View.OnClickListener() {
@@ -321,13 +348,22 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
 
             Request.getCariDovizler(requestBody, getActivity(), response -> {
                  currencyResponse = ( CurrencyResponse) response.body();
-                 if (currencyResponse!= null)
-                     if (currencyResponse.getResult().size()>0){
-                         for (CurrencyResponse.ResultBean resultBean : currencyResponse.getResult()){
-                             currencyIds.add(resultBean.getDvz_id()+"");
-                             currencyValues.add(resultBean.getDvz());
+                 if (currencyResponse!= null){
+                        if (currencyResponse.getResult()!= null){
+                         if (currencyResponse.getResult().size()>0){
+                             for (CurrencyResponse.ResultBean resultBean : currencyResponse.getResult()){
+                                 currencyIds.add(resultBean.getDvz_id()+"");
+                                 currencyValues.add(resultBean.getDvz());
+                             }
                          }
+                     }else{
+                            currencyIds.add("0");
+                            currencyValues.add("USD");
                      }
+                 }else{
+                     currencyIds.add("0");
+                     currencyValues.add("USD");
+                 }
                 Tool.hideDialog();
            //     Tool.showInfo(getActivity(), "Bilgi", currencyResponse.getResult_message().getMessage());
             });
@@ -340,11 +376,11 @@ public class PlasierBottomFragment extends BottomSheetDialogFragment {
     }
 
 
-    @Override
+ /*   @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
     }
-
+*/
 
     private void loadPriceUnitListeners() {
         mBinding.lytTL.setOnClickListener(new View.OnClickListener() {

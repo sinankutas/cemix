@@ -267,6 +267,7 @@
 
 
         <FrameLayout
+            android:id="@+id/frameBottom"
             android:background="@drawable/circle_register_btn_back"
             android:elevation="3dp"
             android:layout_alignParentRight="true"
@@ -307,6 +308,16 @@
                 android:layout_gravity="bottom|right"
                 android:layout_margin="15dp" />
         </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-10dp">
+            <FrameLayout
+                android:id="@+id/mainContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tool_bar" />
+        </LinearLayout>
     </com.arneca.evyap.helper.RelativeLayoutWithBackground>
 
 
