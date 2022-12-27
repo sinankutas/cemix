@@ -7,11 +7,11 @@ android {
 
     defaultConfig {
 
-        applicationId "com.dkm.cemix"
+        applicationId "com.dkm.cemix" //.fuar"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "2.2.17"
+        versionName "2.2.20"//"fuar_version_1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

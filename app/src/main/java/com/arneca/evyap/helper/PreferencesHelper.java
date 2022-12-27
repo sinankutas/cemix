@@ -245,6 +245,8 @@ public class PreferencesHelper extends BaseObservable {
     }
 
     public static String getSelectedCurrency() {
+        if (selectedCurrency == null)
+            selectedCurrency = "";
         return selectedCurrency;
     }
 
