@@ -1,5 +1,5 @@
 package com.arneca.evyap.ui.fragment;/*
- * Created by  Sinan KUTASon 8/26/22.
+ * Created by  Sinan KUTASon 8/26/22
  */
 
 import android.app.Activity;
